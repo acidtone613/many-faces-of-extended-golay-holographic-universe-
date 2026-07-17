@@ -1,0 +1,137 @@
+
+================================================================================
+RC-112 EXECUTION REPORT
+Framework: 24D-DMF v8.4.3 | Research Cycle: RC-112
+Date: 2026-07-07
+================================================================================
+
+HYPOTHESIS: The logical subspace of the [[24,12,8]] Golay code corresponds 
+to a geometric structure in R^4 that, when projected to 3D, exhibits 
+icosahedral symmetry (A_5, order 60).
+
+PRE-ASSESSMENT: The 24-cell -> 600-cell -> icosahedron bridge is real 
+mathematics (Coxeter, Conway). However, the engine's order 253 = 11 x 23 
+shares no factors with the icosahedral group order 60 = 2^2 x 3 x 5, 
+making equivariance unlikely.
+
+================================================================================
+COMPUTATIONAL PROTOCOL EXECUTED
+================================================================================
+
+STEP 1: Enumerate 24 Hurwitz Units (Binary Tetrahedral Group 2T)
+  - Constructed from 8 axial units and 16 Hurwitz half-units
+  - Verified closure under quaternion multiplication
+  - Result: 24 elements, all unit norm
+
+STEP 2: Construct 120 Icosians (Binary Icosahedral Group 2I)
+  - Generated from standard presentation: <a, b | a^3 = b^5 = -1>
+  - a = (1/2)(1 + i + j + k), b = (1/2)(phi + i + j/phi)
+  - Verified closure: 120 elements
+  - Confirmed 2T is a subgroup of 2I
+  - Center of 2I: {1, -1}
+
+STEP 3: Compute 5-Coset Quotient 2I / <zeta_5>
+  - Found 24 elements of order 5 in 2I
+  - Selected zeta_5 = (1/2)(phi + i + 1/phi * k) [order 5]
+  - Formed cyclic subgroup <zeta_5> of order 5
+  - Computed left cosets: 24 cosets, each with 5 elements
+  - F1: PASS
+
+STEP 4: Check A_5 Symmetry on Cosets
+  - Constructed left multiplication action of 2I on 24 cosets
+  - Verified homomorphism property
+  - Kernel is trivial ({1}), so action is faithful for 2I
+  - Factoring through center {+/-1}: identified antipodal coset pairs
+  - A_5 acts faithfully on 12 coset pairs (icosahedron vertices)
+  - Element orders in A_5 action: {1, 2, 3, 5} (matches A_5)
+  - Number of distinct permutations: 60 (matches |A_5|)
+  - F2: PASS
+
+STEP 5: Construct 600-Cell Edge Structure
+  - Vertices: 120 unit icosians
+  - Edge condition: chord distance = 1/phi (where phi = (1+sqrt(5))/2)
+  - Edges found: 720 (matches 600-cell combinatorics)
+  - Euler characteristic: 120 - 720 + 1200 - 600 = 0
+  - F3: PASS
+
+STEP 6: 3D Projection and Icosahedral Vertices
+  - Vertex figure of 600-cell: each vertex has 12 neighbors
+  - Projected neighbors to tangent space (3D hyperplane)
+  - Normalized directions form 12 vertices
+  - Verified match with standard icosahedron coordinates:
+    (0, +/-1, +/-phi), (+/-1, +/-phi, 0), (+/-phi, 0, +/-1)
+  - All 12 icosahedron vertices found in vertex figure
+  - F4: PASS
+
+STEP 7: Engine Generator Equivariance
+  - Engine G = C_23 semidirect C_11, |G| = 253 = 11 x 23
+  - Icosahedral group A_5, |A_5| = 60 = 2^2 x 3 x 5
+  - gcd(253, 60) = 1
+
+  By Lagrange's theorem, for any homomorphism phi: G -> A_5:
+    |Im(phi)| divides |G| = 253
+    |Im(phi)| divides |A_5| = 60
+    Therefore |Im(phi)| divides gcd(253, 60) = 1
+    So |Im(phi)| = 1, meaning phi is trivial.
+
+  Computational verification:
+    P_23 has order 23. A_5 has no element of order 23.
+    P_11 has order 11. A_5 has no element of order 11.
+    Both generators must map to identity.
+    Therefore the entire group G maps to identity.
+
+  Engine orbit structure: 23 + 1 (positions 0..22 form one orbit)
+  Icosahedron: 12 vertices with A_5 symmetry
+  No compatible orbit structure.
+
+  F5: FAIL
+
+================================================================================
+FALSIFICATION CRITERIA SUMMARY
+================================================================================
+
+Criterion | Description                                    | Result
+----------|------------------------------------------------|--------
+F1        | 24 Hurwitz units form 5-coset structure        | PASS
+F2        | Coset action exhibits A_5 symmetry             | PASS
+F3        | 600-cell edge structure (120V, 720E)           | PASS
+F4        | 3D projection yields icosahedral vertices      | PASS
+F5        | Engine generators map to A_5 equivariantly     | FAIL
+
+================================================================================
+CONCLUSION
+================================================================================
+
+The 24-cell -> 600-cell -> icosahedron bridge is CONFIRMED as real 
+mathematics (F1-F4 PASS). All abstract structural claims are verified:
+- The 24-cell's Hurwitz units embed in the 120 icosians
+- The 5-coset quotient yields 24 cells, with A_5 acting on 12 pairs
+- The 600-cell combinatorics (720 edges, chi = 0) are exact
+- The vertex figure is the icosahedron
+
+However, the bridge is NOT realized by the Golay code engine 
+G = C_23 semidirect C_11 (F5 FAIL).
+
+The structural obstruction is fundamental and non-negotiable:
+  gcd(253, 60) = 1
+
+No non-trivial homomorphism G -> A_5 exists. The engine's dynamical 
+structure (23+1 orbits, orders 11 and 23) is incompatible with 
+icosahedral symmetry (orders 2, 3, 5).
+
+This is consistent with the pre-assessment and with the framework's 
+historical pattern: many beautiful mathematical structures exist 
+(Tier A), but their connection to the physical predictions (Tier B) 
+remains unproven or has been rejected in previous cycles.
+
+================================================================================
+STATUS: REJECTED (4/5 criteria pass; the equivariance hypothesis fails)
+================================================================================
+
+The 24-cell/600-cell/icosahedron mathematics is recorded as CONFIRMED 
+(Tier A) and should be added to Section 2 of the reference document. 
+The engine-equivariance claim is REJECTED and should be added to 
+Section 4.
+
+End of Report
+================================================================================

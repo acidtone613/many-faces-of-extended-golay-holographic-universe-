@@ -1,0 +1,61 @@
+
+┌────────────────────────────────────────────────────────────────────────────────┐
+│                         SCHEDULE COMPARISON                                     │
+├──────────┬─────────────────────┬──────────────┬─────────────────────────────────┤
+│ Schedule │ H_L Application     │ State Period │ Full Operator Period            │
+├──────────┼─────────────────────┼──────────────┼─────────────────────────────────┤
+│ (a)      │ Every tick          │ 2            │ None (quasi-periodic)           │
+│ (b)      │ Every 23rd tick     │ 24           │ 484 (= 4 × 11²)                 │
+│ (c)      │ Every 11th tick     │ 12           │ 144 (= 12²)                     │
+│ (c')     │ Every 11th + S/46   │ 12           │ 144 (S does not change period)  │
+└──────────┴─────────────────────┴──────────────┴─────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────────┐
+│                      FALSIFICATION CRITERIA (Schedule c)                        │
+├────────┬────────────────────────────────────────┬────────┬─────────────────────┤
+│ Criterion│ Description                           │ Result │ Status              │
+├────────┼────────────────────────────────────────┼────────┼─────────────────────┤
+│ F1.1   │ Periodicity (|⟨ψ₀|ψₜ⟩|² > 0.99)        │ T=12   │ PASS                │
+│ F1.2   │ Non-trivial evolution (min < 0.9)      │ 0.0002 │ PASS                │
+│ F1.3   │ Schedule dependence                    │ 12≠24  │ PASS                │
+│ F1.4   │ State space coverage (>2 states)       │ 4096   │ PASS                │
+│ F1.5   │ Interference (≥3 amplitudes)           │ 4096   │ PASS                │
+│ F1.6   │ Distinct from controls                 │ Yes    │ PASS                │
+└────────┴────────────────────────────────────────┴────────┴─────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────────┐
+│                        HYPOTHESIS ASSESSMENT                                    │
+├────────┬────────────────────────────────────────┬───────────────────────────────┤
+│ H1     │ Period-46 logical dynamics             │ FAIL (actual: 12/144)         │
+│ H2     │ Large logical group (> D23)            │ PASS (6072 elements)          │
+│ H3     │ Discrete wave with interference        │ CONDITIONAL (sawtooth exists) │
+└────────┴────────────────────────────────────────┴───────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────────┐
+│                        GROUP STRUCTURE                                          │
+├────────────────────┬──────────┬─────────────────────────────────────────────────┤
+│ Group              │ Size     │ Structure                                       │
+├────────────────────┼──────────┼─────────────────────────────────────────────────┤
+│ ⟨P23⟩              │ 23       │ Cyclic C23                                      │
+│ ⟨P11⟩              │ 11       │ Cyclic C11                                      │
+│ ⟨P23, P11⟩         │ 253      │ Non-abelian G = C23 ⋊ C11 (confirmed engine)   │
+│ ⟨P23, S⟩           │ 6072     │ Larger than D23; S does not invert P23          │
+│ ⟨P23, P11, S⟩      │ 6072     │ S ∈ ⟨P23, P11⟩? NO — S adds independent gen     │
+└────────────────────┴──────────┴─────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────────┐
+│                        DYNAMICS PATTERN (Schedule c)                            │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                 │
+│  Tick:  0───10 11─────21 22───32 33─────43 44───54 55─────65 ...               │
+│  State: SSSSSSSSSSS BBBBBBBBBBB SSSSSSSSSSS BBBBBBBBBBB SSSSSSSSSSS ...        │
+│         ↑       ↑          ↑          ↑          ↑                             │
+│        H_L    H_L        H_L        H_L        H_L                             │
+│                                                                                 │
+│  S = Superposition (rank B = 12, 4096 amplitudes, return prob = 1/4096)        │
+│  B = Basis state |0...0⟩_L (rank B = 0, 1 amplitude, return prob = 1.0)        │
+│                                                                                 │
+│  Pattern: 11-tick superposition → 11-tick basis state → repeating             │
+│  Full period: 144 ticks (13 superposition phases + 12 basis state phases)     │
+│                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────┘

@@ -1,0 +1,148 @@
+
+================================================================================
+RC-114 PRE-REGISTRATION
+Continuation of RC-100: Exact Gate Identity of the S-Involution
+================================================================================
+
+24D-DMF v8.4.3 | Research Cycle: RC-114 | Date: 2026-07-07
+Predecessor: RC-100 (S-involution as non-trivial logical Clifford gate)
+
+================================================================================
+STATUS OF RC-100 (What Stands, What is Open)
+================================================================================
+
+CONFIRMED from RC-100:
+  - S: x → −1/x (mod 23) is a confirmed element of M₂₄ (12 transpositions)
+  - S preserves all 4096 codewords of the extended binary Golay code C₂₄
+  - S acts as a LOGICAL OPERATOR on the [[24,12,8]] quantum stabilizer code
+  - S conjugation on logical Pauli generators yields symplectic matrix M:
+      • B = 0 (no X→Z mixing)
+      • A invertible over F₂, det(A) = 1
+      • A ≠ I and A is NOT a permutation matrix
+      • C ≠ 0 (Z-operators gain X-components under S)
+      • M² = I (involution preserved on logical space)
+  - Classification: S is a NON-TRIVIAL INVOLUTIVE ENTANGLING CLIFFORD GATE
+
+OPEN from RC-100 (the gaps RC-114 closes):
+  1. EXACT GATE IDENTITY: Which specific gate in the 12-qubit Clifford group?
+     The symplectic matrix M characterizes S completely, but its expression
+     as a circuit of CNOTs, Hadamards, and phase gates has not been carried out.
+
+  2. Z-OPERATOR DECOMPOSITION REFINEMENT: Initial testing showed mismatches
+     for the first two logical qubits in the Z-operator decomposition. This was
+     attributed to the choice of coset representatives {u_j} not aligning with
+     S's natural symmetry. A systematic-form basis for G₂₄ is needed.
+
+  3. LOGICAL-ACTION / ORBIT CORRELATION: Criterion 5 of RC-100 — whether the
+     logical action correlates with the A/B orbit structure — was marked
+     "TO TEST" and remains open.
+
+================================================================================
+CORE HYPOTHESIS
+================================================================================
+
+The S-involution implements a specific, identifiable Clifford gate on the 12
+logical qubits that can be decomposed into a finite circuit of:
+  - CNOT gates (entangling)
+  - Hadamard gates (basis change)
+  - S gates (phase π/2)
+  - Pauli operators (correction)
+
+The gate is NOT a simple tensor product of single-qubit gates (proven by
+C ≠ 0). It is entangling. The exact circuit is the target.
+
+================================================================================
+FALSIFICATION CRITERIA
+================================================================================
+
+| Criterion | Description | If FAILED |
+|-----------|-------------|-----------|
+| F1 | The symplectic matrix M decomposes into a circuit of ≤ 50 CNOT + H + S gates on 12 qubits. | M requires > 50 gates or no finite decomposition exists. |
+| F2 | The decomposition is UNIQUE up to local Clifford equivalence (i.e., the gate identity is not ambiguous under right/left multiplication by single-qubit Cliffords). | Multiple inequivalent decompositions exist; gate identity is not unique. |
+| F3 | The circuit correlates with the A/B orbit structure of the engine (S swaps orbits A and B in the coordinate representation; the logical gate should reflect this). | Logical gate structure shows no correlation with A/B orbit swap. |
+| F4 | The Z-operator decomposition is resolved by switching to systematic-form basis for G₂₄ (no mismatch in first two qubits). | Mismatch persists across all basis choices, indicating a deeper structural issue. |
+| F5 | The gate is TRANSVERSAL in the sense that it can be implemented by a single physical permutation + sign change (i.e., it lies in the monomial subgroup 2^12.M24). | S is NOT transversal; it requires physical entangling gates, confirming RC-103's boundary theorem. |
+
+================================================================================
+COMPUTATIONAL PROTOCOL
+================================================================================
+
+Step 1: Systematic-Form Basis for G₂₄
+---------------------------------------
+Convert G₂₄ from cyclic form to systematic form [I₁₂ | P] where P is 12×12.
+This gives a canonical choice of logical operators aligned with the code
+structure. Recompute coset representatives {u_j} and {d_j} in this basis.
+
+Step 2: Recompute Symplectic Matrix M in Systematic Basis
+----------------------------------------------------------
+Recompute A, B, C, D blocks with the systematic-form coset representatives.
+Verify B = 0, A invertible, C ≠ 0, M² = I are basis-independent.
+
+Step 3: Decompose M into Clifford Circuit
+------------------------------------------
+Use standard symplectic decomposition algorithm:
+  - Row-reduce A over F₂ to identify CNOT structure
+  - Decompose C block to identify entangling component
+  - Extract phase information (S gates, Pauli corrections)
+  - Count CNOT, H, S gates
+
+Target: circuit with ≤ 50 two-qubit gates.
+
+Step 4: Verify by Direct Simulation
+------------------------------------
+Apply the decomposed circuit to the 12 logical basis states |0⟩^⊗12, |1⟩^⊗12,
+and superposition states. Verify the action matches S's conjugation on Paulis.
+
+Step 5: A/B Orbit Correlation Test
+-----------------------------------
+The engine's two 11-element orbits A and B are swapped by S in the coordinate
+representation. Test whether the logical gate has a block structure reflecting
+this swap (e.g., a 6+6 qubit partition with cross-CNOTs between blocks).
+
+================================================================================
+EXPECTED OUTCOMES
+================================================================================
+
+| Probability | Outcome |
+|-------------|---------|
+| 60% | F1 PASSES, F2 PASSES. S is a specific entangling Clifford gate with a unique circuit identity (up to local equivalence). The gate requires ~20-40 CNOTs. |
+| 25% | F1 PASSES, F2 FAILS. Multiple inequivalent decompositions exist; the gate identity is a class, not a unique circuit. |
+| 10% | F1 FAILS (gate count > 50). S requires a deep circuit, suggesting it is not efficiently implementable. |
+| 5% | F4 FAILS. The Z-operator mismatch persists, indicating a structural issue with the logical operator basis or a bug in RC-100's symplectic computation. |
+
+================================================================================
+HONEST PRE-ASSESSMENT
+================================================================================
+
+RC-100 established that S is a non-trivial Clifford gate. RC-114 completes the
+characterization by finding its exact identity. This is not a search for new
+physics; it is a completion of quantum-information-theoretic structure.
+
+The risk is low: the symplectic matrix is computed and verified. The
+remaining work is algorithmic decomposition, which is standard in the field.
+The worst-case outcome (F2 fails, multiple identities) is still a positive
+structural result.
+
+================================================================================
+FIREWALL
+================================================================================
+  - No 727/726, no epsilon, no fitted parameters
+  - No particle physics targets
+  - Construction built entirely from Golay code / stabilizer formalism
+  - Focus: quantum information theory, exact circuit decomposition
+
+================================================================================
+EXECUTION CONTROL
+================================================================================
+
+Ready to execute. Computation requires:
+  1. Systematic-form conversion of G₂₄
+  2. Symplectic matrix recomputation
+  3. Clifford circuit decomposition
+  4. Verification by state-vector simulation
+
+This is finite, exact, and target-blind.
+
+================================================================================
+24D-DMF Framework | RC-114 Pre-Registration | Target-Blind | Firewall Active
+================================================================================

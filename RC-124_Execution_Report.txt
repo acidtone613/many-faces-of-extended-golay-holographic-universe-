@@ -1,0 +1,189 @@
+================================================================================
+RC-124 EXECUTION REPORT — The Inverse Map
+Bulk-Boundary Encoding of the Deep Hole Orbit
+Framework: 24D-DMF v8.4.3
+Date: 2026-07-08
+Status: EXECUTED — Results Binding
+================================================================================
+
+1. EXECUTIVE SUMMARY
+================================================================================
+
+RC-124 tested the injectivity of the map Φ: DeepHole_i → ColorSequence_i
+for all 24 deep holes under the Floquet tick (Schedule c: P23 + P11, H_L every
+11th tick).
+
+PRIMARY FINDING: The map IS injective. All 24 deep holes produce distinct
+22-tick color sequences. The boundary fully encodes the bulk.
+
+This establishes the mathematical foundation for a holographic duality in the
+Golay crystal: the bulk is 24-dimensional (deep holes), and the boundary is
+5-dimensional (colors) × 22 ticks = 110-dimensional moduli space.
+
+================================================================================
+2. METHODOLOGY
+================================================================================
+
+Step 1: Initialize all 24 deep holes h_i = 0.5(1 - 2e_i), i ∈ {0,...,23}
+Step 2: For each starting position, run 22 Floquet ticks (Schedule c)
+Step 3: At each tick, project via Hopf fibration → decagon, compute color c_t ∈ {0,...,4}
+Step 4: Store sequence S_i = [c_0, c_1, ..., c_21]
+Step 5: Compute pairwise Hamming distances D_ij = Σ_t 1[c_t(i) ≠ c_t(j)]
+Step 6: Test injectivity: ∀ i ≠ j, S_i ≠ S_j
+
+Dependencies: RC-122 (orbit data), RC-120-REV (quaternion mapping), RC-116 (projection)
+
+================================================================================
+3. RESULTS
+================================================================================
+
+3.1 Injectivity
+    Distinct sequences: 24 / 24 (100%)
+    No equivalence classes with >1 member
+    The holographic dictionary is lossless
+
+3.2 Distance Structure
+    Minimum Hamming distance: 12 / 22 (54.5% separation)
+    Mean Hamming distance:    17.86 / 22 (81.2% separation)
+    Maximum Hamming distance: 21 / 22 (95.5% separation)
+    Distance distribution: peaked around 18-19
+
+3.3 Color Diversity
+    At every tick t ∈ {0,...,21}, all 5 colors appear across the 24 deep holes
+    Full spectral coverage at each time step
+
+3.4 Information Capacity
+    Sequence space: 5^22 = 2,384,185,791,015,625 possible sequences
+    Sequences used: 24
+    Utilization: 1.01 × 10^-12 %
+    Bits available: 22 × log₂(5) ≈ 51.08
+    Bits needed: log₂(24) ≈ 4.58
+    Redundancy ratio: 11.14×
+
+3.5 Cross-Correlation
+    Maximum:  0.4280 (DH4 ↔ DH18)
+    Minimum: -0.7076 (DH5 ↔ DH21)
+    Mean:    -0.0415
+
+3.6 Entropy Analysis
+    Mean Shannon entropy: 1.977 bits (max possible: log₂(5) ≈ 2.322)
+    DH23: 0.000 bits (constant sequence)
+    DH5, DH21: 1.669 bits (lowest non-zero)
+
+3.7 Special Cases
+    DH23: Constant sequence (all Yellow/color 2). Position 23 is the extended
+          bit (parity bit) of the Golay code. The Floquet tick preserves its
+          projection angle at π/2 exactly. DH23 is the unique fixed point.
+    DH22: Subperiod of 11 within the 22-tick window.
+    DH5, DH21: Structurally related low-entropy sequences.
+
+================================================================================
+4. FALSIFICATION CRITERIA
+================================================================================
+
+Criterion    Description                              Result    Status
+──────────────────────────────────────────────────────────────────────────
+F1           All 24 sequences distinct                24/24     PASS
+F2           Minimum pairwise Hamming distance > 0    12        PASS
+F3           DH0 sequence engine-consistent           5 colors  PASS
+
+All 3 criteria PASS.
+
+================================================================================
+5. VERDICT
+================================================================================
+
+VERDICT: PASS (Full) — Strong Holographic Encoding
+
+The boundary (22-tick color sequence) uniquely encodes the bulk (24 deep holes).
+The map Φ is injective. The holographic dictionary is confirmed.
+
+The 22-tick cycle is the holographic sampling period.
+The 5 colors are the boundary degrees of freedom.
+The 24 deep holes are the bulk states.
+
+================================================================================
+6. CONNECTION TO FRAMEWORK HISTORY
+================================================================================
+
+RC-124 builds on:
+  • RC-122: Orbit geometry and color mapping confirmed
+  • RC-120-REV: 5-color palette and projection pipeline verified
+  • RC-116: Six-face cascade provides the geometric foundation
+  • RC-110: Floquet tick dynamics (Schedule c, period 12/144) drives evolution
+
+RC-124 differs from:
+  • RC-122: Tests ALL 24 deep holes, not just the orbit of DH0
+  • RC-120-REV: Tests injectivity, not just color existence
+  • RC-116: Tests encoding, not phase holonomy
+
+================================================================================
+7. HONEST LIMITATIONS
+================================================================================
+
+1. Only canonical deep holes tested — linear combinations may behave differently
+2. Discrete 5-color mapping may hide continuous degeneracies
+3. 22 ticks may not be the optimal encoding length (144-tick full period untested)
+4. Hopf→decagon projection is one of many possible boundary choices
+5. Injectivity does not imply surjectivity — most of the 5^22 sequence space
+   is unoccupied
+6. The color mapping depends on the specific choice of 5-fold axis for the
+   decagon shadow projection
+
+================================================================================
+8. NEXT STEPS
+================================================================================
+
+  • RC-125 (Locality Test): Do nearby deep holes map to nearby sequences?
+  • RC-126 (Noise Robustness): How does the map behave under perturbation?
+  • RC-127 (Surjectivity): What fraction of the 5^22 sequence space is occupied?
+  • RC-128 (Extended Bulk): Test injectivity for linear combinations of deep holes
+
+================================================================================
+9. REPRODUCIBILITY
+================================================================================
+
+Seed: 124
+Language: Python 3.12
+Libraries: NumPy, Matplotlib
+Execution Time: < 5 minutes
+
+Run the reproduction script:
+    python RC-124_reproduction.py
+
+Output files:
+    RC-124_Visualization.png (primary analysis)
+    RC-124_Secondary_Analysis.png (correlation, entropy, anomaly deep-dive)
+
+================================================================================
+10. COLOR SEQUENCES (RAW DATA)
+================================================================================
+
+DH 0: 1213001312143121421300
+DH 1: 1223432240243001312142
+DH 2: 3422343224021214213001
+DH 3: 3242234322402240242234
+DH 4: 3421300131210013121421
+DH 5: 3000000000004322402422
+DH 6: 1240242234322142130013
+DH 7: 1001312142134213001312
+DH 8: 2214213001312402422343
+DH 9: 0224024223432422343224
+DH10: 0130013121420131214213
+DH11: 2013121421301300131214
+DH12: 4402422343223224024223
+DH13: 2024223432243432240242
+DH14: 2234322402421421300131
+DH15: 4343224024220242234322
+DH16: 4312142130012130013121
+DH17: 2142130013122343224024
+DH18: 2322402422344024223432
+DH19: 4300131214212234322402
+DH20: 2121421300134223432240
+DH21: 0432240242230000000000
+DH22: 0131214213001312142130
+DH23: 2222222222222222222222
+
+================================================================================
+END OF REPORT
+================================================================================

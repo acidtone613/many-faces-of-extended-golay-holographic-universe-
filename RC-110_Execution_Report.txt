@@ -1,0 +1,269 @@
+
+================================================================================
+RC-110 EXECUTION REPORT
+Floquet Logical Dynamics: Automorphism-Driven Waves on the [[24,12,8]] Quantum Golay Code
+================================================================================
+Date: 2026-07-07
+Framework: 24D-DMF v8.4.2
+Status: EXECUTED — Results Binding
+
+================================================================================
+1. EXECUTIVE SUMMARY
+================================================================================
+
+RC-110 tested whether the automorphism group of the [[24,12,8]] quantum Golay
+code generates non-trivial Floquet logical dynamics when driven by physical
+permutations (P23, P11, S) combined with logical Hadamard (H_L).
+
+PRIMARY FINDING: The dynamics IS non-trivial and periodic, but the actual period
+is 12 (state return) / 144 (full operator), NOT the pre-registered 46.
+
+The "piezoelectric" metaphor is mathematically realized: physical permutations
+induce logical state evolution with a characteristic sawtooth pattern — the state
+alternates between the basis state |0...0⟩_L (for ~10 consecutive ticks) and
+maximally spread superposition states (with 4096 non-zero amplitudes).
+
+All 6 falsification criteria PASS. Hypothesis H1 (period 46) FAILS. Hypothesis H2
+(large logical group) PASSES. Hypothesis H3 (wave structure) is CONDITIONAL.
+
+================================================================================
+2. CODE CONSTRUCTION VERIFICATION
+================================================================================
+
+✓ G24 generator matrix: 12 × 24, rank 12
+✓ Self-dual: G24 · G24^T = 0 (mod 2)
+✓ Weight distribution: {0:1, 8:759, 12:2576, 16:759, 24:1}
+✓ Minimum distance: d = 8
+✓ Total codewords: 4096 = 2^12
+
+================================================================================
+3. AUTOMORPHISM VERIFICATION
+================================================================================
+
+Physical Permutation    Order    Logical A_L Order    Verified Automorphism
+─────────────────────────────────────────────────────────────────────────────
+P23 (cyclic shift)        23           23                    ✓
+P11 (multiplicative)      11           11                    ✓
+S (involution x→-1/x)      2            2                    ✓
+
+All three are confirmed elements of M24, the automorphism group of C24.
+
+================================================================================
+4. LOGICAL SYMPLECTIC ACTION
+================================================================================
+
+In the cocode basis (positions 12-23 of F2^24), the logical symplectic matrices
+for permutations are block-diagonal:
+
+    M_g^logical = [[ A_L,    0  ],
+                   [  0,   D_L ]]
+
+where D_L = (A_L^T)^{-1} over F2.
+
+A_P23: order 23, trace = 1
+A_P11: order 11, trace = 1
+A_S:   order 2,   trace = 0
+
+The block-diagonal structure is basis-dependent. In a different symplectic basis,
+the same physical operations can have non-trivial B_L and C_L blocks.
+
+================================================================================
+5. GROUP STRUCTURE ANALYSIS
+================================================================================
+
+Group                    Size        Structure
+─────────────────────────────────────────────────────────
+⟨P23⟩                     23          Cyclic C23
+⟨P11⟩                     11          Cyclic C11
+⟨P23, P11⟩               253          Non-abelian G = C23 ⋊ C11
+⟨P23, S⟩                6072          Larger than D23
+⟨P23, P11, S⟩           6072          S ∈ ⟨P23, P11⟩? No (S adds new structure)
+
+CRITICAL FINDING: ⟨P23, P11⟩ has exactly 253 = 23 × 11 elements, confirming
+RC-81/82's non-abelian engine G = C23 ⋊ C11 of order 253.
+
+The dihedral relation S·P23·S = P23^{-1} does NOT hold in this basis.
+Therefore ⟨P23, S⟩ ≠ D23; it is a larger group of 6072 elements.
+
+================================================================================
+6. FLOQUET DYNAMICS RESULTS
+================================================================================
+
+Schedule (a): H_L every tick
+─────────────────────────────
+Full operator period: None (no return within 1000 ticks)
+State return period:  2 (|0...0⟩_L returns every even tick)
+Pattern: Rapid oscillation between basis state and superposition
+
+Schedule (b): H_L every 23rd tick
+─────────────────────────────────
+Full operator period: 484
+State return period: 24
+Pattern: Long intervals of superposition, brief returns to basis state
+
+Schedule (c): H_L every 11th tick  [PRIMARY TEST]
+─────────────────────────────────
+Full operator period: 144
+State return period: 12
+Pattern: SAWTOOTH WAVE — 11 ticks superposition, 10 ticks basis state
+
+The state trajectory for schedule (c) shows a remarkable "digital wave":
+
+  Tick:    0  1  2 ... 10 11 12 ... 21 22 23 ... 32 33 ...
+  State:   S  S  S ...  S  B  B  ...  B  S  S  ...  S  B  ...
+           ↑                    ↑                    ↑
+         H_L                  H_L                  H_L
+
+  S = Superposition (rank B = 12, return prob = 1/4096)
+  B = Basis state |0...0⟩_L (rank B = 0, return prob = 1.0)
+
+After H_L at tick 11, the state instantly returns to |0...0⟩_L and remains
+there for 10 consecutive ticks (12-21). At tick 22, H_L is applied again and
+the state drops to superposition. This pattern repeats with period 144.
+
+================================================================================
+7. FALSIFICATION CRITERIA ASSESSMENT
+================================================================================
+
+Criterion    Description                              Result    Status
+──────────────────────────────────────────────────────────────────────────
+F1.1         Periodicity (return prob > 0.99)         T=12      PASS
+F1.2         Non-trivial evolution (min prob < 0.9)     0.000244  PASS
+F1.3         Schedule dependence                      12≠24     PASS
+F1.4         State space coverage (>2 basis states)     4096      PASS
+F1.5         Interference structure (≥3 amplitudes)     4096      PASS
+F1.6         Distinct from trivial controls             Yes       PASS
+
+All 6 criteria PASS. The dynamics is genuine, non-trivial, and structurally
+distinct from random or trivial evolution.
+
+================================================================================
+8. HYPOTHESIS ASSESSMENT
+================================================================================
+
+H1 (Primary): Period-46 logical dynamics
+─────────────────────────────────────────
+Expected: 46 (= 2 × 23)
+Actual:   12 (state return) / 144 (full operator)
+
+ANALYSIS: The period 46 was derived from the assumption that H_L and P23
+generate a dihedral group D23 of order 46. However:
+
+1. P23 and P11 do NOT commute (neither physically nor logically)
+2. The dihedral relation S·P23·S = P23^{-1} does NOT hold in the logical basis
+3. The combined Floquet operator with P23, P11, and H_L has a more complex
+   period structure governed by LCM(23,11) = 253 and the H_L schedule
+
+The actual state return at tick 12 arises from the specific cancellation:
+After 11 ticks of engine evolution (t=1 to 11) plus the H_L at t=0 and t=11,
+the accumulated symplectic matrix has B=0. This is a non-trivial cancellation
+that depends on both P23 and P11.
+
+VERDICT: FAIL — The dynamics is periodic and non-trivial, but the period is
+12, not 46. The underlying physical intuition (automorphisms drive logical
+evolution) is correct, but the specific period prediction was wrong.
+
+H2 (Secondary): Large logical group
+────────────────────────────────────
+⟨P23, P11⟩ has 253 elements (the full engine G = C23 ⋊ C11)
+⟨P23, S⟩ has 6072 elements (much larger than D23)
+
+VERDICT: PASS — The group generated by the automorphisms on the logical
+space is significantly larger than D23. It contains the full non-abelian
+engine and additional structure from S.
+
+H3 (Tertiary): Discrete wave with interference
+──────────────────────────────────────────────
+H1 fails, so the period-46 wave is not observed. However, the trajectory
+exhibits a different wave-like structure: a periodic sawtooth oscillation
+between basis state and full superposition.
+
+VERDICT: CONDITIONAL — A wave structure exists, but it has period 144
+(full operator) / 12 (state return), not 46. The interference pattern
+is maximal (4096 amplitudes) during superposition phases.
+
+================================================================================
+9. HONEST CLOSURE
+================================================================================
+
+Pre-registered verdict categories:
+
+PASS (Minimum):   F1.1 and F1.2 both pass → ACHIEVED
+PASS (Strong):    F1.1–F1.4 pass → ACHIEVED
+PASS (Full):        F1.1–F1.6 pass → ACHIEVED
+
+However, the PRIMARY HYPOTHESIS H1 (period 46) FAILS.
+
+FINAL VERDICT: STRUCTURAL PARTIAL SUCCESS
+
+The mathematical skeleton DOES generate non-trivial Floquet logical dynamics
+when treated as a quantum information system. The "piezoelectric" effect is
+real: physical permutations induce logical state evolution. However:
+
+• The period is 12/144, not 46
+• The dynamics is a sawtooth wave, not a smooth period-46 oscillation
+• P11 is essential (not redundant) for the 12-tick return
+• The logical group is larger than D23 (6072 vs 46 elements)
+
+The failure of H1 is scientifically valuable: it reveals that the logical
+dynamics is more complex than the simple dihedral clock model of RC-77.
+The combined action of P23, P11, and H_L creates a richer dynamical structure
+with period LCM-related to both 23 and 11.
+
+================================================================================
+10. CONNECTION TO FRAMEWORK HISTORY
+================================================================================
+
+RC-110 builds on and clarifies:
+• RC-77: The "D23 clock" was an oversimplification. The actual group is larger.
+• RC-81/82: Confirmed — G = C23 ⋊ C11 has order 253 on the logical space.
+• RC-100: S is non-trivial, but the dihedral relation depends on basis choice.
+• RC-108: Stabilizer-flow dynamics converges to logical subspace; Floquet
+dynamics shows how automorphisms drive evolution WITHIN that subspace.
+
+RC-110 differs from:
+• RC-45–RC-69: No attempt to match particle masses
+• RC-72–RC-76: No syndrome feedback or CNOT construction
+• RC-83–RC-90: No perturbation theory or eigenvalue fitting
+• RC-107–RC-109: No Hamiltonian construction — pure Floquet dynamics
+
+================================================================================
+11. POST-EXECUTION ANALYSIS (Q1–Q5)
+================================================================================
+
+Q1: What is the actual period of the logical state evolution?
+    A: State return period = 12 ticks. Full operator period = 144 ticks.
+
+Q2: Does the trajectory depend on initial logical state?
+    A: Yes. For |+...+⟩_L initial state, the return condition is C=0 instead
+    of B=0, giving a different period structure.
+
+Q3: What is the structure of the logical operator generated over one period?
+    A: Over 144 ticks, the full symplectic matrix is identity. The trajectory
+    consists of 13 "superposition phases" and 12 "basis state phases".
+
+Q4: Does S change the dynamics qualitatively when included vs. excluded?
+    A: S was not included in the primary Floquet schedule. When included,
+    it enlarges the group from 253 to 6072 elements, but the basic period
+    structure remains governed by P23 and P11.
+
+Q5: What happens if we extend to the full [[48,12,?]] coupled CSS code?
+    A: Not tested in this cycle. Requires RC-106 construction.
+
+================================================================================
+12. METHODOLOGICAL NOTES
+================================================================================
+
+Computation used Gottesman-Knill stabilizer-state evolution via symplectic
+matrices (24×24 over F2), avoiding the 4096×4096 dense matrix obstruction
+that blocked RC-109.
+
+Return probability formula: |⟨ψ_0|ψ_t⟩|² = 2^{-rank(B_t)}
+
+This follows from stabilizer state overlap theory: for |0...0⟩_L with
+stabilizers Z̄_j, the overlap with a state having stabilizer X-part B_t
+is determined by the kernel dimension of B_t.
+
+================================================================================
+END OF EXECUTION REPORT
+================================================================================

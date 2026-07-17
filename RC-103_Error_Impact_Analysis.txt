@@ -1,0 +1,198 @@
+
+================================================================================
+RC-103 CONSTRUCTION ERROR ANALYSIS
+Impact Assessment on RC-104, RC-105, RC-106, and RC-113
+================================================================================
+
+Document ID: RC-103-ERROR-ANALYSIS-2026-07-07
+Date: 2026-07-07
+Framework: 24D-DMF v8.4.3
+Computational Audit: Kimi K2.6 (Moonshot AI)
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+
+RC-103's zeta-element construction contains a determinant error: the tested
+matrix has det = -1 and is NOT in Conway's group Co0. This analysis assesses
+whether this error propagates to subsequent cycles (RC-104, RC-105, RC-106)
+and the newly executed RC-113.
+
+FINDING: The det=-1 error is ISOLATED to RC-103. RC-104, RC-105, and RC-106
+are NOT affected. However, a secondary issue in RC-104's "additional finding"
+about sign changes being "gauge" was identified and requires scrutiny.
+
+================================================================================
+1. THE RC-103 ERROR
+================================================================================
+
+1.1 Construction Details
+--------------------------
+RC-103's reproduction script constructs:
+  M_tetrad = -I_4 + 0.5 * J_4
+
+where J_4 is the all-ones matrix. This equals -η where:
+  η = 0.5 * [[1,-1,-1,-1],[-1,1,-1,-1],[-1,-1,1,-1],[-1,-1,-1,1]]
+
+The full matrix is:
+  zeta_A = block-diag(-η, I_4, I_4, I_4, I_4, I_4)
+
+1.2 Determinant Verification
+-----------------------------
+det(-η) = -1 (verified by eigenvalue computation: eigenvalues are 1, -1, -1, -1)
+det(I_4) = 1
+det(zeta_A) = (-1) * (1)^5 = -1
+
+Co0 consists entirely of determinant +1 matrices. Therefore zeta_A ∉ Co0.
+
+1.3 Impact on RC-103's Findings
+--------------------------------
+RC-103's core result — "zeta_A acts as identity on the cocode" — was obtained
+using a matrix not in Co0. The mathematical significance of this finding for
+the true Conway zeta-elements is unclear and requires independent verification.
+
+Status: RC-103 needs a CONSTRUCTION CORRECTION note.
+
+================================================================================
+2. RC-104 IMPACT ASSESSMENT
+================================================================================
+
+2.1 What RC-104 Actually Computes
+----------------------------------
+RC-104 uses three M24 generator matrices:
+  - P23: cyclic shift (det = +1, verified)
+  - S: Möbius involution (det = +1, verified)
+  - P11: multiplicative automorphism (det = +1, verified)
+
+These are all permutation matrices in M24 ⊂ Co0. They are NOT zeta-elements.
+
+2.2 Main Claims (A, B, C)
+--------------------------
+Claim A (cocode grading preservation): Tests P23 and S on cocode weight layers.
+  - Uses only permutation matrices ✓
+  - INDEPENDENT of RC-103's zeta-element construction
+
+Claim B (22D engine spectrum): Computes H0 = (P23_22 + P23_22^T) + 3(P11_22 + P11_22^T).
+  - Uses only projected permutation matrices ✓
+  - 2-fold degeneracy verified computationally ✓
+  - INDEPENDENT of RC-103
+
+Claim C ("+1" pattern): Numerical comparison of 4096/4095, 727/726, 1453/1451.
+  - Purely arithmetic, no matrix operations ✓
+  - INDEPENDENT of RC-103
+
+VERDICT: RC-104's main claims are VALID and NOT affected by the RC-103 error.
+
+2.3 Additional Finding (Transversal Boundary)
+---------------------------------------------
+RC-104 states: "the sign changes in 2^12.M24 (and the smaller 2^11 in the
+frame stabilizer) are stabilizer elements, hence gauge."
+
+Explicit verification under standard [[24,12,8]] stabilizer formalism:
+  - Stabilizer S = {i^{wt(c)/2} X^c Z^c : c ∈ C}
+  - Sign change Z^c = (0, c) in (X|Z) notation
+  - Z^c ∈ S iff c = 0
+  - For c ≠ 0: Z^c ∈ N(S) \ S, acting as non-trivial logical operator
+
+The claim that sign changes are "stabilizer elements, hence gauge" appears
+INCORRECT under the standard stabilizer convention used in RC-100 and RC-101.
+
+This is a SECONDARY issue in the RC-104 document, separate from the RC-103
+det=-1 error. It does not affect Claims A, B, or C.
+
+VERDICT: RC-104's additional finding about sign changes needs correction.
+The main claims (A, B, C) remain valid.
+
+================================================================================
+3. RC-105 IMPACT ASSESSMENT
+================================================================================
+
+RC-105 tests holographic entanglement structure of the [[24,12,8]] code.
+It uses standard quantum information theory tools:
+  - Encoding isometry and entanglement entropy
+  - Ryu-Takayanagi formula comparison
+  - Volume law vs. area law analysis
+
+No zeta-elements or Co0 constructions are used.
+
+VERDICT: RC-105 is COMPLETELY INDEPENDENT of RC-103. No impact.
+
+================================================================================
+4. RC-106 IMPACT ASSESSMENT
+================================================================================
+
+RC-106 tests two coupled Golay codes on a 2×24 lattice.
+It uses CSS code construction and entanglement entropy calculations.
+
+No zeta-elements or Co0 constructions are used.
+
+VERDICT: RC-106 is COMPLETELY INDEPENDENT of RC-103. No impact.
+
+================================================================================
+5. RC-113 IMPACT ASSESSMENT
+================================================================================
+
+RC-113 (this execution) tested whether corrected Conway zeta-elements
+(ζ ∈ Co0 with det = +1) induce non-trivial logical operators.
+
+Key findings:
+  1. RC-103's construction was wrong (det = -1) — confirmed
+  2. Corrected ζ = block-diag(+η, -η, -η, -η, -η, -η) has det = +1 ✓
+  3. ζ does NOT preserve the Golay code G24 as a set
+  4. ζ preserves the Leech lattice Λ_24 but not C_24 ⊂ Λ_24/2Λ_24
+  5. F1 FAILED: ζ is not a logical operator in the standard stabilizer formalism
+
+VERDICT: RC-113 hypothesis rejected. The det=-1 error in RC-103 is isolated
+and does not affect the conclusion that zeta-elements are not logical operators.
+
+================================================================================
+6. DEPENDENCY CHAIN SUMMARY
+================================================================================
+
+RC-103 (zeta-elements, cocode) ❌ CONSTRUCTION ERROR (det=-1)
+  │
+  ├─ Referenced by RC-104 as context for "transversal boundary"
+  │   │
+  │   ├─ RC-104 Claim A (cocode grading) ✓ VALID, independent
+  │   ├─ RC-104 Claim B (22D spectrum) ✓ VALID, independent
+  │   ├─ RC-104 Claim C ("+1" pattern) ✓ VALID, independent
+  │   └─ RC-104 Additional (sign changes = gauge) ⚠️ SECONDARY ISSUE
+  │       (incorrect under standard stabilizer formalism)
+  │
+  ├─ Referenced by v8.4.3 framework document
+  │   │
+  │   └─ "Conway group boundary theorem" is standard math, not dependent
+  │       on RC-103's specific computation
+  │
+  └─ Tested by RC-113 (this execution)
+      │
+      └─ F1 FAILED, hypothesis rejected. Error is isolated.
+
+RC-105 (holographic code) ✓ INDEPENDENT
+RC-106 (Golay pixel grid) ✓ INDEPENDENT
+
+================================================================================
+7. RECOMMENDATIONS
+================================================================================
+
+1. RC-103: Add CONSTRUCTION CORRECTION note. The tested matrix had det=-1
+   and was not in Co0. The cocode finding applies to a matrix outside Co0.
+
+2. RC-104: Main claims (A, B, C) retain their stated statuses. The
+   "additional finding" about sign changes being gauge should be flagged
+   for independent verification under the exact stabilizer convention used.
+
+3. RC-105, RC-106: No action needed. Unaffected by RC-103 error.
+
+4. Framework v8.4.3: The Part XII §12.1 reference to RC-103 should be
+   annotated with the construction correction. The boundary theorem itself
+   (monomial subgroup = exact transversal boundary) is standard mathematics
+   and does not depend on RC-103's computation.
+
+5. RC-113: F1 FAILED verdict stands. The corrected ζ ∈ Co0 does not
+   preserve the Golay code, confirming that zeta-elements are not logical
+   operators in the standard stabilizer formalism.
+
+================================================================================
+END OF ANALYSIS
+================================================================================

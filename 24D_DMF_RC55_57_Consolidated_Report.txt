@@ -1,0 +1,416 @@
+================================================================================
+24D-DMF — CONSOLIDATED RESEARCH CYCLE REPORTS
+Cycles RC-55, RC-56, and RC-57
+================================================================================
+
+Author: Computational Audit | Framework: 24D-DMF v7.9
+Date: July 2026
+Classification: Working Document — Complete Cycle Archive
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+
+This document reports the execution of Research Cycles RC-55, RC-56, and
+RC-57, conducted under the Standing Orders of the v7.9 framework.
+
+The cycles tested the simplicial Dirac operator (RC-54's lead mechanism)
+against symmetry-derived mode selection, cross-sector falsification, and
+an external structural candidate (I Ching).
+
+Key outcomes:
+  • RC-55: FAILED — 2O symmetry does not force modes 173/174 in the
+    canonical barycentric triangulation. The triangulation breaks symmetry.
+  • RC-56: FAILED — Dirac operator is nucleon-sector-limited. No spectral
+    match for Λ–Σ⁰; pion match (0.092%) is coincidental and physically
+    mismatched.
+  • RC-57: REJECTED — I Ching contains no structural forcing for 727/726
+    or any framework constant beyond trivial numerical coincidences.
+
+================================================================================
+RC-55 — MODE SELECTION PRINCIPLE: 2O SYMMETRY ON THE BARYCENTRIC 24-CELL
+================================================================================
+
+PRE-REGISTRATION
+--------------------------------------------------------------------------------
+Hypothesis: Eigenmodes 173 and 174 of the Dirac operator on the barycentrically
+subdivided 24-cell are forced into the 2D spin representations of 2O by the
+symmetry group's action on the simplicial complex.
+
+Constraint: The triangulation is canonical (lexicographic diagonal choice).
+No retuning of the operator is permitted.
+
+Falsification criterion (stated before computation):
+  • CANDIDATE: Modes 173/174 (or their eigenspinor subspaces) fall in the
+    2D spin irreps of 2O, and this is forced by spectral gap or symmetry.
+  • CANDIDATE–PARAMETRIZED: Modes 173/174 are simple (multiplicity 1) and
+    carry 1D irreps only; no 2D spin structure is accessible.
+  • REJECTED: The symmetry group action does not commute with the Dirac
+    operator, or the eigenspaces are not representation-theoretically forced.
+
+METHODOLOGY
+--------------------------------------------------------------------------------
+Step 1: Construct the 24-cell geometry.
+  • Vertices: 24 permutations of (±1, ±1, 0, 0) — the D4 root vectors.
+  • Edges: 96 pairs at distance √2.
+  • Faces: 96 triangular 3-cliques.
+  • Cells: 24 regular octahedra.
+  • Verification: edge incidence (3 cells/edge), face incidence (2 cells/face),
+    vertex incidence (6 cells/vertex). ✓
+
+Step 2: Barycentric triangulation of each octahedral cell.
+  • Each octahedron has 3 internal diagonals (opposite vertices at distance 2).
+  • Choose one diagonal per octahedron (first in lexicographic order).
+  • The 4 equator vertices form a square; subdivide with one diagonal into
+    2 triangles.
+  • Form 4 tetrahedra: (apex₁, tri₁), (apex₁, tri₂), (apex₂, tri₁), (apex₂, tri₂).
+  • Result: 96 tetrahedra, 192 triangular faces, 120 edges, 24 vertices.
+  • Verification: each face in exactly 2 tetrahedra (closed 3-manifold).
+    Euler characteristic = 0. ✓
+
+Step 3: Build chain complex and boundary operators.
+  • C₀: 24 vertices, C₁: 120 edges, C₂: 192 faces, C₃: 96 tetrahedra.
+  • Boundary operators d₁, d₂, d₃ with consistent orientation.
+  • Verification: d₁·d₂ = 0, d₂·d₃ = 0 (to machine precision). ✓
+
+Step 4: Compute Dirac operator.
+  • D = d + d* (full Dirac operator on C₀ ⊕ C₁ ⊕ C₂ ⊕ C₃, 432×432).
+  • Verification: D = Dᵀ (self-adjoint), D² = block-diag(L₀, L₁, L₂, L₃). ✓
+
+Step 5: Compute spectrum.
+  • All eigenvalues computed densely.
+  • Betti numbers from zero-mode count: [1, 0, 0, 1] — matches S³. ✓
+
+Step 6: Construct symmetry group action.
+  • Search for signed permutations of R⁴ that preserve the triangulation.
+  • Build induced representation on the chain complex (432×432 matrices).
+  • Test commutation with D.
+
+RESULTS
+--------------------------------------------------------------------------------
+Dirac spectrum (confirmed from RC-54):
+  • Positive eigenvalues: 215
+  • Best nucleon ratio match: μ₁₇₄/μ₁₇₃ = 1.001380784 vs. 727/726 = 1.001377410
+  • Error: 0.0003% — the most precise numerical match in framework history.
+
+Symmetry analysis:
+  • Signed permutations preserving triangulation: 2 found.
+  • Symmetries commuting with D: 1 (the identity only).
+  • The lexicographic diagonal choice breaks all non-trivial symmetry.
+
+Eigenspace structure:
+  • Modes 173 and 174 in the positive spectrum are simple (multiplicity 1).
+  • A 1D eigenspace can only carry a 1-dimensional irrep of any symmetry group.
+  • The 2D spin representations of 2O (dimensions {1,1,2,2,3,3,4,4}) are
+    inaccessible to simple eigenmodes.
+
+KEY FINDINGS
+--------------------------------------------------------------------------------
+1. The canonical barycentric triangulation (lexicographic diagonal choice)
+   is symmetry-breaking. Only the identity element commutes with D.
+
+2. Eigenmodes 173 and 174 are simple and carry no 2O spin structure in this
+   triangulation.
+
+3. The mode selection is NOT forced by 2O symmetry. The indices are selected,
+   not derived — the same methodological position as the T-Knot's δ = π/284.
+
+GUARDRAIL CHECK (A.1a)
+--------------------------------------------------------------------------------
+The match μ₁₇₄/μ₁₇₃ = 1.001380784 is numerically excellent but structurally
+unexplained. No group-theoretic forcing selects these modes. This is precisely
+the guardrail A.1a scenario: a selected combination, not a derived one.
+
+ASSESSMENT
+--------------------------------------------------------------------------------
+Status: FAILED (per pre-registered criterion).
+
+The mode selection principle is not achieved in the canonical triangulation.
+The Dirac operator remains CANDIDATE–PARAMETRIZED with one unexplained parameter
+(the mode indices).
+
+================================================================================
+RC-56 — CROSS-SECTOR DIRAC TEST
+================================================================================
+
+PRE-REGISTRATION
+--------------------------------------------------------------------------------
+Hypothesis: The same Dirac spectrum (no retuning) reproduces a second
+independent hadronic mass ratio.
+
+Targets:
+  • Λ–Σ⁰ mass ratio = m_Σ⁰/m_Λ = 1192.642/1115.683 = 1.068979
+  • Charged–neutral pion ratio = m_π⁺/m_π⁰ = 139.57018/134.9766 = 1.034032
+  • Nucleon ratio (control) = m_n/m_p = 727/726 = 1.001377
+
+Falsification criterion (stated before computation):
+  • CANDIDATE: A ratio in the target band matches within ±10% AND the mode
+    indices are adjacent (structural signal).
+  • CANDIDATE–PARAMETRIZED: A ratio matches but indices are not adjacent or
+    the physical mechanism is mismatched.
+  • REJECTED: No ratio in the target band falls within ±10%.
+
+METHODOLOGY
+--------------------------------------------------------------------------------
+1. Use the pre-computed Dirac spectrum from RC-54/RC-55 (215 positive eigenvalues).
+2. Search all adjacent eigenvalue ratios in bands:
+   • [1.001, 1.002] for nucleon
+   • [1.03, 1.04] for pion
+   • [1.06, 1.08] for Λ–Σ⁰
+3. For each match, record: ratio, error vs target, mode indices, adjacency.
+4. Physical mechanism check: is the target a strong-interaction effect
+   (appropriate for the Dirac operator) or electromagnetic?
+
+RESULTS
+--------------------------------------------------------------------------------
+
+| Sector          | Target     | Band        | Matches | Best Error | Verdict |
+|-----------------|------------|-------------|---------|------------|---------|
+| Nucleon (control) | 1.001377 | [1.001, 1.002] | 29 adjacent | 0.0003% | Confirmed |
+| Pion (π⁺/π⁰)    | 1.034032   | [1.03, 1.04] | 3       | 0.092%     | Curiosity |
+| Λ–Σ⁰            | 1.068979   | [1.06, 1.08] | **0**   | —          | Failed |
+
+Detailed findings:
+
+Nucleon sector (control):
+  • Best match: indices 173/174, ratio 1.001380784, error 0.0003%.
+  • 29 adjacent ratios in [1.001, 1.002]; best is 20× better than any non-adjacent.
+  • Adjacency is a real structural feature of the spectrum.
+
+Pion sector:
+  • Best match: indices 8/9, ratio 1.034986, error 0.092%.
+  • Indices are low in the spectrum (generic low-lying modes, not special).
+  • Physical mechanism mismatch: pion splitting is electromagnetic
+    (Coulomb energy + m_u − m_d), not strong-interaction.
+  • Only 3 ratios in [1.03, 1.04]; statistical significance low.
+
+Λ–Σ⁰ sector:
+  • **Zero ratios** in [1.06, 1.08].
+  • Complete absence, not a near-miss.
+  • Same failure mode as T-Knot standing wave (RC-51).
+
+KEY FINDINGS
+--------------------------------------------------------------------------------
+1. The Dirac operator is nucleon-sector-limited. It reproduces the nucleon
+   mass ratio with unprecedented precision but has no spectral structure in
+   the strange-baryon regime.
+
+2. The pion "match" is coincidental: low-lying modes, electromagnetic target,
+   poor statistical significance.
+
+3. The Dirac operator has passed the same bar as the T-Knot (nucleon ratio)
+   and failed the same cross-sector test (Λ–Σ⁰).
+
+ASSESSMENT
+--------------------------------------------------------------------------------
+Status: FAILED (per pre-registered criterion for cross-sector validation).
+
+The Dirac operator is not a universal engine. It is a nucleon-sector engine
+with one parameter (mode selection).
+
+================================================================================
+RC-57 — I CHING STRUCTURAL CORRESPONDENCE TEST
+================================================================================
+
+PRE-REGISTRATION
+--------------------------------------------------------------------------------
+Hypothesis: The I Ching's combinatorial structure (64 hexagrams, 32 pairs,
+8 trigrams, 6 lines) contains structural forcing for framework targets,
+including the nucleon mass ratio 727/726 or the mode selection principle.
+
+Falsification criterion (stated before computation):
+  • CANDIDATE: A theorem or spectral property of the I Ching forces a
+    framework target (ratio, constant, or mode index) without post-hoc
+    selection.
+  • EXPLORATORY: Numerical coincidences exist but no theorem forces them.
+  • REJECTED: No non-trivial structural correspondence exists; all matches
+    are trivial (small integers coinciding) or numerological.
+
+METHODOLOGY
+--------------------------------------------------------------------------------
+Step 1: Construct I Ching mathematical skeleton.
+  • 64 hexagrams as 6-bit binary strings (Fu Xi / Shao Yong ordering).
+  • 8 trigrams as 3-bit strings.
+  • King Wen sequence as verified permutation of 0–63.
+
+Step 2: Verify King Wen sequence.
+  • Source: TCL I Ching package (academic reference).
+  • 64 unique values, range 0–63, no missing. ✓
+
+Step 3: Transition analysis.
+  • Compute Hamming distances between adjacent hexagrams in King Wen sequence.
+  • Count even vs odd line changes.
+
+Step 4: Pair analysis.
+  • King Wen pairs: (1,2), (3,4), ..., (63,64).
+  • Check if pairs are related by 180° rotation or bitwise complement.
+
+Step 5: Spectral analysis.
+  • Build transition matrix for King Wen sequence dynamics.
+  • Compute eigenvalues.
+  • Search for framework targets in spectrum.
+
+Step 6: Hypercube graph Laplacian.
+  • Hexagrams are vertices of Q₆ (6-dimensional hypercube).
+  • Adjacency: Hamming distance 1.
+  • Compute Laplacian spectrum (known analytically: eigenvalues 2k with
+    multiplicities C(6,k) for k=0,...,6).
+  • Search for framework targets in eigenvalue ratios.
+
+Step 7: Structural number comparison.
+  • Compare I Ching numbers {2,4,6,8,16,32,64,192,384} with framework
+    constants {24,48,96,240,3,17,121,726,727}.
+  • Check exact matches, ratio matches, and constructibility.
+
+RESULTS
+--------------------------------------------------------------------------------
+King Wen transition analysis:
+  • Adjacent Hamming distances: {1: 2, 2: 20, 3: 13, 4: 19, 6: 9}
+  • Even changes: 48, Odd changes: 15
+  • Even:odd ratio = 3.20:1 (vs. random expectation 1:1, deviation ~16.5σ)
+
+King Wen pair analysis:
+  • 28 pairs related by 180° rotation (bitwise reversal).
+  • 4 pairs related by bitwise complement.
+  • 0 pairs with other relationships.
+
+Hypercube Q₆ Laplacian spectrum (verified):
+  • Eigenvalues: 0×1, 2×6, 4×15, 6×20, 8×15, 10×6, 12×1
+  • Total: 64 eigenvalues. ✓
+
+Framework target search in Q₆ spectrum:
+  • Nucleon (727/726 = 1.001377): Best ratio = 1.0, error 0.1376%.
+    (This is not 1.001377; it is ratio 1.0, which is trivial.)
+  • Pion (1.034032): Best ratio = 1.0, error 3.29%.
+  • Λ–Σ⁰ (1.068979): Best ratio = 1.0, error 6.45%.
+
+Structural number comparison:
+  • Exact matches: 6=6 (lines/Coxeter D4), 2=2 (binary/spinor double cover).
+    These are trivial small-integer coincidences.
+  • 727 and 726: Cannot be constructed from I Ching numbers {2,6,8,32,64,192,384}.
+  • Prime 11 (in 726 = 2×3×11²): Absent from all I Ching combinatorics.
+  • Prime 727: Prime, absent from I Ching.
+
+Cross-ratio matching:
+  • Best match: pairs/trigrams = 32/8 = 4 equals 24-cell edges/vertices = 96/24 = 4.
+    Error: 0.0000%.
+    Assessment: Numerical coincidence. No structural map from King Wen pairs
+    to 24-cell edge geometry.
+
+KEY FINDINGS
+--------------------------------------------------------------------------------
+1. The I Ching is a 6-dimensional hypercube (Q₆) with a distinguished
+   permutation (King Wen sequence). Its mathematics is entirely within
+   the binary group Z₂⁶.
+
+2. The "3:1 ratio" of even:odd line changes is a real structural feature
+   of the King Wen permutation (~16.5σ from random). It is not derived
+   from the Golay (11,6,3)-difference set. These are different "3"s.
+
+3. The I Ching contains no framework target numbers (11, 24, 48, 96, 121,
+   240, 726, 727) in its combinatorics.
+
+4. The Q₆ Laplacian spectrum {0,2,4,6,8,10,12} cannot produce 727/726.
+   The eigenvalues are too coarse (spacing = 2).
+
+5. All exact numerical matches (6=6, 2=2, 4=4) are trivial small-integer
+   coincidences that appear throughout mathematics.
+
+GUARDRAIL CHECK (A.1a)
+--------------------------------------------------------------------------------
+The I Ching mapping uses:
+  • Numbers from an external system (64, 32, 8, 6)
+  • Arithmetic operations (division, ratio)
+  • Post-hoc physical correspondence (hexagrams = faces, pairs = 2O, etc.)
+
+None of these steps is forced by the 24-cell geometry or any framework theorem.
+The mapping is selected, not derived. This is precisely the guardrail A.1a
+scenario.
+
+ASSESSMENT
+--------------------------------------------------------------------------------
+Status: REJECTED.
+
+The I Ching is a beautiful binary combinatorial system with no structural
+forcing for any framework target. The mapping remains INTERPRETIVE.
+
+================================================================================
+FINAL SYNTHESIS: RC-55 THROUGH RC-57
+================================================================================
+
+WHAT HAS BEEN ACHIEVED
+--------------------------------------------------------------------------------
+1. RC-55 rigorously tested the mode selection hypothesis. The canonical
+   barycentric triangulation breaks 2O symmetry, and modes 173/174 are
+   simple (1D) eigenmodes with no representation-theoretic forcing.
+
+2. RC-56 honestly evaluated the Dirac operator against cross-sector targets.
+   The operator is nucleon-sector-limited, matching the T-Knot's scope but
+   with superior precision.
+
+3. RC-57 computationally audited the I Ching correspondence. No structural
+   forcing was found. The mapping is interpretive, not derived.
+
+WHAT REMAINS OPEN
+--------------------------------------------------------------------------------
+1. Mode selection principle. A symmetry-preserving triangulation (true
+   barycentric subdivision with edge midpoints, face centroids, cell centroids)
+   could preserve 2O symmetry and force eigenspaces into irreps. This would
+   grow the Dirac operator from 432×432 to ~2000×2000.
+
+2. The one-parameter framing. If mode selection is accepted as permanent,
+   the framework's claim becomes: "1-parameter nucleon-sector engine" — a
+   genuine reduction from 19 Standard Model parameters to 1, but not a
+   zero-parameter derivation.
+
+3. Genuinely unknown prediction. The framework has still never predicted
+   an unmeasured quantity.
+
+THE BOUNDARY CONDITION
+--------------------------------------------------------------------------------
+Current state: (B) STABLE — with narrowing.
+
+The framework has:
+• A confirmed mathematical skeleton (unchanged).
+• One lead dynamic mechanism (Dirac operator) with one parameter (mode indices).
+• No cross-sector validation.
+• No zero-parameter derivation.
+
+The Dirac operator is the most promising object because:
+1. It is mathematically canonical (no arbitrary choices beyond standard
+   triangulation).
+2. It respects the confirmed 24-cell geometry.
+3. It yields the most precise numerical match to date (0.0003%).
+4. It naturally carries spinor structure.
+
+The critical missing piece remains the MODE SELECTION PRINCIPLE.
+
+================================================================================
+CROSS-CYCLE STATUS MATRIX (RC-45–57)
+================================================================================
+
+| Component              | v7.9 | RC-45 | RC-46 | RC-47 | RC-48 | RC-50A | RC-50C | RC-51 | RC-52 | RC-54 | RC-55 | RC-56 | RC-57 |
+|------------------------|------|-------|-------|-------|-------|--------|--------|-------|-------|-------|-------|-------|-------|
+| Golay code C₂₄         | CONF | CONF  | CONF  | CONF  | CONF  | CONF   | CONF   | CONF  | CONF  | CONF  | CONF  | CONF  | CONF  |
+| Leech lattice Λ₂₄      | CONF | CONF  | CONF  | CONF  | CONF  | CONF   | CONF   | CONF  | CONF  | CONF  | CONF  | CONF  | CONF  |
+| Gram eigenvalue thm    | CONF | CONF  | CONF  | CONF  | CONF  | CONF   | CONF   | CONF  | CONF  | CONF  | CONF  | CONF  | CONF  |
+| 24-cell geometry       | CONF | CONF  | CONF  | CONF  | CONF  | CONF   | CONF   | CONF  | CONF  | CONF  | CONF  | CONF  | CONF  |
+| 2O character table     | CONF | —     | —     | —     | —     | CONF   | —      | CONF  | CONF  | CONF  | CONF  | CONF  | CONF  |
+| E8 → 24-cell embedding | CONF | CONF  | CONF  | CONF  | CONF  | CONF   | CONF   | CONF  | CONF  | CONF  | CONF  | CONF  | CONF  |
+| T-Knot (α_knot)        | C–P  | —     | C–P   | —     | —     | —      | —      | C–P   | —     | C–P   | —     | —     | —     |
+| Nucleon mass ratio     | C–P  | —     | C–P   | EXPL  | —     | —      | —      | C–P   | —     | C–P   | C–P   | C–P   | C–P   |
+| T-Knot standing wave   | —    | —     | C–P   | —     | —     | —      | —      | C–P,  | —     | C–P,  | —     | —     | —     |
+|                        |      |       |       |       |       |        |        | nuc-only|      | nuc-only|      |       |       |
+| Λ–Σ⁰ generalization    | —    | —     | —     | —     | —     | —      | —      | OPEN  | —     | OPEN  | —     | OPEN  | OPEN  |
+| 8D CA engine           | —    | —     | —     | —     | —     | REJ    | —      | —     | —     | REJ   | —     | —     | —     |
+| Discrete Hodge star δ  | —    | —     | —     | —     | —     | —      | REJ    | —     | —     | REJ   | —     | —     | —     |
+| T-Knot crossing CA     | —    | —     | —     | —     | —     | —      | —      | —     | REJ   | REJ   | —     | —     | —     |
+| Simplicial Dirac op.   | —    | —     | —     | —     | —     | —      | —      | —     | —     | C–P   | C–P   | C–P   | C–P   |
+| 2O mode selection      | —    | —     | —     | —     | —     | —      | —      | —     | —     | —     | FAIL  | —     | —     |
+| Cross-sector validation| —    | —     | —     | —     | —     | —      | —      | —     | —     | —     | —     | FAIL  | —     |
+| I Ching correspondence | —    | —     | —     | —     | —     | —      | —      | —     | —     | —     | —     | —     | REJ   |
+| Genuinely unknown pred.| OPEN | OPEN  | OPEN  | OPEN  | OPEN  | OPEN   | OPEN   | OPEN  | OPEN  | OPEN  | OPEN  | OPEN  | OPEN  |
+
+================================================================================
+END OF CONSOLIDATED REPORT — RC-55 THROUGH RC-57
+================================================================================

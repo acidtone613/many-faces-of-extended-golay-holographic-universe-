@@ -1,0 +1,87 @@
+================================================================================
+RC-124 ARTIFACT MANIFEST
+The Inverse Map: Bulk-Boundary Encoding of the Deep Hole Orbit
+Framework: 24D-DMF v8.4.3
+Date: 2026-07-08
+================================================================================
+
+GENERATED FILES:
+────────────────────────────────────────────────────────────────────────────────
+
+1. RC-124_reproduction.py
+   Full standalone reproduction script. Run with:
+       python RC-124_reproduction.py
+   Generates all tables, metrics, and both visualization PNGs.
+   Dependencies: numpy, matplotlib
+
+2. RC-124_Execution_Report.txt
+   Human-readable execution report with all raw data, sequences, and verdict.
+   Suitable for archival and peer review.
+
+3. RC-124_Visualization.png
+   Primary 6-panel analysis:
+     • Hamming distance matrix heatmap
+     • Pairwise distance distribution histogram
+     • Color sequences heatmap (all 24 DHs × 22 ticks)
+     • Color diversity per tick
+     • Initial 2D projection (all 24 deep holes on decagon)
+     • Proximity network (distance ≤ 14)
+
+4. RC-124_Secondary_Analysis.png
+   Deep-dive 6-panel analysis:
+     • Cross-correlation matrix
+     • Sequence entropy per deep hole
+     • DH23 anomaly (constant sequence highlighted)
+     • Distance from DH23 fixed point
+     • Autocorrelation of DH0 sequence
+     • Information theory summary panel
+
+5. RC-124_Extended_Analysis.png
+   Extended analysis 6-panel visualization:
+     • Mutual information I(DH; Color_t) per tick
+     • Cumulative mutual information (identification threshold)
+     • Color distribution per tick (stacked bar)
+     • Bulk vs boundary distance scatter (degenerate bulk)
+     • Sequence uniqueness by prefix length
+     • Extended analysis summary panel
+
+================================================================================
+KEY RESULTS AT A GLANCE
+================================================================================
+
+Injectivity:        CONFIRMED — 24/24 unique sequences
+Min Hamming Dist:   12 / 22 (54.5% separation)
+Mean Hamming Dist:  17.86 / 22 (81.2% separation)
+Max Correlation:    0.4280 (DH4 ↔ DH18)
+Min Correlation:   -0.7076 (DH5 ↔ DH21)
+
+Information:
+  MI per tick:      2.2516 bits
+  Total MI (22):    49.54 bits
+  Theoretical max:  4.585 bits (log₂(24))
+  Full ID possible:  at prefix length 4
+
+Bulk Geometry:      Regular simplex (all pairs equidistant, √2)
+Boundary Geometry:  Full rank (24), eigenvalue spread 444.7
+
+Special Cases:
+  DH23: Constant sequence (all Yellow) — fixed point of color map
+  DH22: Subperiod 11 within 22-tick window
+  DH5, DH21: Low entropy (1.669 bits each)
+
+================================================================================
+VERDICT
+================================================================================
+
+PASS (Full) — Strong Holographic Encoding Confirmed
+
+The boundary (22-tick, 5-color sequence) uniquely encodes the bulk (24 deep
+holes). The map Φ is injective. The holographic dictionary is confirmed.
+
+The Floquet dynamics BREAKS the symmetry of the regular simplex, assigning
+each vertex a unique temporal signature. The holographic code is DYNAMICAL,
+not static.
+
+================================================================================
+END OF MANIFEST
+================================================================================

@@ -1,0 +1,468 @@
+================================================================================
+24D-DMF v7.6 — RESEARCH CYCLES 37–40 CONSOLIDATED REPORT
+Computational Audit: RC-37 through RC-40
+================================================================================
+
+Author: James Belliveau (framework) | Computational Audit: RC-37–40
+Date: July 2026
+Classification: Working Document — Internal Research Cycle Consolidation
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+
+This report consolidates four research cycles executed under the 24D-DMF v7.5
+and v7.6 guardrails. The framework has retreated from attempted physical
+predictions in multi-nucleon and CP-violating sectors to focus on derivation
+problems within its confirmed mathematical skeleton.
+
+Key Results:
+  • RC-37 (Deuteron): SUSPENDED. The pre-registered formula contains a sign
+    error (predicts enhancement, observed suppression) and requires an E8-derived
+    strong-force coupling factor not yet available.
+  • RC-38 (Proton EDM): REJECTED. The formula yields ~10^-16 e·cm, excluded
+    by experiment by 8–9 orders of magnitude. No CP-violating mechanism exists
+    in the framework.
+  • RC-39 (Canonical D): FAILED falsification criterion. The great hexagon
+    invariant plane yields α_knot = 1.04, far from the target 2. The T-Knot
+    mechanism is downgraded to CANDIDATE--PARAMETRIZED.
+  • RC-40 (33/17 Coefficient): FAILED falsification criterion. The coefficient
+    33/17 does not appear in the representation theory of 2O. The neutron
+    g-factor magnitude is downgraded to CANDIDATE--PARAMETRIZED.
+
+Status: The framework's mathematical skeleton (Golay, Leech, 24-cell, Gram,
+2O character table) remains CONFIRMED. All dynamic mechanisms and physical
+predictions are now CANDIDATE--PARAMETRIZED or lower. No further physical
+predictions are permitted until a new derivation problem is solved.
+
+================================================================================
+PART I: RC-37 — DEUTERON MAGNETIC MOMENT (SUSPENDED)
+================================================================================
+
+1.1 PRE-REGISTRATION
+
+Hypothesis: The deuteron is a two-nucleon bound state. In the T-Knot framework,
+this corresponds to two linked 24-cell trajectories with a relative orientation.
+The deuteron magnetic moment is:
+
+  μ_d = μ_p + μ_n + μ_orbital + μ_exchange
+
+with μ_orbital ≈ 0 (S-wave dominant) and:
+
+  μ_exchange = (3/2) · (w_link / D_link) · (eℏ / 2m_p)
+
+Pre-registered prediction: μ_d = 0.857 ± 0.009 μ_N
+Falsification criterion: If μ_d outside [0.848, 0.866] μ_N, reject the
+  two-nucleon T-Knot extension.
+
+1.2 METHODOLOGY
+
+The experimental deuteron moment is known: μ_d = 0.8574382311(48) μ_N (CODATA
+2022). The naive S-wave sum of nucleon moments is:
+
+  μ_p + μ_n = 2.792847 − 1.913043 = 0.879805 μ_N
+
+The deuteron moment is LESS than this sum. The difference is:
+
+  μ_d − (μ_p + μ_n) = −0.022367 μ_N
+
+This reduction is explained in standard nuclear physics by the D-state admixture
+(P_D ≈ 4%), where the 3D1 state has a much smaller moment (~0.310 μ_N) than
+the 3S1 state (~0.880 μ_N).
+
+1.3 CRITICAL SIGN ERROR
+
+The pre-registered formula μ_exchange = (3/2)(w_link/D_link)μ_N produces a
+STRICTLY POSITIVE contribution because w_link and D_link are geometric distances.
+This would predict μ_d > μ_p + μ_n, which is the OPPOSITE of observation.
+
+The required exchange contribution is NEGATIVE (~ −0.022 μ_N). The formula has
+the wrong sign.
+
+1.4 ASSESSMENT
+
+Status: SUSPENDED.
+
+The deuteron gate is correctly suspended. The sign error explicitly points to
+the missing strong-force factor. The T-Knot linking integral describes single-
+particle electromagnetic topology (U(1), SU(2) spin), not nuclear binding.
+The D-state suppression is a consequence of the strong-force tensor operator
+(∝ S_12), which lives in the E8 layer. Before revisiting the deuteron
+(RC-50+), the E8-to-24-cell coupling factor F_E8(strong coupling, color
+structure) must be derived.
+
+================================================================================
+PART II: RC-38 — PROTON ELECTRIC DIPOLE MOMENT (REJECTED)
+================================================================================
+
+2.1 PRE-REGISTRATION
+
+Hypothesis: The proton EDM emerges from the T-Knot's chirality (self-dual vs
+anti-self-dual) via the 2O spinor projection, with magnitude:
+
+  d_p = α_knot · K · (e · w / D) · λ_C
+
+where K = Nw/D and λ_C is the proton Compton wavelength.
+
+Predicted magnitude: d_p ~ 10^-29 e·cm (chosen to match BNL projected
+sensitivity).
+
+2.2 METHODOLOGY
+
+Direct computation using both intrinsic S^3 (RC-34) and stereographic (v7.5)
+parameters:
+
+| Parameter Set | N | w | D | α_knot | d_p (e·cm) |
+|---------------|---|---|---|--------|------------|
+| RC-34 Intrinsic (XY) | 284 | 0.708 rad | 251.2 rad | 2.24 | 1.06 × 10^-16 |
+| RC-34 Intrinsic (α=2) | 284 | 0.708 rad | 251.2 rad | 2.00 | 9.49 × 10^-17 |
+| v7.5 Stereographic | 3392 | 0.0514 | 185.36 | 1.91 | 1.05 × 10^-17 |
+| v7.5 Stereographic (α=2) | 3392 | 0.0514 | 185.36 | 2.00 | 1.10 × 10^-17 |
+
+λ_C = ℏ/(m_p c) = 2.103 × 10^-14 cm.
+
+2.3 EXPERIMENTAL COMPARISON
+
+| Target | Value | Framework Intrinsic | Framework Stereo |
+|--------|-------|---------------------|------------------|
+| Current limit (Hg EDM) | <2×10^-25 | 5×10^8 × too large | 5×10^7 × too large |
+| BNL sensitivity | ~10^-29 | 10^13 × too large | 10^12 × too large |
+| SM prediction | ~10^-31–10^-33 | 10^15 × too large | 10^14 × too large |
+
+Even with an extra α_em ≈ 1/137 suppression, the prediction remains above
+the experimental bound. An α_em^2 suppression brings the stereographic case to
+~6×10^-22 e·cm — still an order of magnitude above the indirect limit.
+
+2.4 THE MISSING PHYSICS: CP VIOLATION
+
+The framework contains NO CP-violating mechanism. The 2O self-dual/anti-self-
+dual projection determines a SIGN (proton vs neutron EDM relative orientation),
+but it does not explain why an EDM exists at all.
+
+An EDM requires both P and T violation (or CP violation under CPT). The T-Knot
+geometry is:
+  • T-symmetric: A rotating 24-cell reversed in time is still a valid rotation.
+  • P-symmetric: The 24-cell is centrally symmetric; inversion maps it to
+    itself.
+
+The computed ~10^-16 e·cm is not a prediction of a small CP-violating effect;
+it is the geometric baseline of a classical rotating object, with no quantum
+suppression mechanism identified.
+
+2.5 ASSESSMENT
+
+Status: REJECTED.
+
+The EDM formula is excluded by experiment by many orders of magnitude. The
+target ~10^-29 e·cm was chosen to match BNL sensitivity, not derived from
+framework constants. No 10^-12 suppression factor exists in the 24-cell, Golay,
+Leech, or E8 structures.
+
+================================================================================
+PART III: RC-39 — CANONICAL D: GREAT HEXAGON INVARIANT PLANE (FAILED)
+================================================================================
+
+3.1 PRE-REGISTRATION
+
+Hypothesis: The great hexagon invariant plane — the natural rotation plane of
+the 24-cell, fixed by its 6-fold cyclic symmetry — yields an intrinsic
+α_knot consistent with the structurally motivated value 2 (the Hurwitz-to-axial
+vertex ratio 16/8).
+
+Falsification criterion: If intrinsic computation yields α_knot outside
+[1.90, 2.2], the T-Knot mechanism is downgraded to CANDIDATE--PARAMETRIZED.
+
+3.2 METHODOLOGY
+
+The great hexagon invariant plane is spanned by:
+  e1 = (1, 0, 0, 0) [axial]
+  e2 = (0, 1, 1, 1)/√3 [Hurwitz direction]
+
+This plane contains 6 vertices at radius r=1 (a great hexagon) and 18 vertices
+at r=1/√3. The isoclinic rotation in this plane was analyzed for:
+  • L_total: total orbit arc length over 720° (4π)
+  • N: number of asynchronous near-approach local minima below edge length
+  • w: mean minimum distance at crossings (passage width)
+  • D: total arc length in "intersecting state" (distance < edge length)
+  • α_knot = ((g_p − 2)/2) × (D/(N·w))
+
+3.3 RESULTS
+
+| Quantity | Computed | RC-34 Reported | Match |
+|----------|----------|----------------|-------|
+| L_total | 205.99 | 205.99 | ✓ |
+| N | 390 | 390 | ✓ |
+| w | 0.762 rad | 0.762 rad | ✓ |
+| D | — | 171.5 | (algorithm-dependent) |
+
+Using RC-34's reported D = 171.5:
+
+  α_knot = ((g_p − 2)/2) × (D/(N·w))
+         = 1.7946 × 0.5771
+         = 1.036
+
+3.4 KEY FINDINGS
+
+(1) The great hexagon invariant plane — the most symmetry-derived rotation
+    plane available — yields α_knot ≈ 1.04, far from the target 2.
+
+(2) This is consistent with the RC-34 "generic rotation" result (1.03),
+    confirming that the great hexagon plane was indeed the "generic" plane
+    tested in RC-34.
+
+(3) The v7.5 claimed identity D_axial/L_total = 11/32 is confirmed as a
+    stereographic projection artifact. The intrinsic ratio is 0.833, not
+    an integer ratio.
+
+(4) α_knot is not an intrinsic invariant of the 24-cell's rotation geometry.
+    It depends on:
+      • Rotation plane choice (XY-plane: 2.24, great hexagon: 1.04)
+      • Threshold definition for "intersecting state"
+      • Whether stereographic or intrinsic metric is used
+
+3.5 ASSESSMENT
+
+Status: CANDIDATE--PARAMETRIZED.
+
+Per the pre-registered falsification criterion, the T-Knot mechanism is
+downgraded. No further T-Knot physical predictions are permitted until a
+canonical rotation plane is derived from first principles (not selected for
+its match to a target).
+
+================================================================================
+PART IV: RC-40 — 33/17 COEFFICIENT FROM 2O TENSOR PRODUCTS (FAILED)
+================================================================================
+
+4.1 PRE-REGISTRATION
+
+Hypothesis: The neutron g-factor coefficient 33/17 emerges as a ratio of
+representation-theoretic quantities in the binary octahedral group 2O:
+
+  33/17 = dim(V_tensor) · c_spin / dim(V_lifted)
+
+or as a Clebsch-Gordan coefficient in the tensor product ring of 2O.
+
+Falsification criterion: If no such ratio appears in the character table or
+tensor product ring of 2O, the 33/17 coefficient is unexplained and the
+neutron g-factor formula is downgraded to CANDIDATE--PARAMETRIZED.
+
+4.2 METHODOLOGY
+
+Step 1: Verify the 2O character table (8 irreps, 8 conjugacy classes).
+Step 2: Compute all 36 tensor product decompositions via the standard formula:
+  m_k = (1/|G|) Σ_g χ_i(g) χ_j(g) χ_k(g)
+Step 3: Search for 33/17 or 17/33 in:
+  • Dimension ratios
+  • Tensor product multiplicities
+  • Character values
+  • Dimension sums/differences/products
+  • Tensor product dimensions
+  • Subgroup branching (2T, C8)
+
+4.3 RESULTS
+
+Tensor product decompositions (key results):
+
+| Tensor Product | Decomposition |
+|----------------|---------------|
+| 2D_spin ⊗ 2D_spin | 1 ⊕ 3D_std |
+| 2D_spin ⊗ 2D_spin' | sgn ⊕ 3D_prod |
+| 2D_spin ⊗ 4D_spin | 2D_lifted ⊕ 3D_std ⊕ 3D_prod |
+| 4D_spin ⊗ 4D_spin | 1 ⊕ sgn ⊕ 2D_lifted ⊕ 2·3D_std ⊕ 2·3D_prod |
+
+Search for 33/17:
+
+| Search Space | Result |
+|--------------|--------|
+| Dimension ratios | NONE equal 33/17 or 17/33 |
+| Tensor product multiplicities | NONE (all multiplicities are 1 or 2) |
+| Character values | NONE |
+| Dimension sums/differences | NONE equal 33 or 17 |
+| Dimension products | NONE equal 33 or 17 |
+| Tensor product dimensions | NONE equal 33 or 17 |
+| Subgroup branching (2T, C8) | NONE |
+
+4.4 KEY FINDINGS
+
+(1) The sign character (sgn) distinguishes 2D_spin (proton, even
+    permutations) from 2D_spin' (neutron, odd permutations). This mechanism
+    is CONFIRMED.
+
+(2) The central element −1 ∈ 2O maps to −I in 2D_spin. The double cover
+    property is CONFIRMED.
+
+(3) The coefficient 33/17 = (3×11)/17 combines:
+      • 3 = λ (Golay difference-set modulus)
+      • 11 = √λ₁λ₁₂ (Gram eigenvalue product root)
+      • 17 = 29−12 (Gram large eigenvalue trace component)
+    These are COMBINATORIAL/ARITHMETIC constants, NOT representation-theoretic
+    constants from 2O.
+
+(4) The neutron g-factor magnitude depends on a coefficient selected from
+    Golay/Gram arithmetic, not derived from group theory.
+
+4.5 ASSESSMENT
+
+Status: CANDIDATE--PARAMETRIZED.
+
+The neutron g-factor formula is downgraded. The sign is derived from 2O
+representation theory. The magnitude is selected from combinatorial constants.
+This is exactly the guardrail A.1a scenario: "searches over combinatorial
+possibilities are guaranteed to produce close matches."
+
+================================================================================
+PART V: CROSS-CYCLE SYNTHESIS
+================================================================================
+
+5.1 STATUS MATRIX
+
+| Component | v7.5 Status | RC-37–40 Status | Direction |
+|-----------|-------------|-----------------|-----------|
+| Golay code C_24 | CONFIRMED | CONFIRMED | — |
+| Leech lattice Λ_24 | CONFIRMED | CONFIRMED | — |
+| Gram eigenvalue theorem | CONFIRMED | CONFIRMED | — |
+| 24-cell geometry | CONFIRMED | CONFIRMED | — |
+| 2O character table | CANDIDATE | CONFIRMED | — |
+| Sign character (p/n) | CANDIDATE | CANDIDATE | Algebraic mechanism confirmed |
+| α_knot (T-Knot) | CANDIDATE | CANDIDATE--PARAMETRIZED | Rotation-plane dependent |
+| 33/17 coefficient | CANDIDATE | CANDIDATE--PARAMETRIZED | Not in 2O rep theory |
+| Proton g-factor | CANDIDATE | CANDIDATE--PARAMETRIZED | Depends on parametrized α_knot |
+| Neutron g-factor | CANDIDATE | CANDIDATE--PARAMETRIZED | Sign from 2O, magnitude selected |
+| Nucleon mass ratio | CANDIDATE--PARAMETRIZED | CANDIDATE--PARAMETRIZED | Form selected for match |
+| Fine-structure constant | CANDIDATE--PARAMETRIZED | CANDIDATE--PARAMETRIZED | Form selected for match |
+| Λ–Σ⁰ mass splitting | CANDIDATE | CANDIDATE | Pre-registered, 0.83% error |
+| Deuteron moment | OPEN | SUSPENDED | Requires E8 coupling factor |
+| Proton EDM | — | REJECTED | No CP mechanism |
+
+5.2 WHAT HAS BEEN ACHIEVED
+
+(1) The stereographic projection artifact is identified and quantified.
+    The v7.5 T-Knot parameters (N=3392, w=0.0514, D=185.36) are not intrinsic
+    to S³. The intrinsic parameters (N≈284–390, w≈0.71–0.76 rad) are smaller in
+    crossing count but larger in passage width.
+
+(2) The representation theory of the 24-cell's symmetry group is computationally
+    established. The face permutation representation decomposes into S₄ irreps
+    with multiplicities [5, 3, 13, 11, 8].
+
+(3) The binary octahedral group 2O is constructed and its character table
+    computed. Two genuine 2D spin representations are identified, related by
+    the sign character. This provides a group-theoretic mechanism for the
+    proton/neutron sign structure.
+
+(4) The 11/32 ratio (D_axial/L_total) is identified as a projection artifact,
+    not an intrinsic theorem. This is an honest downgrade of a previously
+    beautiful structural identity.
+
+(5) The 33/17 coefficient is shown to be absent from 2O representation theory.
+    It is a combinatorial constant from Golay/Gram arithmetic, not a derived
+    group-theoretic quantity.
+
+5.3 WHAT REMAINS OPEN
+
+(1) Canonical D: No intrinsic computation yields α_knot = 2 ± 5%. The great
+    hexagon invariant plane gives 1.04 (−48% error). The T-Knot mechanism is
+    parametrized.
+
+(2) Spin-1/2 magnitude: The discrete Hodge star on the 24-cell skeleton has
+    not been shown to select the physical spin-1/2 representation of the
+    diagonal SU(2). The sign is structural; the magnitude is selected.
+
+(3) No pre-registered prediction of an unknown quantity. Every framework
+    prediction matches a known quantity. This is the deepest methodological
+    vulnerability, per Appendix A.1a.
+
+(4) The E8 coupling factor for multi-nucleon states remains undefined. The
+    deuteron sign error explicitly points to the missing strong-force sector.
+
+(5) No CP-violating mechanism exists in the framework. The proton EDM
+    prediction is excluded by experiment.
+
+5.4 THE BOUNDARY CONDITION
+
+The framework is at a critical juncture. Three outcomes are possible:
+
+(A) UPGRADE: If a new dynamic mechanism (e.g., discrete field equation,
+    variational principle, or E8 coupling) yields a derived α_knot = 2 and
+    explains 33/17 without selection, the framework could advance.
+
+(B) STABLE: The framework remains as a confirmed mathematical skeleton with
+    suggestive but parametrized physical correspondences. This is the current
+    state.
+
+(C) DOWNGRADE: If no new mechanism is found after additional research cycles,
+    the framework retreats to its pure mathematical content (Part I of v7.5)
+    and abandons physical prediction claims.
+
+================================================================================
+PART VI: FORWARD REQUIREMENTS (v7.6)
+================================================================================
+
+Priority 1 (Critical): New Dynamic Mechanism
+  The T-Knot is parametrized. A field equation or variational principle on
+  the 24-cell skeleton that produces α_knot = 2 without plane selection is
+  needed. The discrete Hopf–T-Knot field equation (RC-33) remains the lead,
+  but the Whitney form Hodge star assembly is unresolved.
+
+Priority 2 (Critical): CP-Violating Sector
+  For the EDM to become viable, a discrete analog of the QCD θ-term or a BSM
+  phase must be identified in the framework. Without this, the EDM is zero
+  by symmetry, not ~10^-29 e·cm.
+
+Priority 3 (High): E8 Coupling Factor
+  For multi-nucleon states, the strong-force sector must be derived from the
+  E8 layer. The deuteron sign error explicitly requires this. The factor
+  F_E8(strong coupling, color structure) must be defined and shown to introduce
+  the negative D-state suppression.
+
+Priority 4 (High): Genuinely Unknown Prediction
+  The framework must predict a quantity not yet measured, with a narrow pre-
+  registered window, and await experimental test. The current six predictions
+  all match known targets.
+
+Priority 5 (Medium): MOG Explicit Role
+  Does the 4×6 MOG array enter a refined formula? The 720 identity and the 4/3
+  ratio are natural places to look for a hexacode connection.
+
+Priority 6 (Medium): Dimensional Bridge Problem
+  Every mass formula needs an external anchor M₀. The Compton-radius relation
+  matches prior art. The framework needs either a derivation of M₀ from 24-cell
+  geometry or a demonstration that all mass ratios are correct off a single
+  fixed anchor.
+
+================================================================================
+CONCLUSION
+================================================================================
+
+Part I is unchanged: the Golay code, the Leech lattice, the B-matrix
+ eigenvalue theorem, the 24-cell, and the 240-root identity are confirmed
+ mathematics.
+
+Part II carries the T-Knot hypothesis as a named dynamic mechanism, but it is
+ now honestly classified as CANDIDATE--PARAMETRIZED.
+
+Part III has grown from six predictions to six parametrized correspondences.
+ The errors cluster in the 0.0001%–0.8% envelope, but the mechanisms are not
+ derived.
+
+Appendix A remains sharp: the guardrails correctly distinguish selected
+ combinations from derived ones, and they flag the difference between
+ methodological purity and numerical precision.
+
+The framework has transitioned from:
+
+  "unified nucleon eigenstate system with a provisional dynamic mechanism
+   and six accurate predictions"
+
+to:
+
+  "confirmed mathematical skeleton with suggestive numerical correspondences,
+   parametrized dynamic mechanisms, and no derived prediction of an unknown
+   quantity"
+
+The skeleton is real. The mechanism is parametrized. The next gate is
+ mathematical, not phenomenological.
+
+================================================================================
+END OF REPORT — RC-37 THROUGH RC-40 CONSOLIDATION
+================================================================================

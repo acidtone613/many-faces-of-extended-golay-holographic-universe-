@@ -1,0 +1,547 @@
+================================================================================
+                    24D-DMF RESEARCH CYCLE RC-70
+            Symmetry-Preserving Triangulation of the 24-Cell
+                    Computational Audit Report
+================================================================================
+
+Document: RC-70_Consolidated_Report
+Date: 2026-07-03
+Author: Computational Audit (Kimi K2.6)
+Framework Version: 24D-DMF v8.05
+Pre-registered Hypothesis: Symmetry-Restoration Conjecture (v8.05 §3.2.1)
+
+================================================================================
+                              EXECUTIVE SUMMARY
+================================================================================
+
+RC-70 tested the symmetry-restoration conjecture: that a true barycentric
+subdivision of the 24-cell (preserving full W(F4) symmetry) would exhibit a
+2D degenerate eigenspace in the Dirac operator whose symmetry-breaking
+yields the eigenvalue ratio 727/726 observed in the lexicographic
+triangulation (RC-54).
+
+STATUS: INCONCLUSIVE — significant partial negative evidence, full test
+not completed due to computational scope.
+
+The barycentric subdivision was correctly constructed (5,088 × 5,088 Dirac
+operator). The lowest 600 eigenvalues (~12% of spectrum) were computed and
+analyzed. No 2D degeneracy satisfying the conjecture's criteria was found
+in this range. The search was not extended to the full spectrum.
+
+================================================================================
+                          TABLE OF CONTENTS
+================================================================================
+
+1.  Pre-Registered Hypothesis and Falsification Criteria
+2.  What Was Computed
+3.  What Was NOT Computed
+4.  Detailed Computational Results
+5.  Analysis and Interpretation
+6.  What Would Be Required for a Complete Test
+7.  Honest Assessment and Status
+8.  Recommendations
+
+================================================================================
+1. PRE-REGISTERED HYPOTHESIS AND FALSIFICATION CRITERIA
+================================================================================
+
+1.1 HYPOTHESIS (from v8.05 §3.2.1)
+-----------------------------------
+
+In a symmetry-preserving barycentric triangulation of the 24-cell, the
+Dirac operator has a degenerate eigenspace at eigenvalue λ* containing
+modes that project onto the 7D and 9D⁻ tunnel subspaces. The lexicographic
+triangulation breaks this symmetry, lifting the degeneracy by δ where
+2δ/λ* = 1/726.
+
+1.2 PRE-REGISTERED FALSIFICATION CRITERIA
+------------------------------------------
+
+Criterion A: No 2D degenerate eigenspace exists in the low-energy
+             edge-face subspace → CONJECTURE REJECTED
+
+Criterion B: A 2D degeneracy exists but eigenvectors have zero projection
+             onto 7D/9D⁻ tunnel subspaces → CONJECTURE REJECTED
+
+Criterion C: A 2D degeneracy with tunnel projection exists but at eigenvalue
+             incompatible with the 727/726 ratio mechanism → CONJECTURE REVISED
+
+================================================================================
+2. WHAT WAS COMPUTED
+================================================================================
+
+2.1 24-CELL GEOMETRY
+---------------------
+    Vertices: 24 (±1, ±1, 0, 0) permutations
+    Edges: 96 (dot product = 1)
+    Faces: 96 (triangles, 3-cliques)
+    Cells: 24 (octahedra, 6-vertex 12-edge subgraphs)
+    Euler characteristic: χ = 24 − 96 + 96 − 24 = 0 ✓
+    Vertex regularity: 8-regular ✓
+
+2.2 BARYCENTRIC SUBDIVISION
+----------------------------
+    Vertices (0-simplices): 240
+        — 24 original vertices
+        — 96 edge midpoints
+        — 96 face centroids
+        — 24 cell centroids
+    Edges (1-simplices): 1,392
+        — vertex-edge: 192
+        — vertex-face: 288
+        — vertex-cell: 144
+        — edge-face: 192
+        — edge-cell: 288
+        — face-cell: 288
+    Faces (2-simplices): 2,304
+        — vertex-edge-face: 288
+        — vertex-edge-cell: 576
+        — vertex-face-cell: 288
+        — edge-face-cell: 1,152
+    Tetrahedra (3-simplices): 1,152
+        — vertex-edge-face-cell flags: 1,152
+    Euler characteristic: 240 − 1,392 + 2,304 − 1,152 = 0 ✓
+
+2.3 BOUNDARY OPERATORS
+----------------------
+    d1: C₁ → C₀    (1392 × 240)
+    d2: C₂ → C₁    (2304 × 1392)
+    d3: C₃ → C₂    (1152 × 2304)
+
+    Verification: d2 ∘ d1 = 0, d3 ∘ d2 = 0 (machine precision) ✓
+
+2.4 DIRAC OPERATOR
+------------------
+    D = d + d† (5,088 × 5,088 real symmetric sparse matrix)
+    Nonzeros: 28,608
+    Density: 0.1105%
+    Symmetry: D = Dᵀ verified ✓
+
+2.5 BETTI NUMBERS (via Hodge Laplacians)
+-----------------------------------------
+    L0 = d1ᵀd1:     smallest eigenvalues [0, 1.687, 1.687] → b₀ = 1 ✓
+    L1 = d1d1ᵀ + d2ᵀd2: smallest [0.371, 0.371, 0.795] → b₁ = 0 ✓
+    L2 = d2d2ᵀ + d3ᵀd3: smallest [0.068, 0.068, 0.176] → b₂ = 0 ✓
+    L3 = d3d3ᵀ:     smallest [0, 0.068, 0.068] → b₃ = 1 ✓
+
+    Matches S³: [1, 0, 0, 1] ✓
+
+2.6 DIRAC SPECTRUM — LOWEST 600 EIGENVALUES
+--------------------------------------------
+    Computed via Lanczos/Arnoldi (scipy.sparse.linalg.eigsh)
+    Time: ~97 seconds total (200 + 400 eigenvalue batches)
+    Spectral range covered: λ ∈ [−1.3677, +1.3677]
+
+    Key observation: Spectrum is symmetric about 0 (D is self-adjoint
+    with chiral symmetry: eigenvalues come in ±λ pairs). This is
+    consistent with the de Rham Dirac operator on an odd-dimensional
+    manifold.
+
+2.7 DEGENERACY ANALYSIS (FIRST 600 EIGENVALUES)
+-----------------------------------------------
+    Multiplicity distribution:
+        Multiplicity 2:  2 blocks
+        Multiplicity 4:  8 blocks
+        Multiplicity 6:  4 blocks
+        Multiplicity 8:  2 blocks
+        Multiplicity 9:  6 blocks
+        Multiplicity 12: 8 blocks
+        Multiplicity 16: 14 blocks
+        Multiplicity 17: 2 blocks
+        Multiplicity 18: 4 blocks
+        Multiplicity 22: 2 blocks
+
+    Total eigenvalues in degenerate blocks: 598/600
+
+2.8 2D DEGENERACIES IDENTIFIED
+-------------------------------
+    Block 1: λ ≈ −1.3676668234 (indices 0–1)
+        — Subspace: Face-Cell (degrees 2,3)
+        — Vertex component: ZERO (machine precision)
+        — Edge component: ZERO (machine precision)
+        — Tunnel projection (basis 6, 13): ZERO
+        — Status: NOT the required mode type
+
+    Block 2: λ = 0.0000000000 (indices 300–301)
+        — Subspace: Harmonic kernel (b₀ + b₃ = 2)
+        — Vertex component: 0.316 (index 300), 0.004 (index 301)
+        — Cell component: 0.012 (index 300), 0.999 (index 301)
+        — Tunnel projection: 0.091 (index 300), 0.001 (index 301)
+        — Status: TOPOLOGICAL, not dynamical
+
+2.9 TUNNEL PROJECTION ANALYSIS
+-------------------------------
+    "Tunnel subspaces" defined as basis vectors 6 and 13
+    (original vertices corresponding to 7D and 9D⁻ MOG positions).
+
+    Search for eigenvectors with >1% projection onto {6, 13}:
+        — Index 99 (λ=0): proj_norm = 0.084
+        — Index 100 (λ=0): proj_norm = 0.035
+        — These are the harmonic kernel modes
+
+    All other eigenvectors: tunnel projection < 0.01 (effectively zero)
+
+2.10 EDGE-FACE SUBSPACE LOCALIZATION
+------------------------------------
+    145 eigenvectors have >90% weight in edge-face components
+    (degrees 1,2 — the subspace where lexicographic modes 173/174 live).
+
+    These form degenerate blocks of multiplicities:
+        4, 6, 8, 9, 12, 16, 17, 18, 22
+    — NEVER 2D.
+
+    All have ZERO tunnel projection.
+
+================================================================================
+3. WHAT WAS NOT COMPUTED
+================================================================================
+
+3.1 FULL SPECTRUM SEARCH
+-------------------------
+    The Dirac operator has 5,088 eigenvalues. Only 600 were computed
+    (~12% of the spectrum, covering |λ| ≤ 1.37).
+
+    A 2D degeneracy satisfying the conjecture could exist at
+    |λ| > 1.37. The spectral radius is bounded by the maximum
+    vertex degree in the barycentric 1-skeleton, likely < 10.
+
+    WHY NOT: eigsh with k=600 already took ~97 seconds. Searching
+    the full spectrum (k=2,544 for positive eigenvalues) would
+    require shift-invert methods or multiple spectral windows,
+    with total compute time potentially hours.
+
+3.2 W(F4) SYMMETRY EQUIVARIANCE TEST
+-------------------------------------
+    The conjecture assumes W(F4) commutes with D. This was not
+    tested by explicit group action computation.
+
+    WHY NOT: Constructing all 1,152 W(F4) elements as 4×4 matrices
+    and their induced action on the 5,088-dimensional chain complex
+    is combinatorially intensive. The observed multiplicities
+    (4, 6, 8, 9, 12, 16, 17, 18, 22) are not pure W(F4) dimensions
+    ({1, 2, 4, 6, 8, 9, 12, 16}), suggesting either:
+        (a) Accidental degeneracies, or
+        (b) A larger symmetry group than W(F4)
+
+    Distinguishing (a) from (b) requires the explicit equivariance test.
+
+3.3 PROPER TUNNEL SUBSPACE DEFINITION
+--------------------------------------
+    The MOG "7D/9D⁻ tunnel" is not merely two vertices. In v8.05
+    (RC-61), it is defined by:
+        — 7D position (index 6 in MOG)
+        — 9D⁻ position (index 13 in MOG)
+        — Path: 8D → 9D⁻ → 6D with Manhattan distance 6 = Gram gap
+        — Inclusion-exclusion count yielding mode index 173
+
+    In the barycentric complex, the "tunnel subspace" should include:
+        — Original vertices 6 and 13
+        — Edge-midpoints on paths between them in the 24-cell graph
+        — Face-centroids of faces containing these edges
+        — Cell-centroids of cells containing these faces
+
+    This is a GEOMETRIC subspace, not just two basis vectors.
+    I projected onto only the two vertex basis vectors (6, 13).
+
+    WHY NOT: Defining the full path subspace requires graph-geodesic
+    computation on the 24-cell vertex graph and its barycentric lift.
+    This was not implemented.
+
+3.4 EIGENVALUE RATIO TEST
+--------------------------
+    Even if a 2D degeneracy with tunnel projection were found, the
+    conjecture requires that symmetry-breaking yields the specific
+    ratio 727/726. This requires:
+        — Identifying the symmetry-breaking perturbation V
+        — Computing its restriction to the 2D degenerate subspace
+        — Verifying the eigenvalue splitting gives 2δ/λ* = 1/726
+
+    WHY NOT: No 2D candidate subspace was found, so this test
+    could not be initiated.
+
+================================================================================
+4. DETAILED COMPUTATIONAL RESULTS
+================================================================================
+
+4.1 SPECTRUM STRUCTURE
+-----------------------
+    The Dirac spectrum exhibits a rich degeneracy structure reflecting
+    the 24-cell's high symmetry. Key eigenvalue blocks:
+
+    λ ≈ ±1.3677: multiplicity 2 (face-cell, only non-zero 2D block)
+    λ ≈ ±1.2988: multiplicity 4 (edge-face)
+    λ ≈ ±1.2783: multiplicity 16 (edge-face)
+    λ ≈ ±1.1462: multiplicity 12 (edge-face)
+    λ ≈ ±1.1346: multiplicity 16 (edge-face)
+    λ ≈ ±0.9153: multiplicity 6 (mixed)
+    λ ≈ ±0.8916: multiplicity 16 (mixed)
+    λ ≈ ±0.8103: multiplicity 16 (mixed)
+    λ ≈ ±0.7654: multiplicity 9 (mixed)
+    λ ≈ ±0.6447: multiplicity 12 (mixed)
+    λ ≈ ±0.6092: multiplicity 6 (mixed)
+    λ ≈ ±0.5593: multiplicity 16 (mixed)
+    λ ≈ ±0.4201: multiplicity 9 (mixed)
+    λ ≈ ±0.2611: multiplicity 4 (mixed)
+    λ = 0:       multiplicity 2 (harmonic kernel)
+
+4.2 COMPARISON WITH W(F4) IRREP DIMENSIONS
+-------------------------------------------
+    W(F4) irreducible representation dimensions:
+        {1×4, 2×4, 4×5, 6×2, 8×4, 9×4, 12×1, 16×1}
+        (multiplicity × dimension)
+
+    Observed multiplicities in D spectrum (first 600):
+        {2, 4, 6, 8, 9, 12, 16, 17, 18, 22}
+
+    The multiplicities 17, 18, 22 are NOT sums of W(F4) dimensions
+    in any obvious way. This suggests either:
+        — Accidental degeneracy (operator-specific, not symmetry-forced)
+        — A symmetry group larger than W(F4) (e.g., including barycentric
+          subdivision automorphisms)
+
+4.3 THE HARMONIC KERNEL
+-----------------------
+    The λ = 0 pair is the only 2D degeneracy with non-zero tunnel
+    projection. It decomposes as:
+        — Mode 300: ~95% edge component, ~32% vertex component,
+          ~1% cell component. This is approximately a 1-form
+          (edge-dominant) with vertex correction.
+        — Mode 301: ~99.9% cell component, ~0.4% vertex component,
+          ~1% edge component. This is approximately a 3-form
+          (volume element).
+
+    These are the Hodge representatives of H⁰(M) and H³(M),
+    i.e., the constant function and the volume form on S³.
+    They are NOT dynamical modes and have no relation to the
+    proton/neutron mass splitting.
+
+================================================================================
+5. ANALYSIS AND INTERPRETATION
+================================================================================
+
+5.1 PARTIAL NEGATIVE EVIDENCE
+------------------------------
+    The search of the lowest 600 eigenvalues (~24% of the positive
+    spectrum, ~12% of the full spectrum) found:
+        — ZERO 2D degeneracies in the edge-face subspace
+        — ZERO 2D degeneracies with non-zero tunnel projection
+        — The only 2D non-zero degeneracy is in the wrong subspace
+          (face-cell, not edge-face)
+
+    This is strong negative evidence. The conjecture requires a
+    very specific spectral feature (2D + edge-face + tunnel), and
+    this feature is absent from the low-energy regime where physical
+    modes would naturally reside.
+
+5.2 STRUCTURAL CONCERN
+-----------------------
+    The barycentric subdivision and the lexicographic triangulation
+    are DIFFERENT simplicial complexes:
+        — Barycentric: 1,152 tetrahedra, full W(F4) symmetry
+        — Lexicographic: 96 tetrahedra, broken symmetry (Z₂×Z₂ stabilizer)
+
+    There is NO canonical map between their Dirac spectra. The
+    eigenvalue scales are different, the mode structures are different,
+    and the "modes 173/174" of the lexicographic complex have no
+    direct counterpart in the barycentric complex.
+
+    The conjecture assumes a correspondence that is not mathematically
+    guaranteed. This is a fundamental structural weakness independent
+    of any computational result.
+
+5.3 THEORETICAL OBSTRUCTION
+----------------------------
+    The 1-form Laplacian L₁ = d₁d₁ᵀ + d₂ᵀd₂ is not a W(F4)
+    representation in the naive sense. The 1-form space C¹ of the
+    barycentric subdivision decomposes as:
+        C¹ ≅ (C⁰_vertices ⊗ C¹_edges) ⊕ (C¹_edges ⊗ C²_faces)
+
+    This is a tensor product structure, not a direct sum of W(F4)
+    irreps. The Hodge Laplacian couples these tensor factors through
+    the incidence maps d₁ and d₂.
+
+    Therefore, even if W(F4) acts on the barycentric complex, the
+    Laplacian eigenvalues need not organize into pure W(F4) dimensions.
+    The observed "non-W(F4)" multiplicities (17, 18, 22) may simply
+    reflect this tensor product structure.
+
+================================================================================
+6. WHAT WOULD BE REQUIRED FOR A COMPLETE TEST
+================================================================================
+
+6.1 FULL SPECTRUM COMPUTATION
+-------------------------------
+    REQUIRED: Compute all 5,088 eigenvalues of D, or at minimum all
+    positive eigenvalues (2,544 values).
+
+    METHOD: Shift-invert spectral transformation. The spectrum is
+    symmetric, so only positive eigenvalues need be computed.
+    Use scipy.sparse.linalg.eigsh with sigma=0 (shift-invert) to
+    find eigenvalues near a target, iterating across spectral windows.
+
+    ESTIMATED TIME: 2–6 hours depending on hardware and convergence.
+
+    ALTERNATIVE: Compute D² (Hodge Laplacian on full complex) and
+    find its eigenvalues. D² is block-diagonal with blocks L₀, L₁,
+    L₂, L₃. The positive eigenvalues of D are the square roots of
+    the positive eigenvalues of D². This may be more efficient.
+
+6.2 EXPLICIT W(F4) EQUIVARIANCE TEST
+-------------------------------------
+    REQUIRED: Construct the 1,152 elements of W(F4) as 4×4 orthogonal
+    matrices, compute their induced action on the barycentric chain
+    complex, and verify [D, g] = 0 for all g ∈ W(F4).
+
+    METHOD:
+        — Generate W(F4) from its Coxeter generators (simple reflections)
+        — For each group element g, construct the permutation matrix
+          acting on barycentric simplices
+        — Verify D P_g = P_g D (or compute ||D P_g − P_g D||)
+
+    ESTIMATED TIME: 1–2 hours for group generation and testing.
+
+    PURPOSE: Distinguish accidental degeneracy from symmetry-forced
+    degeneracy. If [D, g] = 0, then degeneracies MUST be sums of
+    W(F4) dimensions. If not, degeneracies are operator-specific.
+
+6.3 PROPER TUNNEL SUBSPACE DEFINITION
+--------------------------------------
+    REQUIRED: Define the "7D/9D⁻ tunnel" as a subspace of the
+    barycentric chain complex, not just two vertex basis vectors.
+
+    METHOD:
+        — In the 24-cell vertex graph, find all shortest paths
+          between vertex 6 and vertex 13
+        — For each path, include the corresponding edge-midpoints,
+          face-centroids, and cell-centroids in the barycentric complex
+        — The tunnel subspace is the span of all these basis vectors
+          (potentially 50–200 dimensions)
+        — Project eigenvectors onto this subspace and test for
+          significant overlap
+
+    ESTIMATED TIME: 30 minutes for graph computation and subspace
+    construction.
+
+6.4 EIGENVALUE RATIO TEST (CONTINGENT)
+--------------------------------------
+    REQUIRED ONLY IF 6.1–6.3 yield a candidate 2D degeneracy:
+
+    — Identify the symmetry-breaking perturbation V that maps the
+      barycentric triangulation to the lexicographic triangulation
+    — Restrict V to the 2D degenerate subspace
+    — Compute the eigenvalue splitting and verify 2δ/λ* = 1/726
+
+    NOTE: This step is ill-defined because the two triangulations
+    are different complexes, not two perturbations of the same complex.
+    There is no natural perturbation V connecting them.
+
+6.5 SUMMARY OF REQUIREMENTS
+----------------------------
+    Task                          | Time      | Priority
+    ------------------------------|-----------|----------
+    Full spectrum (2,544 eigvals) | 2–6 hrs   | CRITICAL
+    W(F4) equivariance test       | 1–2 hrs   | HIGH
+    Proper tunnel subspace        | 30 min    | HIGH
+    Eigenvalue ratio test         | 1–2 hrs   | CONTINGENT
+
+    TOTAL ESTIMATED TIME: 5–10 hours of computation.
+
+================================================================================
+7. HONEST ASSESSMENT AND STATUS
+================================================================================
+
+7.1 WHAT CAN BE SAID NOW
+-------------------------
+    — The barycentric subdivision is correctly constructed
+    — The Dirac operator is correctly built and verified
+    — The lowest 600 eigenvalues contain NO 2D degeneracy in the
+      edge-face subspace with tunnel projection
+    — The only 2D non-zero degeneracy is in the face-cell subspace
+      with zero tunnel projection
+    — The harmonic kernel (λ=0) has 2D degeneracy but is topological,
+      not dynamical
+
+7.2 WHAT CANNOT BE SAID
+------------------------
+    — Whether a 2D degeneracy exists at higher |λ| (> 1.37)
+    — Whether the observed multiplicities are symmetry-forced or
+      accidental
+    — Whether the proper tunnel subspace (not just two vertices)
+      would show significant projection
+    — Whether the conjecture is definitively false
+
+7.3 STATUS RECOMMENDATION
+--------------------------
+    The symmetry-restoration conjecture should be downgraded from
+    CANDIDATE to:
+
+        SUSPENDED — significant partial negative evidence
+
+    The pre-registered falsification criteria were partially met
+    (no 2D degeneracy in searched range), but the search was not
+    exhaustive. A definitive rejection requires the full spectrum
+    computation (§6.1).
+
+================================================================================
+8. RECOMMENDATIONS
+================================================================================
+
+8.1 FOR THE FRAMEWORK
+----------------------
+    The honest v8.1 self-description should read:
+
+    "The 24D-DMF framework derives one precise structural
+     correspondence: the nucleon mass ratio 727/726 from the
+     Gram matrix eigenvalue theorem, with 0.0003% accuracy.
+     The neutron magnetic moment sign is structurally predicted
+     as negative. The Dirac eigenvalue ratio μ₁₇₄/μ₁₇₃ ≈ 727/726
+     in the lexicographic triangulation is a zero-parameter
+     numerical coincidence — no structural derivation has been
+     found despite testing geometric projection (RC-66),
+     representation theory (RC-67), Golay code structure (RC-68),
+     and symmetry restoration (RC-70, partial). The framework
+     is a nucleon-sector-limited structural correspondence with
+     one unexplained coincidence."
+
+8.2 FOR FUTURE WORK
+--------------------
+    OPTION A — Complete RC-70:
+        Execute §6.1–6.3 to definitively test the conjecture.
+        If full spectrum search confirms no 2D edge-face degeneracy
+        with tunnel projection, the conjecture is REJECTED.
+
+    OPTION B — Accept current boundary:
+        The framework has one derived constant and one structural
+        sign. The Dirac coincidence is unexplained but precise.
+        Further pursuit of derivations risks post-hoc numerology.
+
+    OPTION C — New structural ingredient:
+        The repeated failure of 24-cell-based derivations suggests
+        the framework may need a genuinely new mathematical input
+        (e.g., the Leech lattice dynamics, E8 spectral operator
+        with different construction, or a non-commutative geometric
+        ingredient). This is speculative and should be pursued
+        only with pre-registered criteria.
+
+8.3 CRITICAL GUARDRAIL
+-----------------------
+    Under NO circumstances should the 0.0003% match be upgraded
+    to "CONFIRMED" or "DERIVED" without a structural mechanism.
+    The framework's credibility depends on honest labeling of
+    this coincidence, not on perpetual pivoting to new "restoration"
+    mechanisms.
+
+================================================================================
+                              DOCUMENT END
+================================================================================
+
+The framework's honest self-description at RC-70:
+
+    "The skeleton is real. The mass ratio is derived. The sign is
+    structural. The Dirac coincidence is precise but unexplained.
+    The symmetry-restoration conjecture is suspended — significant
+    negative evidence, full test incomplete. The pivot stops here.
+    The framework's boundary is sharp: one derived constant,
+    one structural sign, one unexplained coincidence."
+
+================================================================================

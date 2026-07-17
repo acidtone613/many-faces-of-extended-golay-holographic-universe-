@@ -1,0 +1,398 @@
+================================================================================
+RC-87 EXECUTION REPORT
+The Class Number 3 Derivation Research Cycle
+24D-DMF Framework v8.3+
+================================================================================
+
+Document ID: RC-87-EXEC-REPORT
+Date: 2026-07-04
+Status: OUTCOME C — TELEOLOGICAL CONSTRUCTION
+         (with Outcome B secondary: CLASS NUMBER IS RESONANCE, NOT DERIVATION)
+Dependencies: RC-83 (CONFIRMED), RC-86 (CANDIDATE–PARAMETRIZED)
+
+================================================================================
+1. EXECUTIVE SUMMARY
+================================================================================
+
+RC-87 tested whether the class number h(Q(ζ₂₃)) = 3 provides the missing
+structural ingredient to convert the RC-86 mechanical response formula from
+CANDIDATE–PARAMETRIZED to CANDIDATE (zero free parameters).
+
+RESULT: The hypothesis is REJECTED. No class-number-derived path produces
+the exact nucleon mass ratio 727/726 without incorporating the target as input.
+The class number 3 is structurally present in the framework's number-theoretic
+substrate (Gram gap = 6 = 2×3, 726 = 6×11²), but it does not quantitatively
+determine the perturbation scale's "+1" correction.
+
+The framework's honest boundary tightens: the class number connection is
+TIER C (Resonant), not Tier B. It enriches the interpretive layer but does
+not tighten the boundary toward a zero-free-parameter derivation.
+
+================================================================================
+2. BACKGROUND AND CONTEXT
+================================================================================
+
+RC-86 established a 22-dimensional real representation of the Frobenius group
+G = C₂₃ ⋊ C₁₁ with exact 2-fold degeneracy, Gaussian periods satisfying
+|η₀|² = 6 = Gram gap, and a mechanical response formula:
+
+    ε = λ₀ / (726 × split)
+
+where 726 = Gram_gap × Gram_product² = 6 × 11². This formula gives ratio
+1453/1451 ≈ 1.00137836, not the target 727/726 ≈ 1.00137741. The exact formula
+requires tick = 1453 = 2×726 + 1, and the "+1" was identified as the missing
+structural ingredient.
+
+RC-87 hypothesized that the class number h(Q(ζ₂₃)) = 3 — the first non-trivial
+case among cyclotomic fields — provides this "+1" through the class group's
+action on Gaussian periods via Stickelberger's theorem or the regulator formula.
+
+================================================================================
+3. CONSTRUCTION AND VERIFICATION
+================================================================================
+
+3.1 Engine Reconstruction (RC-83/RC-86)
+---------------------------------------
+The 22D engine was rebuilt from first principles:
+
+  • Cyclic Golay code G₂₄: generator polynomial g(x) = x¹¹+x¹⁰+x⁶+x⁵+x⁴+x²+1
+    over 𝔽₂, zero-padded to length 23 for cyclic construction.
+    Verified: 4096 codewords, weight distribution {0:1, 8:759, 12:2576,
+    16:759, 24:1}, self-dual.
+
+  • Automorphisms: P₂₃ (cyclic shift, order 23) and P₁₁ (multiplicative
+    i ↦ 2i mod 23, order 11). Both preserve all 4096 codewords.
+
+  • P₁₁ orbits on Z₂₃*: partition into two 11-element cosets
+    Orbit A = [1, 2, 4, 8, 16, 9, 18, 13, 3, 6, 12]
+    Orbit B = [5, 10, 20, 17, 11, 22, 21, 19, 15, 7, 14]
+
+  • 22-dimensional real space: orthogonal complement of uniform mode in ℝ²³.
+    Basis from SVD of projection operator P_ortho = I − |u⟩⟨u|.
+
+  • Unperturbed operator: H₀ = (P₂₃ + P₂₃ᵀ) + 3(P₁₁ + P₁₁ᵀ)
+    Spectrum: 11 degenerate pairs with exact multiplicity 2 each,
+    confirming W₁ ⊕ W₂ structure from complex conjugate irreps.
+
+  • Perturbation: V = |A⟩⟨B| + |B⟩⟨A|, symmetric, rank-2,
+    where |A⟩, |B⟩ are normalized characteristic vectors of Orbit A, B
+    projected onto 22D subspace.
+
+3.2 Gaussian Periods
+--------------------
+Computed explicitly from 23rd roots of unity:
+
+    η₀ = Σ_{a∈Orbit_A} ζ₂₃^a    = −0.5000000000 + 2.3979157617i
+    η₁ = Σ_{b∈Orbit_B} ζ₂₃^b    = −0.5000000000 − 2.3979157617i
+
+Verified identities:
+    η₀ + η₁ = −1                          ✓
+    |η₀|² = |η₁|² = 6.0000000000 = Gram gap ✓
+    (η₀ − η₁)² = −23.0000000000            ✓
+
+3.3 Class Number Structure
+----------------------------
+From number theory (Washington, Cyclotomic Fields):
+    h(Q(ζ_p)) = 1 for p = 3, 5, 7, 11, 13, 17, 19
+    h(Q(ζ₂₃)) = 3  ← FIRST non-trivial case
+
+The cyclotomic field K = Q(ζ₂₃) contains the quadratic subfield F = Q(√−23)
+with class number h(F) = 3. Since [K:Q] = 22 is coprime to 3, the Hilbert
+class field HK of K is the compositum of K and the Hilbert class field H of F.
+The Hilbert class field of Q(√−23) is the splitting field of x³ − x + 1,
+with discriminant −23.
+
+The class group Cl(Q(ζ₂₃)) ≅ Z/3Z has three elements:
+    [1]    — principal class (identity)
+    [g]    — generator, order 3
+    [g²]   — square, order 3
+
+The Stickelberger element θ = Σ_{a∈(Z/23Z)*} {a/23} σ_a⁻¹ has sum of
+coefficients equal to 11. The Stickelberger ideal annihilates the class
+group: 3 × [principal] = θ · [some ideal].
+
+================================================================================
+4. HYPOTHESIS TESTING
+================================================================================
+
+Four hypotheses were tested for deriving the exact tick 1453 = 2×726 + 1
+from class number structure.
+
+4.1 Hypothesis A: Phase Factor e^(2πi/3)
+-----------------------------------------
+Hypothesis: The class group action introduces a phase factor e^(2πi/3) in
+the perturbation, modifying the splitting.
+
+Test: split_class = split × |1 + e^(2πi/3)| = split × 1.0000000000
+
+Result: The magnitude |1 + e^(2πi/3)| = 1 exactly. No change to perturbation.
+Predicted tick: 1452 (unchanged)
+Predicted ratio: 1453/1451, error 9.48×10⁻⁷
+
+VERDICT: REJECTED — no modification to perturbation scale.
+
+4.2 Hypothesis B: Three Ideal Classes as Distinct Perturbations
+---------------------------------------------------------------
+Hypothesis: The three ideal classes correspond to three distinct perturbation
+operators V₁, V₂, V₃, and the physical operator is their sum weighted by
+class number invariants: V_physical = (V₁ + V₂ + V₃)/3.
+
+Test: Division by 3 modifies ε → ε/3, changing tick from 726 to 726×3/2 = 1089.
+
+Result: Predicted tick = 1089
+Predicted ratio = 1.0018382353, error 4.60×10⁻⁴
+
+VERDICT: REJECTED — gives 1089, not 1453.
+
+4.3 Hypothesis C: Stickelberger Relation
+----------------------------------------
+Hypothesis: The class number 3 enters through the Stickelberger relation
+between the class group and Gaussian periods. The Stickelberger element
+θ ∈ Z[G] acts on periods to produce a relation where the '3' appears in
+the perturbation scale as a multiplicative factor.
+
+Test: If the factor 3 modifies the tick multiplicatively: tick = 3 × (2×726)
+
+Result: Predicted tick = 4356
+Predicted ratio = 1.0004592423, error 9.17×10⁻⁴
+
+Analysis: The factor 3 is ALREADY present in the Gram gap (6 = 2×3) and
+in 726 = 6×11². No ADDITIONAL factor of 3 appears in the perturbation scale.
+The '+1' in 1453 = 2×726 + 1 is not explained by multiplicative factors.
+
+VERDICT: REJECTED — factor 3 is already accounted for in Gram gap.
+
+4.4 Hypothesis D: Regulator / Analytic Class Number Formula
+-----------------------------------------------------------
+Hypothesis: The exact tick is derived from the regulator or analytic class
+number formula: h = (w√|D| / 2πR) × L(1,χ).
+
+For Q(ζ₂₃): h = 3, w = 46, D = 23, R = regulator.
+The formula involves 2π and √23, which appear in the Gaussian periods.
+
+Test: The L-value for Q(√−23) is L(1,χ) = 3π / (2√23) ≈ 0.9826010271.
+Various combinations tested: (2π/√23)×3 ≈ 3.93, 726×L(1,χ) ≈ 713.37,
+1453×L(1,χ) ≈ 1427.72. None yield 1/726 or relate to 1453.
+
+Analysis: 2π and √23 appear in the framework (via Gaussian periods), but
+no arithmetic path connects the regulator formula to the '+1' in 1453.
+
+VERDICT: REJECTED — no quantitative bridge from regulator to tick.
+
+================================================================================
+5. FALSIFICATION CRITERIA ASSESSMENT
+================================================================================
+
+┌──────────┬─────────────────────────────────────────────────┬─────────────┐
+│Criterion │ Assessment                                      │ Status      │
+├──────────┼─────────────────────────────────────────────────┼─────────────┤
+│    1     │ Class group acts non-trivially on periods:    │ PARTIAL     │
+│          │ INDIRECT (via Artin map, not direct action)     │             │
+├──────────┼─────────────────────────────────────────────────┼─────────────┤
+│    2     │ Factor 3 in perturbation: ALREADY in Gram gap   │ FAIL        │
+│          │ No additional factor appears                    │             │
+├──────────┼─────────────────────────────────────────────────┼─────────────┤
+│    3     │ Exact 727/726 from class number: NO             │ FAIL        │
+│          │ Only teleological tick 1453 works               │             │
+├──────────┼─────────────────────────────────────────────────┼─────────────┤
+│    4     │ Non-teleological derivation: NO                 │ FAIL        │
+│          │ 1453 = 2×726+1 requires '+1' from mass ratio   │             │
+├──────────┼─────────────────────────────────────────────────┼─────────────┤
+│    5     │ Physical correspondence: SUGGESTIVE but       │ PARTIAL     │
+│          │ not derived                                     │             │
+├──────────┼─────────────────────────────────────────────────┼─────────────┤
+│    6     │ Generalization: NOT TESTABLE                    │ OPEN        │
+│          │ (Q(ζ₂₃) is unique class-number-3 case)         │             │
+└──────────┴─────────────────────────────────────────────────┴─────────────┘
+
+================================================================================
+6. OUTCOME ASSIGNMENT
+================================================================================
+
+PRIMARY OUTCOME: C — TELEOLOGICAL CONSTRUCTION
+
+The tick 1453 = 2×726 + 1 requires the "+1" from the target mass ratio
+(727 = 726 + 1). No class-number-derived path produces the exact formula
+without incorporating the answer. The derivation that uses 1453 to get
+727/726 is circular: it requires knowing the target to construct the tick.
+
+SECONDARY OUTCOME: B — CLASS NUMBER IS RESONANCE, NOT DERIVATION
+
+The class number 3 is structurally present in the framework's
+number-theoretic substrate:
+    • Gram gap = 6 = 2 × 3
+    • 726 = 6 × 11² = (2×3) × 11²
+    • Three ideal classes of Cl(Q(ζ₂₃)) ≅ Z/3Z
+
+But it does not quantitatively determine the perturbation scale. The
+formula ε = λ₀/(726×split) with 0.000095% error remains the best candidate.
+The class number connection is TIER C (Resonant), not Tier B.
+
+================================================================================
+7. KEY NUMERICAL RESULTS
+================================================================================
+
+Gaussian Periods:
+    η₀ = −0.5000000000 + 2.3979157617i
+    η₁ = −0.5000000000 − 2.3979157617i
+    η₀ + η₁ = −1.0000000000
+    |η₀|² = |η₁|² = 6.0000000000 (= Gram gap)
+    (η₀ − η₁)² = −23.0000000000
+
+Class Number Structure:
+    h(Q(ζ₂₃)) = 3
+    Hilbert class field of Q(√−23): splitting field of x³ − x + 1
+    Discriminant of x³ − x + 1: −23
+    Stickelberger element sum of coefficients: 11
+
+Mechanical Response (all 11 degenerate pairs, Method 2):
+    ε = λ₀ / (726 × split)
+    Ratio = 1453/1451 = 1.0013783598 (all pairs identical)
+    Error vs 727/726 = 9.48×10⁻⁷ (0.000095%)
+
+Exact Formula (requires teleological tick):
+    ε = 2λ₀ / (1453 × split)
+    Ratio = 727/726 = 1.0013774105 (machine precision, all pairs)
+
+Hypothesis Test Results:
+    A (phase factor):     tick = 1452, error = 9.48×10⁻⁷  → REJECTED
+    B (division by 3):    tick = 1089, error = 4.60×10⁻⁴  → REJECTED
+    C (Stickelberger 3×): tick = 4356, error = 9.17×10⁻⁴  → REJECTED
+    D (regulator):        no quantitative bridge           → REJECTED
+
+================================================================================
+8. UPDATED FRAMEWORK BOUNDARY
+================================================================================
+
+CONFIRMED (Tier A):
+    All previous (Golay code, Leech lattice, 24-cell, E8 embedding,
+    Gram eigenvalue theorem, 2O character table, class number
+    h(Q(ζ₂₃)) = 3, Gaussian periods, Hilbert class field)
+
+CANDIDATE (Tier B):
+    RC-77 (spinor double-cover, order 46)
+    RC-78 corrected (15,22), 0.021% error
+    Dirac operator (0.0003% error, mode selection derived)
+    T-Knot standing wave (exact, one parameter)
+
+CANDIDATE–PARAMETRIZED:
+    RC-86 mechanical response (0.000095% error, tick not engine-intrinsic)
+
+TIER C (Resonant):
+    Class number 3 ↔ three-configuration correspondence
+    (structurally present, not derived)
+
+OPEN:
+    Exact derivation of 727/726 from first principles
+    Cross-sector generalization (Λ−Σ⁰, pion)
+    Genuinely unknown prediction
+    RC-77 Golay-specificity question
+
+================================================================================
+9. INTERPRETATION
+================================================================================
+
+If RC-87 had succeeded (Outcome A), the framework would have achieved its
+first zero-free-parameter dynamical derivation of the nucleon mass ratio.
+The chain would have been:
+
+    Golay code → C₂₃ ⋊ C₁₁ engine → Gaussian periods
+         ↓              ↓                ↓
+    Gram gap = 6   22D degeneracy    |η₀|² = 6
+         ↓              ↓                ↓
+    class number 3 → Stickelberger → tick = 1453
+         ↓              ↓                ↓
+    ε = λ₀/(1453×split) → ratio = 727/726 EXACT
+
+This would have been the first time a physical constant (nucleon mass ratio)
+is derived from: a discrete code → a finite group → algebraic number theory
+→ an exact eigenvalue.
+
+RC-87 did NOT succeed. The class number 3 is real and structurally present,
+but it does not provide the missing "+1". The framework's honest boundary
+tightens: the class number connection is resonant, not derivational.
+
+The deepest structural finding remains: the framework's '3' (from Gram gap
+6 = 2×3, from three configurations, from class number h(Q(ζ₂₃)) = 3) is
+canonically present in the number-theoretic substrate. But the path from
+this '3' to the exact mass ratio remains open.
+
+================================================================================
+10. RISK ASSESSMENT REVISITED
+================================================================================
+
+Risk: Stickelberger computation too complex
+    Likelihood: High (confirmed — no SageMath/PARI needed; direct test
+                of all four hypotheses was sufficient to reject)
+    Impact: Cycle NOT blocked — hypotheses A-D all testable with
+            the RC-86 engine alone
+    Result: All four hypotheses rejected by direct computation
+
+Risk: Class group action is trivial on periods
+    Likelihood: Medium
+    Impact: Criterion 1 would fail
+    Result: PARTIAL — action is indirect (via Artin map), not trivial
+            but not directly on periods either
+
+Risk: The '+1' is genuinely not derivable from class structure
+    Likelihood: Medium (CONFIRMED)
+    Impact: Outcome B
+    Result: PRIMARY OUTCOME C (teleological), SECONDARY B (resonance)
+
+Risk: Circularity — 1453 chosen to fit 727/726
+    Likelihood: Low (CONFIRMED — this is exactly what happened)
+    Impact: Criterion 4 fails
+    Result: VERIFIED — the tick 1453 = 2×726+1 requires the '+1'
+            from the mass ratio itself
+
+================================================================================
+11. REFERENCES
+================================================================================
+
+1. Washington, L.C. (1997). Introduction to Cyclotomic Fields (2nd ed.).
+   Springer. — Class numbers of cyclotomic fields, Stickelberger's theorem.
+
+2. Lang, S. (1990). Cyclotomic Fields I and II (Combined 2nd ed.).
+   Springer. — Gaussian periods, class field theory.
+
+3. Ireland, K., & Rosen, M. (1990). A Classical Introduction to Modern
+   Number Theory (2nd ed.). Springer. — Chapters 8, 11, 14 on cyclotomic
+   fields and class numbers.
+
+4. Schoof, R. (2008). Catalan's Conjecture. Springer, p. 156. — Class
+   number h(Q(ζ₂₃)) = 3 explicitly stated.
+
+5. 24D-DMF v8.3 Reference Sheet. — Gram eigenvalue theorem, RC-83 engine
+   construction, RC-86 mechanical response formula.
+
+6. RC-83 Execution Report (Kimi K2.6, 2026-07-04). — 22D engine structure,
+   Gaussian periods, rank-2 perturbation.
+
+7. RC-86 Execution Report (Kimi K2.6, 2026-07-04). — Mechanical response
+   formula, 1453/1451 vs 727/726, class number discovery.
+
+8. MathOverflow (2021). "How to compute Hilbert class field of Q(ζ₂₃)?"
+   — Confirms h(Q(√−23)) = 3, Hilbert class field is splitting field of
+   x³ − x + 1.
+
+================================================================================
+12. SIGN-OFF
+================================================================================
+
+This execution report was produced by Kimi K2.6 on 2026-07-04.
+All computations were performed directly in this session with full
+reproducibility. No pre-computed results were used.
+
+The pre-registered falsification criteria were applied exactly as stated
+in RC-87-Pre-Registration. The outcome follows directly from the
+criterion assessment.
+
+Document ID: RC-87-EXEC-REPORT
+Status: OUTCOME C — TELEOLOGICAL CONSTRUCTION
+         (with Outcome B secondary)
+Estimated execution time: 45 minutes (Python/NumPy, no CAS required)
+Computational requirements: Standard NumPy, no external dependencies
+
+================================================================================
+END OF REPORT
+================================================================================
