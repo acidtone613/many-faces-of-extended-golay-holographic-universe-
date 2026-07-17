@@ -1,0 +1,280 @@
+================================================================================
+RC-138 EXECUTION REPORT
+The Fiber Bundle Logical Encoding — Defining Logical States on the 5-Fold Axis Base
+================================================================================
+Framework: 24D-DMF v8.4.3
+Date: 2026-07-09
+Status: EXECUTED — Results Binding
+
+================================================================================
+1. EXECUTIVE SUMMARY
+================================================================================
+
+RC-138 tested whether the 24D-DMF framework supports a fiber bundle logical 
+encoding with the 6 icosahedral 5-fold axes as the base space and the (0,23) 
+phase coordinate as the fiber.
+
+PRIMARY FINDING: The fiber bundle interpretation is PARTIALLY VALID but the 
+6-axis base space is INCORRECT. The Floquet dynamics does not preserve the 
+6-axis structure; instead, it preserves the 5 orbit classes (A, B, C, D, E). 
+There is no single base space that is simultaneously preserved by both U_θ 
+and the Floquet tick.
+
+H1 (Axis permutation under Floquet): FAIL
+H2 (U_θ preserves axis assignment):   FAIL  
+H3 (Uniform phase rotation):           PASS
+H4 (Base error correction):            PASS
+
+OVERALL VERDICT: FAIL — The 5-fold axes are not the correct base space.
+
+================================================================================
+2. CONSTRUCTION VERIFICATION
+================================================================================
+
+Golay Code G24 (cyclic basis):
+  - Codewords: 4096
+  - Weight distribution: {0: 1, 8: 759, 12: 2576, 16: 759, 24: 1}
+  - Self-dual: VERIFIED
+
+Quaternion 24-Cell:
+  - Vertices: 24
+  - Hopf fibration to S²: VERIFIED
+
+Icosahedron Projection:
+  - 24 deep holes project to 12 icosahedron vertices
+  - Grouped into 6 antipodal pairs (5-fold axes)
+  - Axis structure: 6 axes, each containing 4 deep holes
+
+================================================================================
+3. THE 6-AXIS BASE STRUCTURE
+================================================================================
+
+Axis 0: DHs [0, 1, 6, 7]    (Classes: B, A, A, B)
+Axis 1: DHs [2, 3, 4, 5]    (Classes: A, C, B, D)
+Axis 2: DHs [8, 13, 18, 23] (Classes: A, C, C, E)
+Axis 3: DHs [9, 10, 21, 22] (Classes: C, B, D, B)
+Axis 4: DHs [11, 14, 17, 20](Classes: B, A, A, A)
+Axis 5: DHs [12, 15, 16, 19](Classes: C, C, B, A)
+
+CRITICAL OBSERVATION: Each axis contains deep holes from MULTIPLE orbit classes.
+For example, Axis 0 contains both Class A and Class B holes. Since the Floquet 
+tick preserves orbit classes (RC-126), it cannot preserve axes.
+
+================================================================================
+4. HYPOTHESIS RESULTS
+================================================================================
+
+--- H1: Axis Preservation Under Floquet Dynamics ---
+
+Test: Apply one Floquet tick to each deep hole, measure axis transition.
+
+Axis Transition Matrix (rows = after, cols = before):
+         A0  A1  A2  A3  A4  A5
+  A0:    0   0   0   2   2   0
+  A1:    0   0   1   0   0   3
+  A2:    1   0   1   1   1   0
+  A3:    1   1   1   0   1   0
+  A4:    2   1   1   0   0   0
+  A5:    0   2   0   1   0   1
+
+Axis-to-axis mapping:
+  Axis 0 -> {2, 3, 4}  (NON-DETERMINISTIC)
+  Axis 1 -> {3, 4, 5}  (NON-DETERMINISTIC)
+  Axis 2 -> {1, 2, 3, 4} (NON-DETERMINISTIC)
+  Axis 3 -> {0, 2, 5}  (NON-DETERMINISTIC)
+  Axis 4 -> {0, 2, 3}  (NON-DETERMINISTIC)
+  Axis 5 -> {1, 5}     (NON-DETERMINISTIC)
+
+VERDICT: FAIL — The axis map is not a permutation. Each axis splits across 
+multiple target axes because the Floquet tick preserves orbit classes, not axes.
+
+--- H2: Section Preservation by U_θ ---
+
+Test: Construct states v_a(φ) on each axis with phase φ, apply U_θ, verify 
+axis assignment is preserved.
+
+Failures: 14 of 42 test cases
+  Axis 1, φ=0.0000: 2 -> 1
+  Axis 1, φ=0.7854: 1 -> 0
+  Axis 1, φ=1.0472: 1 -> 0
+  Axis 2, φ=0.7854: 2 -> 0
+  ... (and 9 more)
+
+VERDICT: FAIL — U_θ does not preserve axis assignment for general states 
+constructed as convex combinations of deep holes on the same axis.
+
+--- H3: Uniform Phase Rotation ---
+
+Test: Measure fiber displacement δφ before and after U_θ for states on each axis.
+
+Result: Phase shift = θ ± 10⁻⁶ for ALL tested axes and phases.
+
+VERDICT: PASS — U_θ acts as a uniform phase rotation on the fiber coordinate.
+
+--- H4: Base Error Correction ---
+
+Test: Add Gaussian noise to coordinates 1-22, apply 22 Floquet ticks, measure 
+probability of returning to original axis.
+
+  σ = 0.01: 1000/1000 = 1.0000
+  σ = 0.05: 1000/1000 = 1.0000
+  σ = 0.10: 1000/1000 = 1.0000
+  σ = 0.20:  999/1000 = 0.9990
+
+VERDICT: PASS — The Floquet engine corrects base errors with >99.9% probability.
+
+================================================================================
+5. FALSIFICATION CRITERIA
+================================================================================
+
+Criterion    Description                              Result    Status
+──────────────────────────────────────────────────────────────────────────
+C1           Floquet tick permutes axes               FAIL      FAIL
+C2           U_θ preserves axis assignment            FAIL      FAIL
+C3           Uniform phase rotation                   PASS      PASS
+C4           Base error correction                      PASS      PASS
+
+Pass Condition: C1, C2, C3, and C4 all pass.
+Fail Condition: Any of C1–C4 fails.
+
+Since C1 and C2 both FAIL, the overall verdict is FAIL.
+
+================================================================================
+6. ROOT CAUSE ANALYSIS
+================================================================================
+
+The fundamental issue is a STRUCTURAL MISMATCH between two geometric structures:
+
+1. The 6-AXIS structure (from 3D icosahedron projection):
+   - Groups 24 deep holes into 6 antipodal pairs of pairs
+   - Preserved by U_θ (when axis is defined via nearest deep hole)
+   - NOT preserved by Floquet tick
+
+2. The 5 ORBIT CLASS structure (from Floquet dynamics):
+   - Groups 24 deep holes into 5 invariant sets (A:8, B:7, C:6, D:2, E:1)
+   - Preserved by Floquet tick (RC-126)
+   - NOT preserved by U_θ
+
+There is NO single base space preserved by BOTH operations.
+
+The pre-registration assumed the 6-axis structure would be the base. This was 
+incorrect because the Floquet dynamics — the "engine" of the framework — 
+operates on orbit classes, not axes.
+
+================================================================================
+7. WHAT WORKS
+================================================================================
+
+Despite the failure of the 6-axis base hypothesis, several positive results 
+were obtained:
+
+1. U_θ IS a uniform phase rotation (H3 PASS)
+   - The fiber coordinate φ = arctan2(v[23], v[0]) is well-defined
+   - U_θ shifts φ by exactly θ for all tested states
+   - This confirms the "fiber" part of the fiber bundle
+
+2. The Floquet engine DOES correct base errors (H4 PASS)
+   - Noise in coordinates 1-22 is suppressed by the dynamics
+   - The state returns to the correct axis with >99.9% probability
+   - This confirms the "error correction" part of the framework
+
+3. U_θ preserves nearest deep hole identity
+   - For deep holes themselves, U_θ maps each to a state whose nearest 
+     deep hole is the same one
+   - This is because U_θ only rotates coordinates 0 and 23, while the 
+     deep hole "marker" (-0.5 at position s) is in an unaffected coordinate
+
+================================================================================
+8. HONEST LIMITATIONS
+================================================================================
+
+1. The axis assignment for general states was defined via nearest deep hole. 
+   Alternative definitions (e.g., by 3D projection, by sign pattern) give 
+   different results. The nearest-deep-hole definition is the most natural 
+   but may not be the only valid one.
+
+2. The test states v_a(φ) were constructed as equal superpositions of deep 
+   holes on the same axis. Other constructions (weighted superpositions, 
+   states with specific coordinate patterns) might behave differently.
+
+3. The noise model for H4 used Gaussian perturbations on coordinates 1-22. 
+   Other noise models (sparse perturbations, structured noise) might yield 
+   different correction probabilities.
+
+4. The threshold 10⁻⁶ for H3 is arbitrary. The actual errors were exactly 
+   zero (machine precision), so the threshold is not a limiting factor.
+
+================================================================================
+9. CONNECTION TO FRAMEWORK HISTORY
+================================================================================
+
+| RC | Contribution | Relevance to RC-138 |
+|:---|:---|:---|
+| RC-137 | Discovered fiber bundle structure, U_θ preserves axes | Partially correct — U_θ preserves nearest DH identity |
+| RC-134 | DH23 fixed point, Class D genuine basins | Confirms orbit class structure is dynamically relevant |
+| RC-130b | 5-fold axis locality | The 6-axis structure exists geometrically but not dynamically |
+| RC-126 | Orbit class partition | The TRUE base structure — preserved by Floquet |
+| RC-124 | Color sequence injectivity | Boundary encoding works within orbit classes |
+| RC-122 | Icosahedron embedding | 12 vertices → 6 axes, but this is not the dynamical base |
+| RC-116 | Dimensional cascade | The 3D projection is just one "face" of the structure |
+| RC-110 | Floquet tick infrastructure | The engine preserves orbit classes, not axes |
+
+================================================================================
+10. POST-EXECUTION ANALYSIS (Q1–Q4)
+================================================================================
+
+Q1: What is the correct base space?
+    A: NOT the 6 axes. The 5 orbit classes are dynamically preserved but not 
+       by U_θ. The 24 deep holes themselves may be the true base, with U_θ 
+       acting on the fiber and Floquet acting on the base.
+
+Q2: Can logical states be defined as bundle sections?
+    A: Not on the 6-axis base. A section would need to assign a phase to 
+       each axis, but the axes are not preserved by the Floquet dynamics.
+       On the 24-deep-hole base, sections are trivial (one phase per hole).
+
+Q3: Does U_θ act as a logical phase gate on sections?
+    A: U_θ IS a uniform phase rotation on the fiber. If a valid base can 
+       be found, U_θ would act as R_z(θ) on the section phases.
+
+Q4: What is the error structure?
+    A: "Base errors" (orbit class transitions) are corrected by Floquet 
+       with >99.9% probability for small noise. "Fiber errors" (phase drift 
+       in (0,23) plane) are corrected by U_θ^{-1}.
+
+================================================================================
+11. NEXT STEPS
+================================================================================
+
+Per the pre-registration:
+
+Since the verdict is FAIL, the recommended next cycle is:
+
+  RC-138c: Search for a different base space
+
+Candidate base spaces to investigate:
+  (a) The 24 deep holes themselves (base = discrete set of 24 points)
+  (b) The 5 orbit classes (base = 5 points, but U_θ doesn't preserve them)
+  (c) A hybrid structure: fiber bundle over orbit classes, with sub-bundle 
+      structure within each class
+  (d) The 12 icosahedron vertices (base = 12 points, coarser than 24 holes)
+  (e) The E8 root system (from RC-116 dimensional cascade)
+
+================================================================================
+12. METHODOLOGICAL NOTES
+================================================================================
+
+All computations use exact arithmetic where possible (F2 linear algebra, 
+unit sphere normalization, exact trigonometric functions).
+
+The axis assignment function uses nearest-deep-hole matching, which is 
+computationally exact (24 distance comparisons per assignment).
+
+The phase rotation test uses direct angle measurement before and after U_θ, 
+with normalization to [-π, π].
+
+The error correction test uses fixed random seed (138) for reproducibility.
+
+================================================================================
+END OF EXECUTION REPORT
+================================================================================

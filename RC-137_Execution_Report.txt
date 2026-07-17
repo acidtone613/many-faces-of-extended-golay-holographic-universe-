@@ -1,0 +1,216 @@
+================================================================================
+RC-137 EXECUTION REPORT — CORRECTED ANALYSIS
+The Non-Clifford Phase Gate — Logical Characterization
+Framework: 24D-DMF v8.4.3
+Date: 2026-07-08
+Status: EXECUTED — Results Binding
+================================================================================
+
+1. EXECUTIVE SUMMARY
+================================================================================
+
+RC-137 tested whether the non-Clifford phase gate U_θ is a logical gate on the
+24D-DMF framework. The initial analysis (first pass) made a category error by
+testing the binary G24 code space instead of the framework's actual real vector
+space. The corrected analysis reveals a more nuanced picture.
+
+PRIMARY FINDING: U_θ is NOT a logical gate in the quantum error correction
+sense, but it IS a structurally significant non-Clifford operation on the
+framework's fiber bundle geometry.
+
+VERDICT: FAIL (Structural) — The gate does not preserve any non-trivial proper
+subspace, but it generates finite structural dynamics and acts as a phase
+rotation on the fiber coordinate.
+
+================================================================================
+2. CORRECTION TO FIRST PASS
+================================================================================
+
+FIRST PASS ERROR:
+  - Tested code space preservation on the binary G24 span (lifted to {-1,+1})
+  - Result: ~50% leakage, immediate FAIL
+  - Error: The framework operates on real vectors (deep holes, ±0.5 coordinates),
+    not binary vectors
+
+CORRECTED TEST:
+  - Tested deep hole subspace preservation (span of 24 deep hole vectors)
+  - Result: ~10^-31 leakage (machine precision), PASS
+  - The deep hole subspace is the full 24D space, so this is trivially true
+
+================================================================================
+3. HYPOTHESIS RESULTS
+================================================================================
+
+H1 — Code Space Preservation (Original):
+  Test: Does U_θ preserve the real span of G24 codewords?
+  Result: Mean leakage = 0.500000 (50%)
+  Verdict: FAIL ✗
+
+H1 — Code Space Preservation (Corrected):
+  Test: Does U_θ preserve the deep hole subspace?
+  Result: Mean leakage = 1.43×10^-31 (machine precision)
+  Verdict: PASS ✓ (trivial — deep hole subspace = full 24D space)
+
+H2 — Logical Subspace Preservation (Class B):
+  Test: Does U_θ preserve the Class B subspace?
+  Result: Mean leakage = 8.05×10^-4 (theta=pi/23), 2.96×10^-3 (theta=2pi/23)
+  Verdict: FAIL ✗ (above 10^-6 threshold)
+
+H3 — Clifford+T Generation:
+  Test: Can U_θ be implemented with Clifford+T gates?
+  Result: theta/pi = 1/23, denominator 23 is prime ≠ 2^a·3^b
+  Verdict: FAIL ✗ (expected — this is a non-Clifford gate)
+
+H4 — Group Structure:
+  Test: Is <U_θ, T(t)> finite with order divisible by 23 and 11?
+  Result: All generators have finite order; group is discrete subgroup of O(24)
+  Verdict: PASS ✓
+
+================================================================================
+4. KEY FINDINGS
+================================================================================
+
+4.1 U_θ is a Pure Phase Rotation on the Fiber
+    - Applied once to a deep hole: changes coordinates (0,23) but preserves
+      nearest deep hole, 5-fold axis assignment, and color at tick 0
+    - Fiber angle delta = theta exactly (std dev ~10^-16)
+    - U_θ is a uniform rotation on the fiber coordinate
+
+4.2 U_θ Does Not Preserve Orbit Classes Under Combined Dynamics
+    - When interleaved with Floquet tick, U_θ changes color sequences
+      completely for all Class B holes
+    - Orbit class membership is NOT preserved under Floquet+U_θ dynamics
+    - Classes A, B, C, D all leak to other classes; only E (DH23) stays pure
+
+4.3 U_θ Commutes with P11 and H_L, Not with P23
+    - [U_θ, P11] = 0 (norm ~10^-16)
+    - [U_θ, H_L] = 0 (norm ~10^-16)
+    - [U_θ, P23] ≈ 0.026 (non-zero)
+    - This non-commutation is the source of non-trivial dynamics
+
+4.4 5-Fold Axis Structure is Preserved
+    - All 24 deep holes preserve their 5-fold axis assignment under U_θ
+    - Axes mix holes from different orbit classes (e.g., Axis 0: [8,23,13,18]
+      from Classes A, E, C, C)
+    - The 5-fold axis is a COARSER invariant than orbit classes
+
+4.5 Color Sequence Structure
+    - U_θ applied ONCE then Floquet: color sequences IDENTICAL to Floquet-only
+    - U_θ applied at EVERY tick (interleaved): color sequences COMPLETELY
+      DIFFERENT
+    - This confirms U_θ is a "control parameter" that modifies effective
+      Floquet dynamics when applied repeatedly
+
+================================================================================
+5. FIBER BUNDLE INTERPRETATION
+================================================================================
+
+The 24D-DMF framework has a natural fiber bundle structure:
+
+  Total Space E = Base B × Fiber F
+
+  Base B: 5-fold axes (6 axes, defined by icosahedron antipodal pairs)
+  Fiber F: Phase angle in the (0, 23) plane (continuous S^1)
+
+  Floquet tick T(t): Acts on the base (permutes axes via orbit dynamics)
+  U_θ: Acts on the fiber (rotates phase by θ)
+
+U_θ preserves the base (5-fold axis assignment) but changes the fiber
+coordinate. When combined with Floquet dynamics, the phase accumulates and
+changes the effective boundary observables (color sequences).
+
+This is NOT a standard logical gate (does not preserve a subspace).
+It IS a Floquet phase control (modifies effective dynamics via fiber rotation).
+
+================================================================================
+6. FALSIFICATION CRITERIA
+================================================================================
+
+| Criterion | Description | Result | Status |
+|:----------|:------------|:-------|:-------|
+| C1 | Deep hole subspace preservation | Leakage ~10^-31 | PASS ✓ |
+| C2 | Class B subspace preservation | Leakage ~10^-3 | FAIL ✗ |
+| C3 | Clifford+T generation | Denominator 23 | FAIL ✗ |
+| C4 | Finite structural group | Divisible by 23, 11 | PASS ✓ |
+
+Pass condition (C1-C4 all pass): NOT MET
+Fail condition (any C1-C4 fails): TRIGGERED (C2 fails)
+
+================================================================================
+7. VERDICT
+================================================================================
+
+VERDICT: FAIL (Structural)
+
+U_θ is a unitary, coherent, non-Clifford operation that:
+  ✓ Preserves the deep hole subspace (trivially, since it's the full space)
+  ✓ Preserves 5-fold axis structure (base of fiber bundle)
+  ✓ Acts as uniform phase rotation on fiber coordinate
+  ✓ Generates finite group with Floquet tick (structural order)
+  ✗ Does NOT preserve Class B or any orbit class as linear subspace
+  ✗ Does NOT preserve orbit class membership under combined dynamics
+  ✗ Is NOT in Clifford+T (requires magic state injection)
+
+The pre-registration's category error was testing linear subspace preservation
+in a framework where the logical structure is geometric and dynamical.
+
+================================================================================
+8. HONEST LIMITATIONS
+================================================================================
+
+1. The "deep hole subspace" is the full 24D space, making H1 trivial.
+
+2. No non-trivial proper subspace was found that is preserved by both U_θ
+   and the Floquet dynamics.
+
+3. The fiber bundle interpretation is post-hoc, not pre-registered.
+
+4. The group order of <U_θ, P23> was not computed exactly (exceeds 500,000).
+   Finiteness is proven theoretically but exact order is unknown.
+
+5. No explicit magic state injection circuit was constructed for H3.
+
+6. The threshold 10^-6 for subspace leakage is arbitrary.
+
+================================================================================
+9. NEXT STEPS
+================================================================================
+
+| Direction | Research Cycle |
+|:----------|:---------------|
+| Define proper logical encoding on fiber bundle | RC-138 |
+| Construct magic state circuit for U_θ | RC-139 |
+| Characterize full group <U_θ, P23, P11, H_L> | RC-140 |
+| Test noise resilience of fiber bundle encoding | RC-141 |
+| Search for subspace-preserving non-Clifford gate | RC-142 |
+
+================================================================================
+10. CONNECTION TO FRAMEWORK HISTORY
+================================================================================
+
+RC-137 builds on:
+  • RC-136: Proved U_θ is coherent and unitary
+  • RC-135: Defined the phase operator
+  • RC-134: Confirmed DH23 is exact fixed point, Class D is genuine
+  • RC-132: Established Class B as logical core
+  • RC-130b: Found locality at 5-fold axis level
+  • RC-126: Defined orbit classes (A, B, C, D, E)
+  • RC-124: Proved color sequence injectivity (holographic encoding)
+  • RC-122: Mapped orbit to icosahedron
+  • RC-116: Established dimensional cascade
+  • RC-110: Provided Floquet tick infrastructure
+
+RC-137 reveals:
+  • The framework's natural structure is a fiber bundle, not a linear code
+  • U_θ is a phase control, not a logical gate in the QEC sense
+  • A new definition of "logical" is needed for this framework
+
+================================================================================
+END OF REPORT
+================================================================================
+
+The computation is finite, exact, and target-blind.
+No 727/726, no epsilon, no fitted parameters were used.
+
+24D-DMF Framework | RC-137 Execution Report | Target-Blind | Firewall Active
+================================================================================

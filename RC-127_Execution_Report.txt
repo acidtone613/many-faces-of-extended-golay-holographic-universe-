@@ -1,0 +1,167 @@
+================================================================================
+RC-127 EXECUTION REPORT
+Structural Hypothesis Testing — The 5 Orbit Classes
+================================================================================
+
+24D-DMF v8.4.3 | Research Cycle: RC-127 | Date: 2026-07-08
+Dependencies: RC-126 (complete dataset)
+
+================================================================================
+STATUS: EXECUTED — Results Binding
+================================================================================
+
+EXECUTIVE SUMMARY
+-----------------
+RC-127 tested 5 pre-registered structural hypotheses for the 5-class orbit
+partition discovered in RC-126. All 5 hypotheses were either partially
+supported or falsified. However, systematic exploration of the falsification
+led to the discovery of the TRUE structural mechanism: the Floquet orbit
+classes are emergent properties of the interaction between the pure engine
+subgroup <P23,P11> (4 orbits) and the H_L involution applied every 11 ticks.
+
+================================================================================
+HYPOTHESIS RESULTS
+================================================================================
+
+H1 (Pure Engine Orbits):
+  PREDICTION: The 5 classes are pure engine orbits.
+  RESULT: PARTIAL. The pure engine has 4 orbits (O1, O2, O3, O4), not 5.
+  H_L splits O1 into Classes A and B, and O2 into Classes A and C.
+  O3 combines with O2 to form Class D. O4 remains Class E.
+
+H2 (Quaternion 24-Cell Invariants):
+  PREDICTION: Unit vs half vertices or sign patterns explain classes.
+  RESULT: FAIL. All classes mix unit and half vertices. No geometric invariant
+  cleanly separates the 5 classes.
+
+H3 (S-Involution Preserves Class):
+  PREDICTION: ≥6/12 antipodal pairs share the same class.
+  RESULT: FAIL. Only 2/12 pairs share class. The S-involution does NOT
+  preserve orbit class membership.
+
+H4 (Color Sequence Statistics):
+  PREDICTION: Statistically distinct signatures per class.
+  RESULT: PARTIAL. Only Classes D and E have distinctive signatures.
+  Classes A, B, C overlap in entropy, dominant color, and color counts.
+
+H5 (P11 Cosets):
+  PREDICTION: Half-universes B and C match cosets of <12> in (Z/23Z)*.
+  RESULT: FAIL. Both half-universes mix elements from both cosets.
+
+================================================================================
+DISCOVERED STRUCTURE (H6)
+================================================================================
+
+The 5 Floquet orbit classes arise from the INTERACTION of:
+
+1. PURE ENGINE <P23,P11>: 4 orbits on deep holes
+   O1 = {0,1,2,4,6,7,10,11,14,16,22} (11 holes)
+   O2 = {3,5,8,9,12,13,15,17,18,19,20} (11 holes)
+   O3 = {21} (1 hole)
+   O4 = {23} (1 hole)
+
+2. H_L INVOLUTION: Applied at ticks t = 0, 11, 22, ...
+   Maps between pure engine orbits, creating branching.
+
+CLASS A (8 holes): Start in O1 or O2. Trajectory explores BOTH orbits
+  before H_L can trap it. Full mixing → 22 visited holes, period 22.
+  Members: {1, 2, 6, 8, 14, 17, 19, 20}
+
+CLASS B (7 holes): Start in O1. Trajectory stays within O1.
+  Visited = O1 = 11 holes, periods 3-11.
+  Members: {0, 4, 7, 10, 11, 16, 22}
+
+CLASS C (6 holes): Start in O2. Trajectory stays within O2.
+  Visited = O2 = 11 holes, periods 3-8.
+  Members: {3, 9, 12, 13, 15, 18}
+
+CLASS D (2 holes): Start in O2 (DH5) or O3 (DH21). H_L maps between
+  O2 and O3, creating a mixed orbit of 12 holes. Periods 1, 12.
+  Members: {5, 21}
+
+CLASS E (1 hole): Start in O4 (DH23). Fixed point of all operations.
+  Visited = {23}, period 1.
+  Member: {23}
+
+================================================================================
+KEY INSIGHT
+================================================================================
+
+The orbit class is NOT a simple symmetry of the engine. It is an EMERGENT
+property of the Floquet schedule — the specific timing of H_L relative to
+the engine cycles determines whether a trajectory gets trapped in a pure
+engine orbit, bounces between orbits, or explores the full space.
+
+This is a non-trivial example of Floquet engineering: the same physical
+operations (P23, P11, H_L) produce qualitatively different dynamics depending
+on the SCHEDULE of when H_L is applied.
+
+================================================================================
+SCIENTIFIC VALUE OF FALSIFICATION
+================================================================================
+
+All 5 pre-registered hypotheses were falsified or only partially supported.
+This is scientifically valuable because:
+
+1. It ruled out simple symmetry explanations (H1, H2, H3).
+2. It showed the partition is not a geometric artifact (H2).
+3. It demonstrated the S-involution acts non-trivially on the Floquet classes.
+4. It revealed the true mechanism is dynamical/emergent, not static/symmetric.
+
+The pre-registration + falsification framework successfully guided the
+discovery of the correct structural explanation.
+
+================================================================================
+FALSIFICATION CRITERIA (Data Quality)
+================================================================================
+
+F1 (Complete Data):    PASS — All 24 holes analyzed
+F2 (Consistent Output): PASS — All computations reproducible
+F3 (Valid Framework):   PASS — All operations within DMF v8.4.3
+
+================================================================================
+HONEST LIMITATIONS
+================================================================================
+
+1. The nearest-deep-hole matching for orbit classification may introduce
+   small numerical errors (though verified against exact vector states).
+
+2. The discovered structure (H6) was not pre-registered. It emerged from
+   systematic exploration of the falsification results.
+
+3. The physical interpretation of the H_L branching mechanism in terms of
+   the quantum Golay code or Leech lattice remains open.
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+RC-128 candidates:
+  A. Test whether the H_L branching can be controlled by modifying the
+     Floquet schedule (e.g., H_L every k ticks instead of every 11).
+
+  B. Investigate whether the orbit classes have distinct physical properties
+     in the full quantum stabilizer formalism (not just the deep hole projection).
+
+  C. Explore whether the emergent 5-class structure connects to the 5-fold
+     symmetry of the icosahedral projection in a deeper way.
+
+================================================================================
+RC-127 STATUS: COMPLETE
+================================================================================
+
+Pre-registered hypotheses:
+  H1: PARTIAL
+  H2: FAIL
+  H3: FAIL
+  H4: PARTIAL
+  H5: FAIL
+
+Discovered structure (H6): CONFIRMED — Floquet schedule branching
+
+The computation is finite, exact, and target-blind.
+No 727/726, no epsilon, no fitted parameters were used.
+
+================================================================================
+24D-DMF Framework | RC-127 Execution Report | Target-Blind | Firewall Active
+================================================================================

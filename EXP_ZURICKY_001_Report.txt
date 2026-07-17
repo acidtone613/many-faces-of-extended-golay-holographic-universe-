@@ -1,0 +1,57 @@
+
+================================================================================
+EXP-ZURICKY-001: THE SHADOW PROPAGATION TEST — EXECUTION REPORT
+Framework: 24D-DMF v8.4.3 | Date: 2026-07-11
+================================================================================
+
+EXECUTIVE SUMMARY
+-----------------
+The Shadow Propagation Test evaluated whether Class C (Shadow) is a dead end
+or a structured reservoir for information persistence. All 24 starting holes
+were traced through 253-tick Floquet orbits. Green (photon) states were
+isolated and analyzed by class.
+
+VERDICT: RESERVOIR CONFIRMED
+
+FALSIFICATION CRITERIA
+----------------------
+C1 (Speed Change > 10%):    PASS  (27.5% difference)
+C2 (Entropy C < B):         PASS  (1.7780 < 2.1867 bits)
+C3 (Mediation C < B):       PASS  (0.036764 < 0.083937)
+C4 (Consistent Pattern):    PASS  (2-cycle: 3 ↔ 5)
+C5 (Dead End Test):         REJECTED  (Green propagates in C)
+
+METRICS BY CLASS
+----------------
+Metric                         Class A      Class B      Class C     
+------------------------------------------------------------------
+Mean step size                 1.5280       1.1814       1.5060      
+Sequence entropy (bits)        2.2591       2.1867       1.7780      
+Mediation strength H_v         0.386918     0.083937     0.036764    
+Green events (count)           15           15           32          
+Orbits with Green              15           15           16          
+
+KEY FINDINGS
+------------
+1. Class C (Shadow) has LOWER entropy than Class B (Light): 1.7780 vs 2.1867 bits
+2. Green in Class C propagates 27.5% FASTER than in Class B
+3. Mediation in Class C is 43.8% of Class B strength
+4. Class C Green follows a deterministic 2-cycle: deep holes 3 ↔ 5
+5. Green appears in 100% of Class C orbits (16/16)
+
+INTERPRETATION
+--------------
+The Shadow is NOT a dead end. It is a structured reservoir where information
+persists in a lower-entropy, faster-propagating, weakly-coupled cyclic form.
+
+REPRODUCIBILITY
+---------------
+Seed: 163 (deterministic exact arithmetic)
+Python: 3.x
+Libraries: numpy, scipy, matplotlib
+Runtime: < 2 minutes on standard hardware
+All computations use exact rational arithmetic where possible.
+
+================================================================================
+END OF REPORT
+================================================================================

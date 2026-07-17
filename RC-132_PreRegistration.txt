@@ -1,0 +1,339 @@
+================================================================================
+RC-132 PRE-REGISTRATION
+The Universal Local Arrow Hypothesis
+Framework: 24D-DMF v8.4.3
+Date: 2026-07-08
+Status: PRE-REGISTERED — Results Binding Upon Execution
+================================================================================
+
+TITLE
+-----
+The Universal Local Arrow Hypothesis: Is the Class B Arrow of Time a
+Structural Invariant of the Golay Floquet Engine?
+
+BACKGROUND
+----------
+RC-131 (revised) falsified the global Light→Shadow entropy-flow hypothesis.
+However, post-hoc analysis connecting RC-125b (stationary weights) and RC-129
+(locality correlations) revealed a concentrated signature:
+
+  • Class B holes carry 63.6% of the stationary weight (7/11 of the visited
+    orbit, quantized to 1/11 per hole).
+  • Class B shows the strongest within-class locality correlation
+    (MOG Grid vs. boundary Hamming: r = +0.4845).
+  • The manifold speed (1.433 edges/tick) exceeds the local graph speed
+    (1.052 edges/tick) by a factor of ~1.36.
+
+This suggests the arrow of time is not a global reservoir but a LOCAL
+structure embedded in Class B. RC-132 tests whether this structure is
+UNIVERSAL (invariant under starting condition) or an artifact of the DH0
+initial state.
+
+================================================================================
+1. DEFINITIONS
+================================================================================
+
+1.1 Deep Holes
+--------------
+DH(i) for i ∈ {0, ..., 23} is the vector with all entries +0.5 except
+position i, which is −0.5.
+
+1.2 Floquet Tick
+----------------
+The tick operator at time t is:
+  T(t) = H_L^{[t mod 11 = 0]} ∘ P11 ∘ P23
+
+where:
+  • P23 is the cyclic shift on positions 0–22 (position 23 fixed).
+  • P11 is the multiplicative permutation j → 12j mod 23 (position 23 fixed).
+  • H_L is the logical Hadamard on positions 1–22 (positions 0 and 23 fixed).
+  • [condition] is 1 if true, 0 otherwise (Iverson bracket).
+
+1.3 Projection Pipeline
+-------------------------
+The exact RC-121/RC-122 pipeline:
+
+  24D vector v → linear combination over quaternion 24-cell basis →
+  normalized quaternion q → Hopf fibration with golden quaternion
+  p = (0, 1, φ, 0)/||(0, 1, φ, 0)|| → 3D vector v3 on S² →
+  orthogonal projection onto 5-fold equatorial plane → 2D vector v2 →
+  arctan2(v2[1], v2[0]) → color binning.
+
+Color mapping (angle θ modulo π):
+  Color 0 (Red):    θ ≈ 0.1π
+  Color 1 (Orange): θ ≈ 0.3π
+  Color 2 (Yellow): θ ≈ 0.5π
+  Color 3 (Green):  θ ≈ 0.7π
+  Color 4 (Blue):   θ ≈ 0.9π
+
+1.4 Orbit Classes (from RC-126)
+--------------------------------
+The 24 deep holes partition into 5 orbit classes under the Floquet tick:
+
+  Class A — Full Orbit (22 holes visited)
+    Starting holes: {1, 2, 6, 8, 14, 17, 19, 20}
+    Visited set:    {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22}
+
+  Class B — Half Orbit I (11 holes visited)
+    Starting holes: {0, 4, 7, 10, 11, 16, 22}
+    Visited set:    {0,1,2,4,6,7,10,11,14,16,22}
+
+  Class C — Half Orbit II (11 holes visited)
+    Starting holes: {3, 9, 12, 13, 15, 18}
+    Visited set:    {3,5,8,9,12,13,15,17,18,19,20}
+
+  Class D — Extended Orbit (12 holes visited)
+    Starting holes: {5, 21}
+    Visited set:    {3,5,8,9,12,13,15,17,18,19,20,21}
+
+  Class E — Isolated Fixed Point (1 hole visited)
+    Starting hole:  {23}
+    Visited set:    {23}
+
+1.5 Local Speed of Light
+------------------------
+v_local = 1.0515 edges/tick.
+
+This is the short edge length of the DH0 orbit on the icosahedron,
+corresponding to the edge length of the regular icosahedron in the
+normalization used by the Hopf projection pipeline. It represents the
+maximum speed achievable by local (adjacent-vertex) graph walking.
+
+1.6 Manifold Speed
+------------------
+For a given starting hole s, let the orbit visit holes
+h_0, h_1, ..., h_{L-1} in one period (where h_0 = s).
+
+Project each h_k to the icosahedron via the pipeline in §1.3 (using the
+3D vector v3 before the final 2D projection). Let the 3D positions be
+x_0, x_1, ..., x_{L-1} ∈ S².
+
+The edge length at step k is:
+  d_k = ||x_{k+1} − x_k||  (Euclidean norm in R³)
+
+The manifold speed is:
+  v_manifold(s) = (1/L) Σ_{k=0}^{L-1} d_k
+
+1.7 Stationary Weight Distribution
+------------------------------------
+For starting hole s, run the Floquet tick for T = 253 ticks (the full engine
+period, LCM(23, 11)). Record the sequence of nearest deep holes
+n_0, n_1, ..., n_{252}.
+
+Build the 24 × 24 transition count matrix:
+  C_s[i, j] = |{t : n_t = i and n_{t+1} = j}|
+
+Row-stochasticize:
+  P_s[i, j] = C_s[i, j] / Σ_k C_s[i, k]   (with 0/0 = 0)
+
+Compute the stationary distribution π_s as the normalized left eigenvector
+of P_s with eigenvalue 1:
+  π_s^T P_s = π_s^T,   Σ_i π_s[i] = 1,   π_s[i] ≥ 0.
+
+1.8 Class B Weight Fraction
+-----------------------------
+For starting hole s, define:
+  f_B(s) = Σ_{h ∈ Class_B_starting_holes} π_s[h]
+
+This is the total stationary probability mass on the 7 Class B holes.
+
+1.9 Within-Class Locality Correlation
+---------------------------------------
+For each orbit class X ∈ {A, B, C, D}, compute the Pearson correlation
+between:
+  • Bulk distance: MOG Grid Manhattan distance between holes i and j.
+  • Boundary distance: Hamming distance between the 22-tick color sequences
+    of holes i and j.
+
+The correlation is computed over all unordered pairs (i, j) with i < j
+within the class. Denote this r_X.
+
+================================================================================
+2. PRE-REGISTERED HYPOTHESES
+================================================================================
+
+H1 (Weight Concentration — Class B Universality)
+--------------------------------------------------
+For every starting hole s in Class B (s ∈ {0,4,7,10,11,16,22}):
+  f_B(s) ≥ 0.5.
+
+RATIONALE: If the arrow of time is a local structure embedded in Class B,
+then starting from any Class B hole should concentrate ≥50% of the
+long-time probability mass on Class B holes. This is the "local arrow"
+signature.
+
+H2 (Cross-Class Leakage — Class B Isolation)
+--------------------------------------------
+For every starting hole s in Class C, D, or E:
+  f_B(s) = 0.
+
+RATIONALE: The orbit classes are disjoint invariant subsets. If Class B is
+a true dynamical basin, then orbits starting outside Class A/B should never
+visit Class B holes. This tests the structural isolation of the local arrow.
+
+H3 (Speed Excess Universality)
+------------------------------
+For every starting hole s ∈ {0, ..., 23}:
+  v_manifold(s) / v_local > 1.
+
+Moreover, the median speed ratio across Class B starts exceeds the median
+speed ratio across Class C/D/E starts.
+
+RATIONALE: The Floquet operator is non-local (it includes H_L, which is a
+logical Hadamard over the full cocode). This should produce manifold speeds
+exceeding the local graph speed for ALL starting conditions. But the excess
+should be largest where the locality is strongest (Class B).
+
+================================================================================
+3. FALSIFICATION CRITERIA
+================================================================================
+
+Criterion    Description                              Trigger for Falsification
+─────────    ─────────────────────────────────────    ─────────────────────────
+F1           Weight concentration fails for any       ∃ s ∈ Class B : f_B(s) < 0.5
+             Class B start
+
+F2           Cross-class leakage into Class B           ∃ s ∈ Class C∪D∪E : f_B(s) > 0
+
+F3           Speed excess fails globally              ∃ s ∈ {0,...,23} : v_manifold(s) ≤ v_local
+
+F4           Class B does not maximize speed excess   median(v_manifold/v_local | Class B)
+                                                      ≤ median(v_manifold/v_local | Class C∪D∪E)
+
+PASS CONDITION: F1, F2, F3, and F4 all pass.
+FAIL CONDITION: Any of F1–F4 fails.
+
+================================================================================
+4. METHODOLOGY
+================================================================================
+
+STEP 1: Generate color sequences
+  Run the RC-121 projection pipeline for all 24 deep holes to produce the
+  24 × 22 color sequence matrix. This is a fixed dataset; it does not depend
+  on the starting hole for the orbit analysis.
+
+STEP 2: For each starting hole s = 0, ..., 23:
+  a. Initialize v = deep_hole(s).
+  b. For t = 0, ..., 252:
+       i.   Apply T(t) to v.
+       ii.  Identify the nearest deep hole n_t = argmin_i ||v − deep_hole(i)||.
+       iii. Record n_t.
+  c. Determine the orbit period L_s by finding the minimal p > 0 such that
+     n_t = n_{t+p} for all valid t.
+  d. Compute the transition matrix C_s and stationary distribution π_s.
+  e. Compute f_B(s).
+  f. Project the visited holes to the icosahedron 3D coordinates.
+  g. Compute edge lengths d_k and manifold speed v_manifold(s).
+  h. Compute ratio R(s) = v_manifold(s) / v_local.
+
+STEP 3: Compute within-class locality correlations
+  For each orbit class X ∈ {A, B, C, D}:
+    a. Enumerate all unordered pairs (i, j) within X.
+    b. Compute MOG Grid Manhattan distance M(i, j).
+    c. Compute boundary Hamming distance H(i, j) = Hamming(sequences[i], sequences[j]).
+    d. Compute Pearson r_X = corr(M, H).
+
+STEP 4: Test hypotheses and falsification criteria
+  Evaluate H1–H3 and F1–F4 against the computed data.
+
+================================================================================
+5. EXPECTED OUTCOMES
+================================================================================
+
+If the Universal Local Arrow Hypothesis is correct:
+
+  • H1 passes: Every Class B start concentrates ≥50% weight on Class B.
+  • H2 passes: Class C/D/E starts never leak into Class B.
+  • H3 passes: All starts show v_manifold > v_local, with Class B maximized.
+  • The within-class locality correlation r_B ≈ +0.48 (from RC-129),
+    while r_C, r_D, r_E are weaker or negative.
+  • The stationary weight is quantized: π_s[h] ∈ {0, 1/L_s} for visited h.
+
+If the hypothesis fails:
+
+  • Class B weight concentration is accidental (e.g., f_B(s) < 0.5 for some
+    Class B start).
+  • Cross-class leakage occurs (the orbit classes are not truly invariant).
+  • Some starting holes produce v_manifold ≤ v_local (the speed excess is
+    not universal).
+
+================================================================================
+6. HONEST LIMITATIONS
+================================================================================
+
+1. The orbit classification in RC-126 was derived from a nearest-neighbor
+   matching heuristic. If the Floquet tick maps vectors to non-exact deep
+   hole positions, the classification may contain misassignments.
+
+2. The projection pipeline is basis-dependent. The quaternion 24-cell → Hopf
+   → icosahedron cascade was chosen in RC-120-REV. A different embedding
+   (e.g., PCA-based from RC-116) might yield different color assignments and
+   edge lengths, though the orbit structure should be invariant.
+
+3. The "local speed" v_local = 1.0515 is derived from the DH0 orbit. If
+   other orbits have different short-edge lengths, the universal comparison
+   to a single number may be unfair. However, 1.0515 is the geometric edge
+   length of the regular icosahedron in our normalization, so it is a
+   structurally preferred scale.
+
+4. The post-hoc discovery of the Class B signature in RC-131 creates a
+   selection bias. RC-132 is confirmatory, but the prior probability of
+   H1–H3 was raised by the exploratory analysis. Results should be
+   interpreted with appropriate caution.
+
+5. The stationary distribution computation assumes the orbit is ergodic
+   on its visited set. If the orbit has hidden sub-periods or multiple
+   communicating classes within the visited set, the eigenvector method
+   may not converge to the correct long-time distribution.
+
+================================================================================
+7. POST-EXECUTION ANALYSIS (Q1–Q5)
+================================================================================
+
+Q1: Does the stationary weight quantization hold exactly (π_s[h] = 1/L_s)
+    or only approximately?
+
+Q2: If H2 fails (cross-class leakage), which specific holes act as
+    bridges between classes?
+
+Q3: Does the speed ratio R(s) correlate with the locality correlation
+    r_X of the orbit class?
+
+Q4: What is the structure of the transition matrix P_s for Class B starts?
+    Is it a simple cycle, or does it have off-diagonal structure?
+
+Q5: How do the results change if the projection pipeline is replaced by
+    the PCA-based cascade from RC-116?
+
+================================================================================
+8. CONNECTION TO FRAMEWORK HISTORY
+================================================================================
+
+RC-132 builds on and tests:
+  • RC-110: The rank sawtooth (F1 breathing baseline).
+  • RC-122: The icosahedron embedding and edge lengths (F2 speed baseline).
+  • RC-125b: The 253-tick orbit and stationary weights.
+  • RC-126: The orbit class partition.
+  • RC-129: The locality correlation analysis.
+  • RC-131 (revised): The corrected entropy-flow test and its failure.
+
+RC-132 differs from:
+  • RC-131: Tests universality, not a single starting condition.
+  • RC-127–RC-130: No new geometric constructions; pure dynamical analysis.
+
+================================================================================
+9. VERDICT CATEGORIES
+================================================================================
+
+PASS (Minimum):   H1 and H2 both pass → Local arrow is universal and isolated.
+PASS (Strong):    H1–H3 all pass → Speed excess is also universal.
+PASS (Full):      H1–H3 pass AND r_B > |r_X| for all X ≠ B → Class B is the
+                  unique local arrow.
+
+FAIL (Partial):   H1 or H2 fails → The local arrow is not universal.
+FAIL (Complete):   H3 fails globally → The speed excess is not a structural
+                  feature of the Floquet engine.
+
+================================================================================
+END OF PRE-REGISTRATION
+================================================================================
