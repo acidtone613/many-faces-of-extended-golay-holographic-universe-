@@ -1,682 +1,236 @@
-**24D-DMF v8.0**
+# 24D-DMF v8.4.6 — The Platonic Quantum Engine
+### A Research Monograph on the 24-Dimensional Dual-Manifold Framework
 
-**THE 24-DIMENSIONAL DUAL-MANIFOLD FRAMEWORK**
-
-*Version 8.0 — Consolidated Working Document*
-
-*A Geometric Bridge Between Discrete Code and Continuous Physics*
-
-*Consolidates: v7.9 (post-audit framework), Research Cycles RC-45 through RC-57
-(consolidated reports), and the exploratory resonance material generated
-alongside RC-58/59. Introduces a three-tier epistemic structure (Tier A/B/C)
-replacing the v7.9 guardrail appendix.*
-
-**Author: James Belliveau (framework) | Computational Audit: ongoing**
-
-July 2026
+*This edition supersedes v8.4.3 and folds in the full RC-107 through RC-136 research arc. It is the narrative companion to the 24D-DMF v8.4.6 Complete Mathematical Reference, which carries every formula, matrix, and falsification table in full technical detail; this document tells the story those results add up to, and cites the Reference for anyone who wants to rebuild a construction from scratch.*
 
 ---
 
-# Editorial Note on Sources (Read First)
+# Chapter 0 — Introduction
 
-This document consolidates every source available in the project archive at
-the time of writing. Two source-quality issues are flagged explicitly here,
-rather than silently smoothed over, because the whole framework's credibility
-rests on the audit trail being honest about what was actually computed:
+In this work, I present the 24-Dimensional Dual-Manifold Framework (24D-DMF), a quantum systems architecture derived from the extended binary Golay code. The project began as an experiment: I wanted to see how far a single piece of 20th-century combinatorics — the extended binary Golay code $C_{24}$, and the Leech lattice $\Lambda_{24}$ built from it — could be pushed as a substrate for physics. Over the first ninety-some research cycles, I tested that substrate against a long list of nucleon-sector targets: the proton–neutron mass ratio, magnetic moments, spin periods, mixing angles. Most of these hypotheses did not survive contact with computation, and I have kept the full record of what failed alongside what held up, because a framework's credibility rests on that record being complete, not flattering. Two results from that era did hold up on their own terms — a basis-change permutation between two constructions of the code, and a dihedral "clock" mechanism giving the code's automorphism group a natural order-46 spin structure — and they remain part of the foundation below.
 
-1. **v4.0 not located.** The consolidation brief calls for v4.0 ("original
-   metaphysical ontology") to be merged in. No v4.0 file was present in the
-   project archive — only v7.9 (already itself a consolidation of v1.0–v7.7)
-   was available. Part II below is therefore built from v7.9's Part II
-   (which already carries forward the v4.0-era interpretive content, per
-   v7.9's own references [19]–[22]), not from a v4.0 original. If a v4.0 file
-   surfaces later, it should be diffed against Part II before any claims are
-   added.
+Beginning around cycle 100, the center of gravity of the project shifted. I stopped asking whether this code encodes a specific particle-physics constant, and started asking a different question: *what kind of quantum system is this code, on its own terms?* The Golay code is not just a classical error-correcting code — read as a stabilizer code, $C_{24}$ is a genuine $[[24,12,8]]$ quantum code with a 4096-dimensional logical subspace, a rich automorphism group ($M_{24}$, and beyond it the full Conway group $\mathrm{Co}_0$), and — I found — a non-abelian subgroup of that automorphism group, $G=C_{23}\rtimes C_{11}$, of order 253, that is not just a symmetry but a *schedule*.
 
-2. **The "7D tunnel" documents are not RC-audited in the same sense as
-   RC-45–57.** Five source files (internally: V7.6, V9.1, V9.1.1, V7.9.1.2,
-   V7.9.1.3) present a triality-based SU(3) derivation, labeled internally as
-   RC-58/RC-59, and are numerically striking (exact quark charges, exact
-   Cartan structure). However:
-   - Several files present Python code alongside output blocks labeled
-     **"Expected Output."** This format differs from RC-45–57, where
-     executed output was shown directly.
-   - One file in this series notes that an earlier step substituted a
-     theorem for a planned numerical check — a documentation choice that
-     should be flagged, not a pattern of fabrication.
-   - None of RC-45–57's three consolidated reports reference this triality
-     work or include it in their cross-cycle status matrices, suggesting it
-     ran on a separate, informal track that was never folded into the
-     audited series.
-   - The negative result in RC-59 (no 727/726 match in the 6D Hodge
-     spectrum) appears to reflect genuine computation, as negative results
-     are not typically invented. Overall: the evidentiary status of this
-     branch is uneven and requires independent replication before it can be
-     treated as verified.
+That schedule is the engine at the center of this document. $G$ is generated by two permutations of the 24 coordinates: $P_{23}$, a cyclic shift of order 23, and $P_{11}$, a multiplicative automorphism of order 11. Together they act non-abelially on the code, and their orbit structure decomposes the 24-dimensional permutation representation as $24=1\oplus1\oplus11\oplus11$, where the two 11-dimensional pieces are complex-conjugate irreducible representations tied, through classical Gaussian periods of the cyclotomic field $\mathbb Q(\zeta_{23})$, to the same spectral gap that governs an entirely separate piece of Tier-A mathematics (the Gram matrix of the code's difference-set construction). That coincidence of two independently-derived "6"s is, as far as I can tell, the single most load-bearing structural fact in the whole framework.
 
-   Given this, the triality/SU(3)/quark-charge material is placed in **Part
-   IV (Exploratory Resonance)** rather than Part III, clearly marked
-   **UNVERIFIED — EXECUTION STATUS UNCONFIRMED**, regardless of how clean its
-   numbers look. It should not be cited as a CANDIDATE physical result until
-   an independent, actually-executed replication exists. This is not a
-   claim that the underlying math is wrong — the group theory of Spin(8)
-   triality and E8's SU(3)×E6 branching is standard and correct — only that
-   the specific numerical claims (exact ±2/3, ±1/3 charges falling out of a
-   rotated projection) have not been shown, in this archive, to have been
-   verified by actual computation rather than anticipated and written down.
+What I have since tried to show is that this engine can *do* something: that scheduling measurements or evolution by $G$'s own group structure drives an arbitrary state on the 24 physical qubits toward the code's logical subspace — deterministically, with a fixed period (253 ticks, the engine's own order), and with measurable entropy behavior along the way. A second, parallel line of research asks a related but distinct question through a purely geometric lens: projecting the same 24 coordinates through a quaternion 24-cell and a Hopf fibration down to a two-dimensional "shadow," and studying the causal, holographic, and time-reversal structure of the resulting dynamics. That second program — which occupies the second half of this document — surfaced a genuinely new object: a small, specific subset of the 24 coordinates (five of the engine's own orbit classes, one of which I call Class B) that carries almost two-thirds of the system's long-run dynamical weight, the strongest measurable locality signal anywhere in the framework, and — in its final and most decisive test — a *coherent, reversible, unitary bridge* to the one coordinate the engine holds fixed.
 
-All other content below carries forward the statuses exactly as audited in
-the source documents. No status has been upgraded in the writing of this
-version.
+Read together, I think of this as the beginning of a **Platonic quantum engine**: a discrete, code-theoretic object whose own automorphism structure schedules its evolution, produces holographic-looking entropy scaling on physical subsystems, and comes with a candidate — not yet confirmed — gauge zero mode. Whether that description survives further testing is exactly the kind of question this document exists to track honestly. This is not a claim that I have built a quantum computer, or discovered a new law of physics. It is a claim that a specific, fully-specified discrete mathematical object behaves, under specific and reproducible constructions, like a small piece of quantum systems theory — and that this is worth documenting carefully enough that someone else (including a later version of me) could rebuild it from scratch.
+
+## How this document is organized
+
+I use three tiers throughout, and I keep them because they encode different standards of evidence, not different levels of importance:
+
+- **Tier A — confirmed mathematics.** Theorems, verified to machine precision, with no fitted parameters: the Golay code itself, the Leech lattice, the Gram eigenvalue theorem, the 24-cell, the non-abelian engine $G=C_{23}\rtimes C_{11}$, the S-involution, the Conway group boundary theorem, and so on. These do not change once established, and nothing in Tier B is permitted to quietly upgrade something from Tier A status.
+- **Tier B — candidate dynamics and mechanisms.** Natural constructions on top of the Tier-A skeleton — the D23 spin clock, the stabilizer-flow engine, the various attempts (successful and not) to derive a mass ratio, a coupling constant, or a gauge structure. Every parameter here is labeled as either derived or fitted, and every physical claim carries the falsification criteria it was tested against, whether it passed all of them, some of them, or none.
+- **Tier C — exploratory resonance.** Numerical or structural echoes I noticed along the way that are worth recording but do not rise to a testable claim on their own. Nothing here is cited elsewhere as evidence without first being promoted through Tier B's falsification process.
+
+Chapters 1 through 3 lay out the static skeleton: the code, the engine, and the surrounding geometry. Chapter 4 covers the nucleon mass-ratio program in full — both what held up and, more often, what didn't. Chapter 5 covers the pivot to quantum information theory that began around cycle 100. Chapters 6 and 7 cover the two dynamical programs currently active: the engine as a Hamiltonian and as a measurement schedule (Chapter 6), and the geometric, Floquet, quaternion-projection program that makes up the bulk of the framework's newest work (Chapter 7). Chapter 8 closes with the open questions I consider most important going forward.
 
 ---
 
-# 0. Status Key
+# Chapter 1 — The Golay Code, Three Ways
 
-*(Unchanged from v7.5/v7.9, retained as the vocabulary for Tier A and Tier B.
-See Appendix for the v8.0 tier structure that governs how these labels are
-applied.)*
+Everything in this framework rests on a single combinatorial object: the extended binary Golay code, $C_{24}$, a $[24,12,8]$ self-dual linear code over $\mathbb F_2$. What makes it worth building an entire research program around is not that it exists — it's a well-known object in coding theory — but that it admits several genuinely independent constructions, and that those constructions turn out to disagree with each other in structurally informative ways once I start asking dynamical questions of the code.
 
-| **Status** | **Definition** |
-|---|---|
-| CONFIRMED | A theorem or identity: derived analytically and verified computationally to machine precision. No fitting involved. |
-| CANDIDATE | A structural correspondence to a physical target, built from quantities already derived elsewhere, with zero free parameters. Suggestive, not proven. |
-| CANDIDATE–PARAMETRIZED | A physically-motivated functional form, fixed before the fit, containing one calibrated coefficient, OR a zero-parameter form whose selection has since been shown to depend on an unresolved choice. Provisional. |
-| INTERPRETIVE | A chosen framing or ontology used to read the confirmed mathematics. Not a derivation. |
-| OPEN | An acknowledged gap or undeveloped idea. No claim is made. |
-| SUSPENDED | A pre-registered prediction contained a structural or sign error pointing to a missing, undeveloped piece of the framework. Not rejected outright; blocked pending that piece. |
-| EXPLORATORY | A hypothesis tested and found to produce structurally interesting but non-matching or physically-mismatched results; kept as a lead, not a result. |
-| FAILED | A pre-registered falsification criterion was not met on the specific test performed (distinct from REJECTED: the underlying object may still be usable elsewhere). |
-| REJECTED | Investigated and found to rest on a search guaranteed to succeed regardless of the target, a post-hoc parameter search, or falsified against its own pre-registered criterion. |
-| UNVERIFIED | New in v8.0. A result reported in source material without confirmed independent execution. Not assigned any of the above statuses until re-run. |
+## The cyclic construction
+
+The most direct route builds $C_{24}$ from a degree-11 generator polynomial over $\mathbb F_2[x]$ by cyclic shifts, extended with an overall parity bit. I verified this construction exhaustively: all 4096 codewords enumerate correctly, the weight distribution matches the extremal profile $\{0{:}1,8{:}759,12{:}2576,16{:}759,24{:}1\}$ exactly, and the code is self-dual. The full formula is in the Reference, Part I §1.
+
+## The quadratic-residue construction
+
+A second, independent route builds the code from the $(11,6,3)$ difference set of quadratic residues modulo 11, giving a symmetric $12\times12$ matrix $B_{\text{sym}}$ whose Gram matrix $G=B_{\text{sym}}B_{\text{sym}}^\top$ carries the framework's single most important piece of spectral mathematics — the Gram eigenvalue theorem, covered in Chapter 2. There is a second, related matrix, $B_{\text{sys}}$, that looks superficially similar (it's the row-reduced systematic form of the same code) but is *not* symmetric and does not carry the same spectral properties; keeping these two matrices straight, and never substituting one for the other, turned out to be one of the more consequential bookkeeping details in the whole archive — an internal contradiction traced to exactly this confusion is discussed in Chapter 2.
+
+The two constructions — cyclic and QR — are permutation-equivalent, not coordinate-identical: a specific 24-element permutation $\pi$, guaranteed to exist by the classical Pless–Sloane (1975) uniqueness theorem for the extended Golay code, maps one coordinate system onto the other. I re-verified $\pi$ exhaustively against the full 4096-codeword set (not a sample) during the most recent audit, and it holds exactly.
+
+## Two more constructions, for structurally different reasons
+
+Two further constructions of the same abstract code turned out to matter for reasons that have nothing to do with redundancy. The **hexacode**, a $[6,3,4]$ linear code over $\mathbb F_4$ with a natural map onto a 64-word subcode of $C_{24}$, connects the Golay code to $N{=}4$ superconformal field theory through a correspondence between the four hexacode symbols and the vacuum-plus-three-supercurrent structure of that theory (Chapter 5). The **Turyn construction** builds $C_{24}$ from two much smaller $[8,4,4]$ codes glued together via the exceptional outer automorphism of $\mathrm{PSL}(2,7)$ — a construction that has no obvious relationship to either the cyclic or the QR picture, and reproduces the extended Golay code's full weight distribution independently of both. Both constructions are verified in full in the Reference, Part VI.
+
+A fifth and sixth construction — the **cocode** $\mathbb F_2^{24}/C$ and the **sextet group** built from the hexacode's automorphisms — turned out to be where some of the framework's most interesting quantum-information behavior lives, and I return to both in Chapter 5.
 
 ---
 
-# Part I — The Mathematical Skeleton (Tier A)
+# Chapter 2 — The Engine
 
-*Full formal rigor required. Theorem or nothing. All entries below are
-CONFIRMED and unchanged in substance from v7.9 §1.1–1.10; RC-45–57 did not
-alter any Tier A result — every cycle that touched this layer (RC-50C, RC-54,
-RC-55) used it as a fixed substrate to test dynamics against, and left it
-untouched.*
+The static code, however constructed, is a fixed algebraic object with no intrinsic notion of time. Sometime around cycle 81, I found something inside the code's own automorphism group that isn't static in that sense: a non-abelian subgroup $G=C_{23}\rtimes C_{11}$, order 253, generated by the cyclic shift $P_{23}$ and a multiplicative automorphism $P_{11}$ (the map $i\mapsto2i\bmod23$). Unlike the code itself, this group has a natural internal clock — $P_{11}$ has order 11, and cycling through its powers is a genuine dynamical process, not just a symmetry to be quotiented away.
 
-## 1.1 The Extended Binary Golay Code C₂₄
-**STATUS: CONFIRMED.** Unchanged since v7.0.
+The representation theory of $G$ turns out to be unusually rich for such a small group. The 24-dimensional permutation representation splits as $24=1\oplus1\oplus W_1\oplus W_2$, where $W_1$ and $W_2$ are 11-dimensional, complex-conjugate irreducible representations induced from the two cosets of $\langle2\rangle$ in $\mathbb Z_{23}^*$ — I call these cosets orbit $A$ and orbit $B$ throughout the rest of this document, and they recur constantly. $W_1\oplus W_2$, taken together, is a 22-dimensional *real* irreducible representation, and it is this 22-dimensional space — not the full 24 coordinates — that most of the framework's dynamics actually lives on.
 
-## 1.2 The Leech Lattice Λ₂₄
-**STATUS: CONFIRMED.** Unchanged since v7.0.
+Here is the fact I keep coming back to. The character values of $W_1$ and $W_2$ on the group elements corresponding to orbits $A$ and $B$ are classical Gaussian periods of the 23rd cyclotomic field: $\eta_0=\sum_{a\in A}\zeta_{23}^{\,a}$ and $\eta_1=\sum_{b\in B}\zeta_{23}^{\,b}$. I verified directly that $|\eta_0|^2=6$. Separately, and by a completely different route — the eigenvalue theorem for the Gram matrix built from the QR construction of the code (Chapter 1) — the framework already has a confirmed spectral gap of exactly 6: $\sqrt{\lambda_1}-\sqrt{\lambda_{12}}=6$, where $\lambda_1,\lambda_{12}$ are the two non-generic eigenvalues of that Gram matrix. These two 6's are not the same calculation performed twice. One comes from classical algebraic number theory applied to the engine's representation theory; the other comes from an eigenvalue problem on a difference-set matrix that has nothing to do with the engine. They coincide because both are forced by the same underlying prime, 23, appearing in two independent pieces of confirmed mathematics. I don't think I have ever found a cleaner example, in this entire project, of a coincidence that is actually a theorem.
 
-## 1.3 The Hurwitz Theorem
-**STATUS: CONFIRMED.** Unchanged since v7.0.
+On top of this 22-dimensional space I built an unperturbed Hamiltonian, $H_0$, from $P_{23}$ and $P_{11}$'s projections into the 22D representation, with a coefficient $\alpha=3$ set by the Gram gap itself. Its spectrum is exactly two-fold degenerate everywhere — eleven distinct eigenvalues, each showing up twice — which is exactly the signature I'd expect of a real representation built from a complex-conjugate pair, and I verified this degeneracy to machine precision rather than assuming it. A rank-2 perturbation, $V$, built from the characteristic vectors of orbits $A$ and $B$, couples the two halves of each degenerate pair together; applying it and reading off the resulting splitting, uniformly across all eleven pairs, produces the identical ratio $1453/1451$ every single time — a genuine structural signature, not a coincidence tied to any one pair.
 
-## 1.4 Bott Periodicity and Spin(8) Triality
-**STATUS: CONFIRMED.** Unchanged since v7.0.
+A second coupling operator, built by RC-90 from the Gram matrix's own 10-dimensional "bulk" eigenspace (the one carrying the generic eigenvalue 3), gave the framework its first *derived*, rather than fitted, coupling coefficient: $\beta=3/\sqrt{11}\approx0.9045$. I want to flag one correction here, since it came up during the most recent audit and matters for anyone rebuilding this operator from an earlier edition of the reference material: an earlier version of the underlying section claimed this coupling operator could be obtained by taking $B_{\text{sym}}-B_{\text{sym}}^\top$ — but $B_{\text{sym}}$ is symmetric by definition, so that difference is identically zero. The actual operator is constructed by hand, with the desired $\pm i\sqrt{11}$ spectrum imposed directly on the Gram matrix's bulk eigenspace, not derived from $B_{\text{sym}}$ at all. The corrected construction is in the Reference, Part IV §15; the derived coefficient $\beta$ itself was already computed correctly and is unaffected.
 
-## 1.5 The 24-Cell
-**STATUS: CONFIRMED.** 24 vertices, 96 edges, 96 triangular faces, 24
-octahedral cells; 8-regular vertex graph; confirmed independently in RC-45,
-RC-48, RC-50C, and RC-54 as the substrate for four different dynamics tests.
-
-## 1.6 The (11,6,3)-Difference Set in B
-**STATUS: CONFIRMED.** Unchanged since v7.0.
-
-## 1.7 The Gram Matrix Eigenvalue Theorem
-**STATUS: CONFIRMED.**
-G = B·Bᵀ over ℝ has eigenvalues λ=3 (multiplicity 10), λ₁ = 29+12√5 ≈ 55.833,
-λ₁₂ = 29−12√5 ≈ 2.167, with λ₁×λ₁₂ = 121 = 11² exactly and √λ₁−√λ₁₂ = 6
-exactly. This identity is the single most load-bearing piece of Tier A
-mathematics in the whole framework: it supplies the factorization
-726 = 2×3×11² that recurs across RC-46, RC-47, and the Part IV Egyptian-
-fraction material (§4.4). This recurrence is partly *structural* (the same
-confirmed numbers keep appearing because they are genuinely few and small)
-and partly a hazard: small confirmed integers are easy to recombine post-hoc
-into "matches." Tier B analysis below treats this factorization as a real
-constraint on candidate mechanisms, not as a derivation of any physical
-constant by itself.
-
-## 1.8 The Skew-Symmetric Frequency ω = √11
-**STATUS: CONFIRMED.** Unchanged since v7.0.
-
-## 1.9 The 240 = |Φ(E₈)| Identity
-**STATUS: CONFIRMED.** Unchanged since v7.0.
-
-## 1.10 The E₈ Root System Contains the 24-Cell
-**STATUS: CONFIRMED (structural).**
-The 240 roots of E₈ in ℝ⁸ split under ℝ⁸ = ℝ⁴⊕ℝ⁴ into two orthogonal 24-root
-D₄ subsystems, each independently verified to be a geometric 24-cell. The
-remaining 192 roots organize as 3×64 under Spin(8) triality: (8v,8v),
-(8s+,8s+), (8s−,8s−). Established RC-41 (v7.9); reconfirmed structurally by
-every subsequent cycle that used the E8 embedding (RC-50A on the 240-root
-graph, RC-56 as substrate context).
-
-Whether this structural embedding is also dynamical — whether E8 supplies
-force couplings, mass eigenvalues, or the spinor double-cover period — was
-tested exhaustively in RC-42-B, RC-43, and RC-44 (all REJECTED; see Part III
-§3.0 for the historical record) and again from a different angle by the
-Part IV triality material (§4.5, UNVERIFIED). The consistent finding across
-every rigorously-tested route is that E8 is real as a container and has not
-been shown to be a source of dynamics.
-
-## 1.11 The Minimal Self-Mirror Calabi-Yau from the 24-Cell — New in v8.0 (RC-45)
-**STATUS: CONFIRMED (as pure mathematics); (27,3) HYPOTHESIS REJECTED.**
-The 24-cell, as a reflexive polytope in the D4 lattice, yields via crepant
-resolution the minimal self-mirror Calabi-Yau threefold with Hodge numbers
-h^{1,1} = h^{2,1} = 1 and Euler characteristic χ = 0 (Braun 2011,
-arXiv:1102.4880), confirmed independently in RC-45. The earlier working
-hypothesis that the 24-cell yields (27,3) with χ = 48 = |2O| is REJECTED: the
-naive Batyrev computation gives an unphysical negative h^{1,1}, and the
-correctly-resolved result does not match. This CY is math-layer, not a
-dynamical mass mechanism (see Part III §3.0, RC-45 entry).
-
-
-# Part II — The Interpretive Layer (Tier A/B boundary — read as INTERPRETIVE)
-
-*Everything in this Part is framing, not derivation. Carried forward from
-v7.9 Part II, which itself carries forward the earlier interpretive
-architecture (v4.0-era content, per v7.9's own reference list — no v4.0
-source file was available to check directly; see Editorial Note above).*
-
-## 2.1 The Core Claim: Discrete Code, Continuous Geometry
-**STATUS: INTERPRETIVE.** The Golay code and Leech lattice (Tier A, discrete)
-are read as the "source code" from which the 24-cell and its physical
-correspondences (Tier B, continuous) are an emergent geometric realization.
-Unchanged since v7.5.
-
-## 2.2 D⁺ / H°: Two Readings of One Code
-**STATUS: INTERPRETIVE.** Unchanged since v7.5.
-
-## 2.3 Self-Similarity and the Fractal Reading
-**STATUS: INTERPRETIVE.**
-Note: RC-48 (Part I §1.11 context; full account in Part III §3.0) directly
-tested a strong version of this reading — that quark charges are forced
-fractal-scaling exponents of the 4D→6D embedding — and REJECTED it: the
-24-cell's Hausdorff dimension is 4 by elementary topology, not a derived
-fractal property, and the claimed 4/6 = 2/3 relation has no basis in
-Marstrand's Projection Theorem. The general self-similarity *reading* is
-retained as interpretive scaffolding; the specific fractal-charge mechanism
-is not.
-
-## 2.4 Subatomic Ontology: Higher-Dimensional Objects, Lower-Dimensional Appearance
-**STATUS: INTERPRETIVE.** Unchanged since v7.5.
-
-### 2.4.1 The 12/16 Quark/Gluon Mapping
-**STATUS: INTERPRETIVE / OPEN.** Unchanged since v7.5.
-
-## 2.5 The Three-Configuration ("Three-Universe") Idea
-**STATUS: OPEN.** Retained as an open curiosity. See Part IV §4.4 for a
-speculative Egyptian-fraction partition (1 = 3×(1/4+1/16+1/48)) that touches
-this idea; that partition is Tier C material and does not upgrade this
-entry's status.
-
-## 2.6 E₈ as a Candidate Structural Layer for Quarks and Gluons
-**STATUS: INTERPRETIVE — structurally confirmed (Part I §1.10), dynamically
-rejected (RC-43, RC-44; and see Part IV §4.5 for an UNVERIFIED attempted
-revival via triality projection, which explicitly does not change this
-status).**
-
-## 2.7 The Miracle Octad Generator (MOG)
-**STATUS: OPEN.** No RC-45–57 cycle addressed the MOG directly. Candidate
-structure, no supporting mathematics yet. Unchanged since v7.5.
-
-## 2.8 Terminology Guardrail: "5D Spacetime"
-**STATUS: DEFINITIONAL — binding on all future sections.** Unchanged since
-v7.0. The term refers strictly to the 5D trajectory space used in the T-Knot
-standing-wave construction (Part III §3.1) and must not be read as a claim
-about physical spacetime dimensionality.
-
-## 2.9 The Binary Octahedral Group 2O and the E₈ Embedding
-**STATUS: CANDIDATE (2O sign mechanism, CONFIRMED representation theory) /
-CONFIRMED–structural, INTERPRETIVE–dynamical (E₈ embedding).**
-2O (order 48, double cover of the 24-cell's rotational symmetry group O ≅ S₄)
-possesses exactly two genuine 2-dimensional spin representations, related by
-a sign character — a representation-theoretic mechanism for why proton and
-neutron g-factors have opposite sign (RC-36). RC-55 (Part III §3.2) tested
-whether this same group action could force the *mode selection* of the
-simplicial Dirac operator and found it does not, in the canonical
-triangulation. The sign mechanism stands; it has not been shown to extend to
-magnitude or mode selection anywhere in the framework.
-
-
-# Part III — Dynamic Mechanisms (Tier B)
-
-*Natural parameters permitted. Honest labeling of fitted vs. derived
-components required. Physical predictions require precise match and clear
-parameter count.*
-
-## 3.0 Historical Record: Rejected and Suspended Mechanisms (v7.5–v7.9)
-
-For completeness, the following v7.9-era Tier B attempts remain on the
-record with their final statuses, unchanged:
-
-| Mechanism | Status | Cycle |
-|---|---|---|
-| E₈ dynamical mass operator (13 operators tested) | REJECTED | RC-43 |
-| Discrete Hodge Laplacian, non-simplicial 24-cell | REJECTED (caveats) | RC-44 |
-| E₈ → 720° spinor period identification | REJECTED | RC-42-B |
-| Proton electric dipole moment | REJECTED | RC-38 |
-| Deuteron magnetic moment (exchange formula) | SUSPENDED | RC-37 |
-| T-Knot canonical D / rotation plane as intrinsic invariant | REJECTED (as intrinsic) | RC-34, RC-39 |
-| 33/17 neutron g-factor coefficient in 2O rep theory | not found; downgraded | RC-40 |
-| Calabi-Yau (27,3) / χ=48 hypothesis | REJECTED | RC-45 (Part I §1.11) |
-| Fractal charge mechanism (4/6 = 2/3) | REJECTED | RC-48 |
-| 8D Cellular Automaton on E8 root graph | REJECTED | RC-50A |
-| Discrete Hodge star derivation of δ = π/N | REJECTED | RC-50C |
-| T-Knot crossing-sequence-graph automaton | REJECTED | RC-52 |
-| I Ching structural correspondence (as a Tier B claim) | REJECTED | RC-57 — see Part IV §4.3 for the Tier C reading |
-
-Two mechanisms survive into v8.0 as the framework's active leads. Both are
-locked to the nucleon sector; both have failed every cross-sector
-generalization test attempted.
-
-## 3.1 The T-Knot Standing Wave
-
-**STATUS: CANDIDATE–PARAMETRIZED, NUCLEON-SECTOR-LIMITED.**
-
-The T-Knot (a rotating, self-intersecting 4D trajectory read in its 5D
-extension) supports a standing wave whose boundary condition is
-kL + Nδ = (2n+1)π. RC-46 found the exact cancellation condition ε = Nδ/π = 1
-at mode n = 726, giving f_{727}/f_{726} = 727/726 = m_n/m_p to the
-pre-registered precision, with δ = π/N (N = 284 crossings) as the mechanism's
-one parameter.
-
-**What is derived:** the mode-counting structure, the cancellation condition,
-and the exact match at n = 726, given δ.
-**What is not derived:** δ itself. RC-46's own guardrail check found no
-natural combination of the T-Knot's geometric invariants (N, w, D, L_total)
-yields δ = π/N; RC-50C then tested whether δ could come from the 24-cell's
-discrete Hodge star instead, and found no combinatorial invariant of the
-static 24-cell skeleton equals N = 284 — the T-Knot's crossings are a
-dynamic orbit quantity, not a combinatorial one. Both derivation routes for δ
-are closed as of RC-50C.
-
-**Cross-sector generalization — both attempts failed:**
-- RC-51 (Λ–Σ⁰ splitting): **OPEN.** No confirmed framework constant yields
-  the required mode number n ≈ 14.5 with a structural derivation; the
-  isospin singlet/triplet distinction between Λ and Σ⁰ is not encoded
-  anywhere in the framework's confirmed structure.
-- RC-53 (charged/neutral pion splitting): the standing-wave picture does not
-  reproduce Δm_π; no principled mode number exists, and the mechanism is
-  physically mismatched (pion splitting is electromagnetic, not a
-  strong-interaction boundary effect).
-
-RC-53 formally logged the mechanism as **nucleon-sector-only**: it produces
-one correct ratio with one locked parameter and has not been shown to do
-anything else.
-
-## 3.2 The Simplicial Dirac Operator on the Barycentrically Subdivided 24-Cell
-
-**STATUS: CANDIDATE–PARAMETRIZED, NUCLEON-SECTOR-LIMITED, MODE SELECTION
-UNRESOLVED.**
-
-RC-54 constructed a canonical simplicial refinement of the 24-cell (each
-octahedral cell split into 4 tetrahedra via its lexicographically-first
-diagonal: 96 tetrahedra, 192 faces, 120 edges, 24 vertices) and computed the
-full discrete Dirac operator D = d + d* on the resulting 432×432 chain
-complex. Betti numbers [1,0,0,1] correctly match S³, resolving RC-44's
-obstruction.
-
-The Dirac spectrum contains an eigenvalue ratio μ₁₇₄/μ₁₇₃ = 1.001380784
-against target 727/726 = 1.001377410 — an error of **0.0003%**, the most
-precise numerical match in the framework's history, obtained with zero free
-parameters in the operator itself.
-
-**What is derived:** the operator is fully determined by the 24-cell's
-geometry; no fitting entered its construction.
-**What is not derived:** *which* eigenmodes (indices 173, 174) correspond to
-proton/neutron. This is functionally the same open question as the T-Knot's
-δ — a "mode selection principle" is missing.
-
-**RC-55 tested whether 2O symmetry forces this selection: FAILED.** The
-canonical (lexicographic-diagonal) triangulation breaks all non-trivial
-symmetry of the 2O group — only the identity element commutes with D. Modes
-173/174 are simple (multiplicity-1) eigenspaces and can carry only 1D
-irreps; the 2D spin representations of 2O (the ones RC-36 connected to the
-proton/neutron sign structure) are structurally inaccessible to them. RC-55
-proposed, as an unexecuted forward direction, that a symmetry-preserving
-triangulation (true barycentric subdivision with edge/face/cell centroids,
-~2000×2000) might do better — not attempted in this cycle.
-
-**RC-56 tested cross-sector generalization: FAILED.** Using the same
-spectrum with no retuning:
-- Nucleon ratio (control): 29 adjacent eigenvalue-index ratios fall in the
-  target band [1.001,1.002]; the best (173/174) is ~20× more precise than
-  any other. This adjacency is a genuine structural feature.
-- Pion ratio: a match exists (indices 8/9, error 0.092%) but at low,
-  generic mode indices, with a physically mismatched mechanism
-  (electromagnetic splitting vs. a strong-interaction-flavored operator),
-  and low statistical significance (only 3 candidate ratios in-band).
-  Logged as coincidental.
-- Λ–Σ⁰ ratio: **zero** eigenvalue ratios fall in the target band
-  [1.06,1.08] — not a near-miss, a complete absence.
-
-**Assessment:** the Dirac operator has passed the same single bar as the
-T-Knot (one precise nucleon-sector match) and failed the same cross-sector
-test (Λ–Σ⁰) that the T-Knot failed in RC-51. It is currently the more
-precise of the framework's two live mechanisms, but not a more general one.
-
-## 3.3 Automaton Approaches — Closed
-
-Two independent attempts to find emergent particle-like dynamics on a
-discrete substrate were both rejected:
-- RC-50A: linear totalistic Z₃ rules on the 56-regular E8 root graph — too
-  symmetric for gliders to form; converges to fixed points or trivial
-  2-cycles.
-- RC-52: rules (including elementary CA Rule 110) on the T-Knot's 284-node
-  crossing-sequence graph — even at 2-regular connectivity, no localized,
-  propagating excitation was found; Rule 110 showed COM propagation without
-  localization.
-
-Both cellular-automaton routes to the framework's dynamics are closed absent
-a fundamentally different rule class or substrate.
-
-## 3.4 Summary Table: Live Tier B Mechanisms
-
-| Mechanism | Precision (nucleon ratio) | Free parameter | Cross-sector test | Status |
-|---|---|---|---|---|
-| T-Knot standing wave | exact, by construction of δ | δ = π/N (not derived) | Λ–Σ⁰: OPEN; pion: fails | CANDIDATE–PARAMETRIZED, nucleon-only |
-| Simplicial Dirac operator | 0.0003% | mode indices (173,174) (not derived) | Λ–Σ⁰: zero matches; pion: coincidental | CANDIDATE–PARAMETRIZED, nucleon-only |
-
-
-# Part IV — Exploratory Resonance Layer (Tier C) — New in v8.0
-
-*Pattern recognition, cross-cultural mathematical systems, historical
-numerical structures. No derivation required — but see the important
-caveat below before reading this Part as license-free.*
-
-**How to read this Part.** Tier C exists so that genuinely useful hypotheses
-(a Tier C resonance suggesting a testable Tier B claim, as happened once
-below) are not lost to procedural friction. It does **not** mean numerical
-coincidence is evidence, and it does not exempt anything from the ordinary
-meaning of the words used to describe it. Concretely: nothing in this Part
-may be cited elsewhere in this document, or in future versions, as
-CANDIDATE, CONFIRMED, or any Tier A/B status without first being
-re-derived and tested under Tier B rules with a pre-registered
-falsification criterion — exactly the process RC-57 already applied to one
-Tier C candidate (I Ching) and found wanting. Tier C's freedom is freedom
-to *propose*, not freedom to *conclude*.
-
-## 4.1 Purpose and Scope
-
-Tier C was created because the framework's own history contains a
-counterexample to pure procedural rigor: RC-57's I Ching search was itself
-prompted by an informal, unguarded resonance observation, and while I Ching
-itself was rejected, a different piece of unguarded exploration (the
-Egyptian-fraction analysis, §4.4) produced a genuine, testable Tier B
-hypothesis (the "Gram → Dirac bridge," §4.4.3). The v8.0 position is that
-this kind of free-associative search has produced one real lead in the
-project's history and several confidently-stated dead ends, and both
-outcomes are worth keeping on the record rather than discarding the
-unsuccessful searches.
-
-## 4.2 Status Notation for This Part
-
-Tier C entries are not given CONFIRMED/CANDIDATE/REJECTED labels, since those
-are Tier A/B vocabulary implying a derivation standard this Part does not
-apply. Instead each entry is marked:
-- **RESONANT** — a numerical or structural coincidence exists and is
-  interesting to keep in view.
-- **TESTED, NO FORCING FOUND** — the resonance was formally checked against
-  framework structure and no theorem or forcing relationship was found (this
-  is the Tier B-style result that demoted I Ching; it is kept here as the
-  historical record of that test rather than deleted).
-- **PROMOTED HYPOTHESIS** — a Tier C observation that has been formalized
-  into a falsifiable Tier B claim (pointer only; the claim itself lives in
-  Part III or awaits a future cycle).
-
-## 4.3 I Ching Structural Correspondence
-
-**STATUS: TESTED, NO FORCING FOUND (RC-57).**
-
-Full pre-registered test executed: King Wen sequence (verified permutation of
-64 hexagrams), Q₆ hypercube Laplacian spectrum (eigenvalues 0,2,4,6,8,10,12
-with binomial multiplicities), pair/trigram structural comparison. Result: no
-framework target number (11, 24, 48, 96, 121, 240, 726, 727) is constructible
-from I Ching combinatorics; the Q₆ spectrum's spacing (Δ=2) is too coarse to
-approach 727/726 = 1.001377; the one exact numerical coincidence found
-(pairs/trigrams = 32/8 = 4 = 24-cell edges/vertices = 96/24) is flagged as a
-trivial small-integer coincidence with no structural map behind it. This
-entry is retained in v8.0 as a record of a Tier C idea that was tested and
-did not pan out — not as an active lead.
-
-## 4.4 Egyptian Fractions and the Horus-Eye Structure
-
-**STATUS: RESONANT, with one PROMOTED HYPOTHESIS (§4.4.3).**
-
-### 4.4.1 The "Missing Piece" Rhyme
-The Horus-Eye fraction system (63/64 base + 1/64 correction = 1) and the
-Dirac engine's mass ratio (726/726 base + 1/726 correction = 727/726) share
-an architecture: a nearly-whole base plus a small completing correction. This
-is presented honestly as *rhyme, not reason* in the source material, and
-that framing is retained here — it is a mnemonic/aesthetic observation, not
-evidence of anything.
-
-### 4.4.2 726 as an Inverse Gram Structure
-From the CONFIRMED Gram eigenvalue theorem (Part I §1.7): √λ₁−√λ₁₂ = 6 and
-λ₁×λ₁₂ = 121 exactly. Therefore 726 = 6×121 = (√λ₁−√λ₁₂)×(λ₁×λ₁₂). This is a
-true arithmetic identity given Tier A facts — it is not new mathematics, but
-it is a legitimate observation that the Dirac/T-Knot engines' shared
-parameter (1/726) is expressible entirely in terms of already-confirmed
-Gram-matrix spectral data, rather than as an arbitrary integer.
-
-### 4.4.3 Promoted Hypothesis: The Gram → Dirac Spectral Bridge
-**This is the one Tier C → Tier B promotion on record.** Proposed claim: the
-Dirac operator's mode selection (Part III §3.2) might be constrained by
-requiring its eigenvalue ratio to equal 1 + 1/(Gram_gap × Gram_product)
-exactly, rather than being read off post-hoc from wherever 727/726 happens to
-appear in the spectrum. If true, this would not identify *which* modes (173,
-174) are physical, but it would derive *what ratio a physical mode-pair must
-produce* from Tier A structure — a partial but genuine tightening.
-
-**This has not been tested.** It is recorded here as a well-formed,
-falsifiable Tier B candidate awaiting its own pre-registration and
-execution in a future cycle (tentatively RC-60). It should not be treated as
-established until that happens.
-
-### 4.4.4 Binary/Ternary Mixing and the Three-Universe Partition
-Observations that quark charge 2/3 = 1/2+1/6 mixes Horus's pure-binary
-fractions with the Golay modulus λ=3, and that 1 = 3×(1/4+1/16+1/48) gives an
-exact three-way partition touching the Part II §2.5 "three-configuration"
-idea, are recorded as RESONANT only. No forcing relationship to any
-framework theorem has been proposed or tested for either.
-
-### 4.4.5 The Prime 11
-11² = 121 is the Gram product (Tier A, confirmed); 11 itself is noted as
-"neither binary nor ternary" — an observation, not a derivation. RESONANT.
-
-## 4.5 The Triality-Projected "7D Tunnel" (SU(3) / Quark Charge Claims)
-
-**STATUS: UNVERIFIED — AWAITING INDEPENDENT REPLICATION.** The underlying
-group theory (Spin(8) triality, E8 ⊃ SU(3)×E6 branching) is standard
-mathematics. The specific numerical claims (exact quark charges from
-triality projection) are recorded here as reported but not yet
-independently replicated. Replication with shown execution output would
-move this material to Part III for Tier B evaluation; a failed replication
-would move it to REJECTED. The status is procedural, not a judgment on
-plausibility. See the Editorial Note at the top of this document for the
-full account of why this material is segregated here rather than placed in
-Part III.
-
-Summary of the claims made in the source material (internally labeled
-RC-58/RC-59, informally numbered outside the audited RC-45–57 series):
-
-- A "triality tunnel" projection P: ℝ⁸→ℝ⁶, built from independent SO(4)
-  rotations of the two D4 blocks (Part I §1.10) applied to E8's 192 mixed
-  roots, is claimed to robustly (reportedly 50/50 random trials) yield
-  exactly 6 vectors of norm²=2 forming an A2 (SU(3)) root system.
-- The two Cartan generators of this A2 system are claimed to fall out as the
-  nullspace of the root matrix, with the resulting weight structure claimed
-  to reproduce quark charges ±2/3, ±1/3 exactly, with zero free parameters.
-- A follow-up (RC-59-labeled) test of the resulting 6D Hodge Laplacian
-  spectrum for the 727/726 mass ratio is reported as **REJECTED** —
-  integer-only eigenvalue spectrum, no matching ratio found.
-
-**Why this is not in Part III:** as detailed in the Editorial Note, the
-SU(3)/quark-charge results are presented with an "Expected Output" block
-rather than a shown execution trace, and the same document thread notes
-that an earlier claim in the same session substituted a theorem for a
-promised simulation — a documentation format that differs from the audited
-RC-45–57 cycles and is not independently verifiable as written. The
-negative RC-59 result looks more likely to reflect a genuine run (negative
-results are not the kind of thing typically invented to look good), but
-even that has not been independently reproduced here.
-
-**What would be needed to promote this to Part III:** independent
-re-execution of the triality projection and Cartan-subalgebra extraction,
-with the actual printed output (not a projected one) attached, plus the
-same cross-sector/robustness scrutiny applied to the T-Knot and Dirac
-mechanisms elsewhere in this document. Until then, the underlying group
-theory (Spin(8) triality, E8 ⊃ SU(3)×E6 branching) is standard and not in
-question, but the specific numerical claims built on top of it are not
-part of this framework's verified record.
-
-
-# Cross-Cycle Status Matrix (RC-45 through RC-57)
-
-| Component | v7.9 | RC-45 | RC-46 | RC-47 | RC-48 | RC-50A | RC-50C | RC-51 | RC-52 | RC-54 | RC-55 | RC-56 | RC-57 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Golay code C₂₄ | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF |
-| Leech lattice Λ₂₄ | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF |
-| Gram eigenvalue thm | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF |
-| 24-cell geometry | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF |
-| 2O character table | CONF | — | — | — | — | CONF | — | CONF | CONF | CONF | CONF | CONF | CONF |
-| E8 → 24-cell embedding | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF | CONF |
-| Calabi-Yau from 24-cell | — | CY(1,1) confirmed; (27,3) REJ | — | — | — | — | — | — | — | — | — | — | — |
-| T-Knot (α_knot) | C–P | — | C–P | — | — | — | — | C–P | — | C–P | — | — | — |
-| Nucleon mass ratio | C–P | — | C–P | EXPL | — | — | — | C–P | — | C–P | C–P | C–P | C–P |
-| T-Knot standing wave | — | — | C–P | — | — | — | — | C–P, nuc-only | — | C–P, nuc-only | — | — | — |
-| Λ–Σ⁰ generalization (T-Knot) | — | — | — | — | — | — | — | OPEN | — | OPEN | — | — | — |
-| Fractal charge mechanism | — | — | — | — | REJ | — | — | — | — | — | — | — | — |
-| 8D CA engine (E8 graph) | — | — | — | — | — | REJ | — | — | — | REJ | — | — | — |
-| Discrete Hodge star δ (24-cell) | — | — | — | — | — | — | REJ | — | — | REJ | — | — | — |
-| T-Knot crossing-graph CA | — | — | — | — | — | — | — | — | REJ | REJ | — | — | — |
-| Simplicial Dirac operator | — | — | — | — | — | — | — | — | — | C–P | C–P | C–P | C–P |
-| 2O mode selection (Dirac) | — | — | — | — | — | — | — | — | — | — | FAILED | — | — |
-| Cross-sector validation (Dirac) | — | — | — | — | — | — | — | — | — | — | — | FAILED | — |
-| I Ching correspondence | — | — | — | — | — | — | — | — | — | — | — | — | TESTED, no forcing |
-| Genuinely unknown prediction | OPEN | OPEN | OPEN | OPEN | OPEN | OPEN | OPEN | OPEN | OPEN | OPEN | OPEN | OPEN | OPEN |
-
-*(CONF = CONFIRMED, C–P = CANDIDATE–PARAMETRIZED, EXPL = EXPLORATORY,
-REJ = REJECTED.)*
-
-**Note on the triality/SU(3) material (§4.5):** it does not appear in this
-matrix because it was never part of the audited RC-45–57 series and its
-execution status is unconfirmed (see Editorial Note and §4.5).
-
-
-# Appendix — Methodological Notes (v8.0 Revision)
-
-*This appendix replaces the v7.9 guardrail appendix (formerly A.1–A.17).
-It is streamlined, not eliminated. Tier A and Tier B substantive standards
-are unchanged from v7.9; what changes is the procedural overhead and, for
-Tier C only, the applicability of the "selected vs. derived" test.*
-
-## A.1 The Three-Tier Structure
-
-| Tier | Content | Standard |
-|---|---|---|
-| **A — Mathematical Skeleton** | Golay, Leech, 24-cell, E8 embedding, 2O, Gram theorem, CY(1,1) | Theorem or nothing. Full formal rigor, machine-precision verification, no fitting. Unchanged from v7.9. |
-| **B — Dynamic Mechanisms** | T-Knot, Dirac operator, and any future physical-prediction mechanism | Natural parameters permitted. Every parameter must be labeled fitted or derived. Physical predictions require a precise match, a pre-registered falsification criterion, and an explicit parameter count. Procedural overhead (multi-gate decision trees, exhaustive enumeration requirements) is reduced relative to v7.9, but the substantive standard — a claim is CANDIDATE only with zero free parameters, CANDIDATE–PARAMETRIZED with exactly the parameters disclosed, REJECTED if it fails its own criterion — is unchanged. |
-| **C — Exploratory Resonance** | I Ching, Egyptian/Horus fractions, and future cross-cultural or historical numerical systems | Pattern recognition and interpretive richness are valid contributions in their own right. No pre-registration or falsification criterion is required to *record* a Tier C observation. |
-
-## A.2 What Changed From v7.9's Guardrail Appendix
-
-- **Removed:** mandatory pre-registration for Tier C material before it can
-  be written down and discussed.
-- **Removed:** the "selected vs. derived" (guardrail A.1a-style) test *as a
-  gate on Tier C material remaining in Tier C.* A Tier C entry does not need
-  to survive that test to be included in Part IV.
-- **Unchanged, and explicitly re-affirmed:** the "selected vs. derived" test
-  remains **mandatory** the moment any claim — regardless of which Tier it
-  originated in — is presented as a physical prediction (Tier B) or as
-  established mathematics (Tier A). Tier C is a scratchpad, not a bypass.
-  Concretely: RC-57's finding that I Ching forces nothing in the framework's
-  physics is not overturned or exempted by this revision; it is exactly the
-  kind of result Tier C is supposed to still produce when a resonance
-  doesn't hold up. The framework's history includes both successful and
-  unsuccessful applications of this discipline: RC-57's I Ching rejection
-  and RC-55's mode-selection failure are examples of the guardrail working
-  correctly under the new tier structure, not evidence that it has been
-  weakened.
-- **Streamlined:** Tier B no longer requires the full multi-gate branching
-  procedure (CANDIDATE / CANDIDATE–PARAMETRIZED / OPEN / REJECTED decision
-  tree with exhaustive enumeration at each gate, as run in e.g. RC-40's
-  36-fold tensor-product search or RC-43's 13-operator sweep) for every
-  cycle. A single pre-registered falsification criterion and an honest
-  status label are sufficient going forward. Exhaustive search remains
-  available and appropriate when a claim's plausibility depends on ruling
-  out alternatives (as in RC-40 and RC-43), but is no longer mandatory
-  procedure for every Tier B test.
-
-## A.3 The v8.0 → v8.5 Commitment
-
-v8.0 operates with expanded exploratory freedom in Tier C. This freedom is
-time-bound and content-bound in one specific sense: **any Tier C material
-that comes to be relied upon for a physical claim must be re-evaluated
-against full Tier B standards no later than v8.5**, with its own
-pre-registration and falsification criterion, before that reliance is
-retained. Two items are already flagged for that re-evaluation:
-- §4.4.3, the Gram → Dirac spectral bridge hypothesis (the one Tier C item
-  with a clear falsifiable form already available).
-- §4.5, the triality/SU(3) material, which requires independent re-execution
-  before any status beyond UNVERIFIED can be assigned, Tier B or otherwise.
-
-## A.4 Retained Case Studies (from v7.9, unchanged)
-
-The following case studies remain instructive and are retained without
-modification: RC-39 (T-Knot great-hexagon-plane downgrade — the most
-symmetry-motivated choice gave the worst result), RC-40 (33/17 exhaustive
-search, genuine negative result), RC-38 (proton EDM — target-driven
-construction caught by the guardrail), RC-43 (E8 spectral operator, 13
-operators/0 matches), RC-37 (deuteron sign error — a SUSPENDED, not
-REJECTED, diagnostic finding). RC-55's mode-selection failure and RC-57's I
-Ching rejection are added to this list as v8.0-era examples of the same
-discipline still functioning under the new tier structure.
-
-These case studies are retained not as a record of failure but as a record
-of **honest practice** — the framework's most durable feature across all
-versions.
+A separate mechanism I found in the same period as the engine — a dihedral "clock," built by composing $P_{23}$ with a logical Hadamard gate — gives the code's automorphism group a natural order-46 element, whose square splits the physical qubits into two equal 24-dimensional eigenspaces. I read this as a group-theoretic realization of a spinor's 720-degree period. It has held up on its own terms since cycle 77, though I have never found a connection between its eigenphases and either the Gram gap or the mass-ratio target discussed in Chapter 4, and I have not been able to show it is specific to the Golay code rather than a generic feature of any stabilizer code's automorphism group composed with its own logical Hadamard.
 
 ---
 
-# Conclusion
+# Chapter 3 — The Surrounding Geometry, and Two Further Symmetries
 
-Part I is unchanged and complete: the Golay code, the Leech lattice, the
-Gram eigenvalue theorem, the 24-cell, the 240-root identity, the E8→24-cell
-structural embedding, and the minimal self-mirror Calabi-Yau are confirmed
-mathematics.
+## The 24-cell, $E_8$, and the binary octahedral group
 
-Part II carries the interpretive architecture forward from v7.9 without
-alteration, with one correction: the fractal-charge reading (§2.3) is now
-explicitly marked as tested and rejected in its strong form.
+The Golay code's automorphism structure sits inside a larger geometric picture that I've found genuinely confirmable, even where it hasn't (yet) connected to anything dynamical. The 24-cell — the unique self-dual regular 4-polytope, 24 vertices split into 8 "axial" and 16 "Hurwitz" vertices under the binary octahedral group $2O$ — embeds structurally inside the $E_8$ root system, with $E_8$'s 240 roots splitting as two orthogonal copies of the 24-cell (as $D_4$ root systems) plus 192 further roots organized by Spin(8) triality. The identity $24+96+96+24=240=|\Phi(E_8)|$ (vertices, edges, faces, cells of the 24-cell, summing to the total root count of $E_8$) is a genuine, confirmed geometric fact, not a numerical coincidence dressed up as one.
 
-Part III now holds two live, precisely-matching, nucleon-sector-only
-mechanisms — the T-Knot standing wave and the simplicial Dirac operator —
-both missing a mode/parameter-selection principle, and both having failed
-every cross-sector generalization test attempted (Λ–Σ⁰, pion splitting).
-Automaton approaches to dynamics are closed on both tested substrates (E8,
-T-Knot crossing graph).
+A separate exercise in the framework's history — locating the code's coordinates on the 24-cell's "MOG" grid layout and asking whether four specific "tunnel" positions carry structural significance — is a good example of the kind of error this document exists to catch and correct honestly rather than quietly patch. The tunnel indices were wrong in every edition from v8.05 through v8.3.5 (three of the four positions were off by exactly 6, one was correct by coincidence). Once corrected, a numerical identity that had been cited for several editions as connecting the tunnel geometry to the nucleon mass ratio (the so-called "Mode 174" and its associated "+1") turned out to depend entirely on the old, wrong index, and I retracted it rather than trying to rescue it under the corrected numbers. A separate, smaller identity in the same section (the "Mode 173" inclusion-exclusion count) depends only on the Steiner system's regularity constants, not on the specific tunnel indices, and survives the correction untouched.
 
-Part IV is new: an exploratory layer that keeps unguarded pattern-search
-on the record — including its one success (the Gram→Dirac bridge
-hypothesis, not yet tested) and its tested failure (I Ching) — while
-explicitly declining to let unverified material (the triality/SU(3) claims)
-enter the framework's verified record without independent re-execution.
+## The S-involution
 
-The framework's honest self-description at v8.0:
+A genuinely new element of the code's automorphism group, $S:x\mapsto-x^{-1}\bmod23$, turned up as an unplanned byproduct of a hypothesis (RC-98) that itself did not pan out — a reminder that a negative result can still hand you something real on the way out the door. $S$ is a bona fide element of $M_{24}$: it preserves every one of the 4096 codewords, it's an involution with twelve transpositions and no fixed points, and it swaps the engine's two orbits, $A\leftrightarrow B$. Restricted to the 22-dimensional engine space, its spectrum splits as ten $+1$'s, eleven $-1$'s, and one eigenvalue at exactly $1/23$ — a genuinely anomalous direction that several later cycles (Chapter 4) tried, with mixed success, to turn into a derivation of the framework's still-open perturbation scale.
 
-*"Two precise nucleon-sector mechanisms with one parameter each, a
-confirmed mathematical skeleton that has grown (E8 embedding, minimal CY,
-2O sign mechanism), a live cross-tier hypothesis (the Gram→Dirac bridge),
-and a newly-organized exploratory layer — standing alongside the same
-caveat every version before it has carried: no mechanism has yet produced
-a zero-parameter physical prediction, and no genuinely unknown quantity has
-been derived."*
+Read as a gate on the $[[24,12,8]]$ quantum stabilizer code (a picture I develop fully in Chapter 5), $S$ turns out to be a non-trivial, entangling Clifford operation — not the identity, not a Pauli operator, not a simple permutation. Its exact circuit decomposition, worked out once I switched to a systematic-form basis for the code's generator matrix, is 29 CNOTs plus 38 phase-type gates.
 
-**The skeleton is real. The T-Knot and the Dirac operator are the two
-engines on the table, each with one unexplained parameter. The exploratory
-layer is now organized rather than incidental. The framework's boundary
-condition remains what it has been since v7.9: derive the mode-selection
-principle, make a genuinely unknown prediction, or honestly retreat to pure
-mathematics.**
+---
 
-*End of Document — 24D-DMF v8.0*
+# Chapter 4 — The Nucleon Mass-Ratio Program
+
+For roughly the first hundred cycles of this project, the central question I was asking of the Golay code was a very specific one: does this structure encode the proton-to-neutron mass ratio, $727/726$, or any of the other nucleon-sector constants I could think to test against it? I want to describe this program honestly, which means describing it as it actually went: a long sequence of natural, zero-free-parameter constructions, the overwhelming majority of which did not survive contact with computation, alongside a small number that did hold up, imperfectly, on their own terms.
+
+## What held up
+
+The clearest survivor is the **mechanical response formula**: applying a specific eigenvalue-splitting recipe uniformly across all eleven degenerate pairs of the engine's $H_0$ spectrum (Chapter 2) gives the identical ratio $1453/1451$ for every pair, independent of which pair you pick — a genuine structural signature, since the alternative (a result that only worked for one lucky pair out of many) would have been much weaker evidence. That ratio misses the target $727/726$ by under a thousandth of a percent, but closing that last gap exactly requires the formula's internal "tick" to shift from $1452$ to $1453$ by exactly the same "+1" that distinguishes the target numbers themselves — using the answer to derive the answer. I have not found a way around that circularity, and I say so plainly rather than paper over it.
+
+A separate line of attack, built directly from the S-involution's anomalous near-zero eigenvalue at $1/23$ (Chapter 3) together with the D23 clock's period of 46 and the Gram-derived frequency $\sqrt{11}$, produces a formula for the perturbation scale, $\varepsilon=1/(46\sqrt{11})$, using only confirmed Tier A quantities and no fitted inputs at all. On its own it lands within about $23\times$ of the fitted value that had previously been used throughout the program — real progress, though not a full derivation. A single small-integer correction, multiplying by $(1+2/23)$, closes nearly all of the remaining gap, to within two parts in a million of the fitted value. I want to be direct about the honest limitation here, because it's easy to miss: that specific correction factor was *found* by scanning a short list of candidates against the already-known target ratio. It is not independently motivated, and I do not treat it as a derivation.
+
+The **T-Knot standing-wave** mechanism, from much earlier in the program, gives an exact match to the target ratio at a specific mode number, but requires a phase-shift parameter that is chosen to make the cancellation work rather than derived from the underlying geometry, and it fails outright when I tried to extend it to the $\Lambda$–$\Sigma^0$ or pion sectors.
+
+## What didn't
+
+Everything else in this program — and there is a great deal of it — did not survive its own falsification criteria. Thirteen distinct zero-free-parameter operators built from $E_8$, the 24-cell, and related structures were tested against the mass ratio directly; none came within 1%. A discrete cellular automaton on the $E_8$ root graph produced no gliders. A weak-mixing-angle formula built by combining framework constants from unrelated contexts missed experiment by tens of standard deviations. A simplicial Dirac operator on the 24-cell's lexicographic triangulation gave a startlingly precise match to the target ratio — three parts in ten million — until a systematic comparison against 82 random triangulations of the same polytope showed that 81 of them did just as well or better, which is about as clean a demonstration of a statistical artifact as I've encountered anywhere in this project.
+
+A recurring pattern, and one I think is worth naming explicitly rather than letting it hide in a long list of individual rejections: several of the most promising-looking numerical coincidences in this program's early history turned out, on closer inspection, to rest on results that were never actually computed. A best-fit pair reported with an error of three parts in ten million was, on independent re-execution, replaced by a real result with an error of two parts in ten thousand — a genuine, reproducible finding, just a much weaker one than what had been circulating. I record this not to dwell on it but because the corrected, weaker result is the one that actually survived scrutiny, and it's the one I stand behind.
+
+Two elaborations on the S-involution's isospin-breaking role deserve a fair hearing on their own terms. A direct epsilon-scan using $S$ alone as the perturbation gives the best single-perturbation match to the target ratio found anywhere in this archive — fifty times better than the standard perturbation at the same scan resolution, though the mechanical-response formula above normalizes that advantage away once applied. A follow-up, more elaborate three-face construction built several structurally sound pieces (a well-formed 48-dimensional isospin operator, a real tunnel-overlap enhancement) around a central mass-splitting prediction that came out wrong in sign and off by more than an order of magnitude — a case where I judge the central quantitative claim to have failed even though the surrounding scaffolding held up, since a prediction wrong in both sign and magnitude doesn't clear the bar regardless of how much correct structure surrounds it.
+
+A comprehensive list of every mechanism tested and rejected in this program, with the specific reason each one failed its own criteria, is in the Reference, Part XII.
+
+## Reading this program as a whole
+
+Looking back across the whole nucleon-sector arc, I see two solid, small, structurally-motivated results (the mechanical response formula, the RC-99/99c epsilon formulas), one exact-but-unmotivated match (T-Knot), and a long tail of careful, honest negative results. I do not think this is a failure of the underlying mathematics — the Golay code, the engine, and the Gram theorem are exactly as solid as they were before any of this testing began. It's a fair description of how hard it is to connect a beautiful piece of combinatorics to a specific physical number without smuggling that number in somewhere along the way, and it's the reason the center of gravity of this project moved, starting around cycle 100, to a question the framework could actually answer on its own terms.
+
+---
+
+# Chapter 5 — The Pivot: Quantum Information on the Golay Code
+
+Around cycle 100, I stopped asking the Golay code to encode a specific physics constant and started asking what kind of *quantum system* it already is. This turned out to be a much more productive question, in the sense that it produced results I could actually confirm or reject cleanly, without the target-fitting problem that shadowed most of Chapter 4.
+
+## The code as a stabilizer code
+
+Read through the stabilizer formalism, $C_{24}$ is a genuine $[[24,12,8]]$ quantum error-correcting code: 24 physical qubits, 12 logical qubits, distance 8. The S-involution (Chapter 3), viewed this way, is not just a code automorphism — it's a logical gate, and a non-trivial, entangling one. That single observation opened up a real research program: what is the full group of transversal gates on this code, and does the code's automorphism structure reach beyond the ordinary Clifford group at all?
+
+## The transversal boundary
+
+The answer to the first question is exact, and I consider it one of the cleanest results in this entire framework: the transversal Clifford gate group on the $[[24,12,8]]$ code is *exactly* the monomial subgroup $2^{12}.M_{24}$ — coordinate permutations from $M_{24}$ together with sign changes indexed by the code's own codewords — sitting inside the much larger Conway group $\mathrm{Co}_0$. I read this as a Conway-group analogue of the Eastin–Knill theorem: $\mathrm{Co}_0$, as a continuous symmetry group of the Leech lattice, cannot be fully realized by transversal discrete gates on the code; only its discrete monomial subgroup can be.
+
+Testing that boundary required constructing an explicit element of $\mathrm{Co}_0$ outside the monomial subgroup — a "zeta-element," built as a reflection on four coordinates at a time (a tetrad). My first attempt at this construction, tested on a single tetrad, gave a clean and interesting-looking result: the element acts as the identity on the code's cocode (its 4096-element quotient space), which I read as evidence that it contributes only a global phase to the logical space rather than a genuine gate. It was a colleague's later, independent construction — building the full six-tetrad "sextet" version of the same idea — that caught a real problem with my original single-tetrad object: it has determinant $-1$, and $\mathrm{Co}_0$ consists entirely of determinant-$+1$ matrices, so my original construction was never actually inside the group I meant to test. I want to be direct about this rather than let it sit quietly in a footnote: the corrected, genuinely-$\mathrm{Co}_0$ construction, built on the full sextet rather than a single tetrad, has determinant $+1$ as required, and it turns up a nuance I find more interesting than either the original claim or a flat rejection would suggest — it maps every one of the code's 4096 codewords back into the code, just non-injectively, collapsing the code two-to-one onto half of itself. That's a structurally different finding from my original object, which mostly threw codewords *outside* the code entirely, and I've kept both versions on record rather than letting the correction erase what the (flawed) first attempt actually found.
+
+## Holography, symmetry restoration, and one genuine area law
+
+Three further tests, run in close sequence once the transversal boundary was established, asked whether this code shows genuinely holographic behavior. A frame-stabilizer analysis confirmed the boundary is sharp — no intermediate subgroup between the monomial group and full $\mathrm{Co}_0$ adds any new transversal gates — while a direct search for the framework's long-standing "+1" correction (Chapter 4) in this new holographic language became its fourth independent failed derivation attempt. A dedicated test of the encoding isometry's entanglement structure found a volume law, not an area law — this specific code, on its own, is a good quantum error-correcting code but not a holographic one in the technical sense. And a long-open conjecture about degenerate Dirac modes on a symmetry-preserving triangulation of the 24-cell, finally executed after sitting unresolved since the framework's earliest editions, confirmed its qualitative prediction (an abundance of exactly the right kind of degeneracy) without confirming its quantitative one (the match to $727/726$ came out four times worse than the asymmetric triangulation it was meant to explain).
+
+The one place a genuine area law does show up is in a coupled two-copy construction — two Golay codes on a $2\times24$ lattice, joined by an inter-row stabilizer coupling. A single-column cut across this coupled code gives an entanglement entropy of exactly 2 bits, matching the boundary size of that cut exactly, derived analytically from the code's own minimum distance. It's a real, if narrow, holographic signature — genuine only at the smallest possible scale, and settling into ordinary finite-code behavior as soon as the cut is widened.
+
+---
+
+# Chapter 6 — The Quantum Engine in Motion
+
+Chapter 5 established that the code, read as a stabilizer code, carries real quantum-information structure. This chapter asks the harder question: does the engine that drives that structure actually *do* anything, dynamically, or is it still just a very elaborate static symmetry?
+
+## The engine runs
+
+I built an ordinary Hamiltonian from the engine's two generators on the 22-dimensional representation space (Chapter 2) — no fitted parameters, just the generators themselves plus a constant term motivated by the Gaussian-period identity $|\eta_0|^2=6$ — and let it evolve three test states over a hundred time units. All three pass the criteria I set going in: the return probability exceeds one half at some point during the evolution, and energy is conserved to numerical precision throughout. The recurrence structure that emerges is tied directly to the engine's own natural frequencies — periods near 11, 23, and 46 recur across all three states, the same trio of numbers that appears throughout the framework's static mathematics.
+
+I also built a coupled two-copy version of the code — the same $2\times24$ pixel-grid construction from Chapter 5's holographic tests — and searched its logical spectrum for a near-zero mode, on the model of the flat directions that give the toric code its anyonic excitations. I did not find one, under the primary construction or under three deliberately different control Hamiltonians I tried alongside it. Because a gauge zero mode is the prerequisite for the photon-like excitation I was ultimately hoping to find, I didn't proceed to test for that either — there was nothing yet to test.
+
+## The engine filters
+
+If Hamiltonian evolution doesn't produce a gauge structure, I wondered whether a different kind of dynamics might: not evolution, but *measurement*, scheduled by the engine's own group structure rather than a Hamiltonian's spectrum. I built a schedule that uses the full non-abelian structure of $G$ — not just its order — to decide, tick by tick, which of the code's 12 stabilizer generators to measure next, and tracked a state as a probability distribution over the 4096 possible measurement outcomes rather than as a vector.
+
+The result is the cleanest dynamical finding in this entire framework. Starting from the maximally uncertain distribution, the measurement schedule converges the state to the code's logical subspace with probability *exactly* 1, after precisely 253 ticks — the engine's own order, not a number chosen after the fact. The convergence happens in a clean staircase: eleven bits of entropy at the start, falling to four, then three, then one, then zero, exactly as each new stabilizer generator comes online for the first time. Running the schedule for a second full period afterward leaves the state completely unchanged, which is exactly what I'd expect once a state has settled into a fixed point of a projective measurement process.
+
+Two of the four criteria I set for this cycle remain genuinely open rather than resolved either way — I have a structural argument, but not a direct spectral computation, for the zero-mode eigenvalue criterion, and I never implemented the spatial cut of the 24 qubits that a full entropy-boundary-law test would need. I want to be honest that "structurally satisfied" and "directly verified" are different things, and I've kept them labeled differently rather than letting the former quietly stand in for the latter.
+
+## An unfinished companion attempt
+
+The natural next question was whether this same filtering effect could be reproduced directly on the 12-logical-qubit space, using a Hamiltonian built from the *inverse* of the code's own Gram metric rather than from a measurement schedule. Inverting the metric does exactly what I'd hoped structurally — it turns the metric's largest eigenvalue into its smallest, opening a genuine near-zero channel that the metric itself doesn't have. But the specific Hamiltonian I built from that inverted metric turned out to be gapped, not near-zero, and a separate piece of bookkeeping — converting the engine's logical action into an explicit unitary matrix on the full 4096-dimensional logical space — was not completed before the cycle's compute budget ran out. I've kept the partial results on record rather than treating an unfinished cycle as if it never happened, because what was completed is informative on its own: it's consistent with a reading I find genuinely useful going forward, which is that the entropy-reducing behavior I found in the measurement-schedule picture may be a fact about *projective* dynamics specifically, not something an ordinary unitary Hamiltonian can reproduce by construction, since unitary evolution conserves entropy exactly the way I confirmed it does at the start of this chapter.
+
+Taken together, I read this trio of results as: the engine runs under a Hamiltonian, it filters under a measurement schedule, and a native unitary construction on the logical space for the same filtering effect remains an open problem rather than a demonstrated one. A confirmed gauge zero mode, under any construction, is the central open question of this entire chapter — I return to it in the closing chapter.
+
+---
+
+# Chapter 7 — A Second Approach: Geometry, Color, and the Arrow of Time
+
+Alongside the Hamiltonian and measurement-schedule programs of Chapter 6, a second and largely independent line of research grew out of a much more geometric instinct: instead of asking what operators do to the code algebraically, project the 24 coordinates through an actual geometric pipeline — the quaternion realization of the 24-cell, a Hopf fibration down to the icosahedron, a final shadow onto a two-dimensional decagon — and watch what the engine's dynamics looks like from the outside, as a sequence of positions and colors rather than as amplitudes and eigenvalues. This chapter is the story of that program, which turned out to be considerably stranger, and in places more informative, than I expected going in.
+
+## Twenty-four holes, five colors, and a period nobody predicted
+
+The starting object in this program is a "deep hole": a state with all 24 coordinates at $+0.5$ except one, which sits at $-0.5$. There are 24 of them, one per coordinate, and projecting each one through the geometric pipeline assigns it a color, one of five, at every tick of the engine's schedule. The five colors themselves are geometrically genuine — they fall out exactly from the pipeline's own symmetry, evenly spaced — but the hope that they would cycle with period 5, matching that symmetry, did not survive contact with the actual dynamics: the true period is 22, and I recorded that as a partial success rather than pretend the mismatch away.
+
+That period-22 structure turned out to be the framework's most productive false lead. Tracking all 24 deep holes' color sequences together, rather than one at a time, showed that the engine's Floquet schedule partitions the 24 coordinates into exactly five disjoint dynamical classes — I call them A through E — of sizes 8, 7, 6, 2, and 1. The size-1 class is a single coordinate, the code's own parity bit, which turns out to be an exact fixed point of every operation in the schedule: not an approximation, not a rounding artifact, but literally invariant to machine precision, because that coordinate happens to be held fixed individually by every one of the schedule's three constituent operations. I tested this directly rather than assuming it, using the exact continuous trajectory rather than any nearest-neighbor discretization, and the fixed-point property survived every version of that test I could construct.
+
+Figuring out *why* the partition has exactly this shape, rather than some other shape, took a genuinely systematic falsification exercise: five natural hypotheses (pure-engine orbits, quaternion-type geometry, the S-involution's action, color statistics, a coset-alignment guess) were tested in turn and every one of them failed or only partially held. What survived that process wasn't any of the five candidate explanations, but a sixth, discovered rather than pre-registered: the five classes are an emergent property of how a four-orbit structure in the engine's *unperturbed* dynamics gets branched, at specific moments, by the one involution (the logical Hadamard) that the full schedule adds every eleventh tick. I think this is a good example of how a falsification-first process is supposed to work — none of my guesses were right, but ruling them out in turn is what actually pointed at the real mechanism.
+
+## An arrow of time, and where it lives
+
+A natural next question, once a genuinely dynamical partition exists, is whether the dynamics is reversible. I tested three distinct ways a time-reversal symmetry might hide in this system — shifting the schedule's timing, checking the full period for a reflection symmetry, checking whether the color palette itself is closed under complementation — and all three failed outright, not narrowly. What I could show directly, though, is *why*: the engine's two core generators are, on their own, exactly reversible; the involution that gets added every eleventh tick is, on its own, exactly self-inverse; but the two do not commute, and it is that non-commutativity, not any detail of the color mapping or the schedule's specific period, that makes the overall dynamics irreversible. That's a structural theorem about this system, not a numerical accident I happened to notice.
+
+I then spent a considerable amount of effort asking where the resulting "arrow of time" actually lives, and I want to describe that search honestly because it moved through several genuinely wrong turns before landing somewhere solid. A first hypothesis — that entropy flows from the coordinates the engine visits toward the ones it doesn't — pointed the wrong direction entirely: the visited coordinates turned out to have *higher* average entropy than the unvisited ones, the opposite of what I'd proposed. What that failed test did turn up, though, almost as a side effect, was that the engine's long-run stationary probability concentrates disproportionately on one specific class — Class B, the seven-coordinate class from the partition above — carrying nearly two-thirds of the total weight despite being under a third of the coordinates. Testing that observation systematically, across every possible starting point rather than just the one I'd noticed it from, confirmed the weight concentration and the isolation of that class from the others cleanly, while a companion claim (that the same class also shows a universal excess in propagation speed) did not hold up once tested against every starting coordinate — it fails for exactly the two coordinates that belong to the smallest orbit class, and the anomaly there survives even under the most careful continuous re-analysis I could construct, so I've recorded that as a real, structural limit on the "universal arrow" reading rather than smoothing it over.
+
+A separate strand of this same period asked whether the boundary encoding (the color sequence) preserves any notion of *locality* with respect to the bulk (the 24 coordinates), across six different natural geometric distance measures drawn from the Golay code's various faces. All six failed a global test; the best of them (ordinary cyclic position) correlates only weakly. It was only once I stopped looking at individual coordinates or even individual vertices, and instead coarse-grained all the way up to the six 5-fold symmetry axes of the icosahedron, that a real locality signal appeared — coordinates on the same symmetry axis really do have more similar color sequences than coordinates on different axes, a result that held up under a nonparametric significance test as well as a correlation coefficient. Locality, in this system, is a property that only exists at a specific level of coarse-graining; it is invisible at the finest scale and again invisible if you coarse-grain too far.
+
+## A coherent bridge
+
+The last result in this arc is the one I find most satisfying, precisely because it directly overturns what the previous result in the sequence seemed to say. Testing whether Class B is *closed* under a small non-Clifford phase rotation — whether states starting in that class stay in it — the answer is a clean no: every Class B starting point leaks, immediately, and always to the same small handful of destinations, the four coordinates of Class A that sit nearest to it and the fixed-point coordinate itself. Read at face value, that looks like exactly the kind of decoherence I'd expect from an open, dissipative system.
+
+It isn't. Running the full 253-tick evolution forward under that same phase rotation, then running the *exact* inverse sequence backward, recovers the original state to a precision limited only by ordinary floating-point round-off — a residual roughly thirty orders of magnitude below any threshold that would indicate genuine information loss — and Class B is, again, the specific class where this reversibility is cleanest, more so than any of the other four. The "leak" I found in the closure test is not a loss of information at all. It is a coherent, fully reversible, unitary channel, connecting Class B specifically to the framework's one truly fixed coordinate. I think this is the single clearest piece of evidence, anywhere in this program, that the framework's geometric dynamics has genuine quantum structure to it rather than merely dynamical structure — and it sets up directly the question I take up in the next chapter: can that coherent bridge actually be built into a working logical qubit?
+
+---
+
+# Chapter 8 — Finding the Logical Qubit: Four Wrong Bases and a Fifth That Works
+
+Chapter 7 closed with a coherent, reversible bridge between one orbit class and the engine's fixed point. The obvious next question is whether that bridge, or something like it, can be built into an actual working logical qubit — a genuine two-state quantum object supported natively on this geometric picture, distinct from (though related to) the code-theoretic logical qubits of Chapter 5. This chapter is the story of getting that construction wrong four times, in four different and individually informative ways, before getting it right on the fifth attempt.
+
+## Fixing a foundation first
+
+Before any of that search could proceed, I had to correct an error in how I was even asking the question. An earlier attempt to test whether the engine's dynamics is unitary had tested it in the wrong space entirely — the 24-dimensional physical coordinates, or equivalently the 12-dimensional code subspace — and found the dynamics wanting there. But the actual home of stabilizer-formalism quantum behavior is not that 12-dimensional subspace; it's the 48-dimensional symplectic space the stabilizer formalism is built on, tracking both the $X$-type and $Z$-type halves of every physical qubit together. Retested in the correct 48-dimensional space, every property I'd hoped for was there all along: the engine's logical Hadamard-plus-shift combination has exactly the order-46 structure found back in Chapter 3's dihedral clock, it's genuinely symplectic (the stabilizer-formalism analogue of unitary), and two specific physical coordinates turn out to correspond to two specific logical qubits directly. That correction — testing the right space, not a smaller one that happened to be easier to write down — turned out to matter for everything that followed in this chapter.
+
+## Four bases that don't work
+
+With that foundation corrected, I set out to characterize a specific non-Clifford phase rotation — a rotation in the plane spanned by two of the 24 coordinates — as precisely as I could. It is, unambiguously, a genuine non-Clifford unitary: it acts as a perfectly uniform rotation on its own phase coordinate, it generates a finite group together with the engine's schedule, and it commutes with two of the schedule's three ingredients but not the third. What it is *not*, I found directly, is a logical gate in the ordinary sense of preserving some interesting subspace — it does not preserve the seven-coordinate orbit class from Chapter 7, leaking out of it at a rate far above any reasonable threshold. Read charitably, this isn't really a failure so much as a hint about what kind of object I should have been looking for: not a subspace-preserving gate, but a fiber bundle — a discrete base of some kind, paired with this phase rotation as a continuous circle-valued fiber sitting on top of it.
+
+Finding the right discrete base for that bundle took four attempts, and I want to walk through all four rather than skip to the one that worked, because the wrong turns are what make the eventual success legible rather than lucky. The first natural candidate was the six 5-fold symmetry axes of the icosahedron from Chapter 7's locality result — geometrically clean, but dynamically wrong: the engine's schedule doesn't preserve those axes at all, because each axis mixes coordinates from several different orbit classes, and the schedule's natural invariant is the orbit-class partition, not the axis grouping. The second candidate was that orbit-class partition itself — surely, I reasoned, if the schedule preserves it as a set, it ought to support a logical qubit built directly on it. It doesn't: the schedule does not map cleanly *within* any single non-trivial class the way a genuine sub-bundle would need. But chasing down exactly why it fails turned up something better than what I was looking for: the schedule's single-tick operation, examined directly rather than assumed, decomposes the 24 coordinates into exactly seven permutation cycles, and building a logical state with one fixed phase per cycle gives something genuinely invariant under that single tick, with the phase rotation acting on it exactly as hoped.
+
+That looked like the answer, until I checked it against the actual schedule rather than a simplified stand-in for it. The real schedule isn't just one tick — it's ten ordinary ticks followed by one special tick carrying the extra involution, all eleven bundled together as the natural unit of periodicity. Tested against that real eleven-tick unit, the seven-cycle construction falls apart: the extra ticks thoroughly scramble the seven-cycle structure that the single tick alone preserves. Rather than stop there, I ran an exhaustive search across every other natural candidate base I could construct from this system's own structure — the eleven-tick unit's own cycle decomposition, a three-way split drawn from the quaternion 24-cell's geometry, an even/odd grouping, orbit-pair groupings, even the plus-and-minus eigenspaces of the eleven-tick operation treated as a linear map in its own right. Every single one of them failed in the same way: each could be made to respect the schedule's timing, but none of them survived contact with the phase rotation. The reason turned out to be a clean, provable fact about the geometry itself: the 24 basic coordinate states are not mutually orthogonal — every pair of them overlaps by the same fixed amount — and no subspace built from a subset of them can simultaneously respect both the schedule (which doesn't commute with the phase rotation) and the rotation itself, because the two don't share a common set of eigenvectors to build such a subspace from.
+
+## The fifth attempt
+
+Going back to the real eleven-tick schedule's own genuine invariant — the union of the seven single-tick cycles it actually preserves, thirteen cycles in total, mostly pairs — I found that this coarser partition *is* respected correctly by both the schedule and, separately, by the phase rotation, each considered on its own. Combining the two together still failed, though, and tracing through exactly why turned up something very specific and very fixable: the eleven-tick schedule, as part of its own internal structure, swaps one particular coordinate with another every time it runs — not the two coordinates my phase rotation happened to be built on, but a different pair entirely. The phase information I was writing into one of "my" two coordinates was being physically relocated to a completely different coordinate by the schedule itself, which is why the combination kept failing even though each half worked separately.
+
+Moving the phase rotation to act on the two coordinates the schedule actually leaves untouched — rather than the two I had been using by convention — fixed everything at once. Both criteria I needed passed exactly: the phase rotation preserves every one of the thirteen cycles with zero exceptions across dozens of perturbed trials, and, more strikingly, the eleven-tick schedule itself simply doesn't touch either of those two coordinates — they are literal fixed points of the schedule, not approximately invariant under it. Building a genuine two-state logical encoding out of this — one logical state using only one of the two coordinates, the other using only the second — gives a construction that is internally distinguishable, that the phase rotation rotates with perfect fidelity, and that the schedule itself leaves completely untouched, to the same bitwise precision as an exact calculation rather than merely within numerical tolerance. This is, as far as I can tell, the framework's first fully working logical qubit built natively on the geometric engine, rather than on the code's stabilizer formalism directly.
+
+## Confirming it is actually quantum, and one honest gap
+
+Having a construction that behaves correctly under the operations I'd tested wasn't, on its own, enough to call it "quantum" rather than merely "a clever classical relabeling that happens to survive these particular tests." I ran four further checks aimed specifically at that distinction: that the logical states are genuinely normalized superpositions, that the phase rotation shifts the underlying angle coherently rather than just permuting labels, that two independent evolution paths genuinely interfere with each other in a way that shows up as a cosine-shaped pattern rather than a flat one, and that the state can be driven to an exact classical outcome, not just an approximately confident one, somewhere in a reasonably short tick sequence. All four passed, and I think that combination is a fair basis for calling the construction genuinely quantum rather than a dressed-up classical automaton.
+
+One correction from the same period is worth recording here because it's a good illustration of how easy it is to accidentally break coherence through an implementation choice that has nothing to do with the underlying physics. A companion five-fold symmetry, meant to sit alongside the schedule's existing structure, had been built as a matrix that multiplies each of five dynamical "colors" by a different complex phase — which will break the coherence of almost any superposition state by construction, regardless of whether the underlying five-fold symmetry is physically real. It is real; the implementation was just the wrong kind of object. Rebuilt as an actual geometric rotation — a real permutation of the 24 coordinates, following the icosahedron's genuine five-fold axis through the same Hopf-fibration route used throughout this chapter — coherence is restored exactly, for that symmetry individually and for the full combined schedule built from all of the framework's known symmetries together. The one thing that construction still can't do is produce a collapse to a definite outcome on its own, and for a clean structural reason: every operation in that fully-combined schedule is a reversible permutation, and a reversible permutation can never reduce how spread-out a state is, by the same logic that makes shuffling a deck of cards not actually lose any cards. Whatever specific ingredient makes the working logical qubit (from earlier in this chapter) collapse the way it does, it isn't present in this more symmetric combined schedule, and isolating what that ingredient is remains open.
+
+---
+
+# Chapter 9 — Open Questions and the Road Ahead
+
+I want to close this edition the way I've tried to write all of it: with an honest accounting of where things actually stand, not a summary written to sound more finished than the work is.
+
+**The skeleton is solid.** Every construction in Chapters 1 through 3 — the code in its several independent forms, the engine and its representation theory, the surrounding geometry, the S-involution — has been re-derived and numerically verified as part of this edition's audit, not merely carried forward from earlier prose. Two real errors were caught and corrected in that process rather than quietly patched: a coupling operator that had been mis-described as following from a matrix that is symmetric by definition (it can't; the actual construction is built by hand and is now documented as such), and a Conway zeta-element whose original single-tetrad construction turned out to have the wrong determinant, meaning it was never actually inside the group I meant to test. The corrected version is now on record alongside what the original, flawed version actually found — which turned out to be a genuinely interesting result in its own right, just about a different mathematical object than I'd intended.
+
+**The nucleon mass-ratio program (Chapter 4) is closed, in the sense that I don't expect to reopen it.** It produced two small, real, structurally-motivated results and a long, honestly-recorded list of things that didn't hold up. I don't think that's a failure of the underlying mathematics so much as a fair description of how hard it is to connect a piece of combinatorics to a specific physical constant without smuggling that constant in somewhere along the way.
+
+**The quantum-information program (Chapter 5) gave the framework its sharpest confirmed result: an exact transversal gate boundary inside the Conway group.** What remains open there is mostly about extending a computational result to a proven one — the boundary theorem itself rests on an exhaustive but not yet fully algebraic proof, and the corrected Conway zeta-element's action on the code's cocode (the property that made the original, flawed construction interesting in the first place) has never been tested at all.
+
+**The two dynamical programs (Chapters 6 through 8) are where the framework's live edge currently is.** The engine runs under a Hamiltonian; it filters, with genuine and measurable entropy reduction, under a measurement schedule; and a native unitary construction reproducing that same filtering effect on the logical space directly remains unfinished. In parallel, the geometric program found a real arrow of time, a locality signal that only appears at a specific coarse-grained scale, a coherent reversible bridge between one orbit class and the engine's fixed point, and — after four wrong attempts, each individually informative about why it failed — a working logical qubit, confirmed genuinely quantum by direct test.
+
+A confirmed gauge zero mode remains the single most important open question in the dynamical program, playing the same role now that the perturbation scale $\varepsilon$ played throughout the mass-ratio program: the one quantitative target that keeps getting approached, from several independent directions, without yet being reached. I don't know whether it's there to be found. I intend to keep looking, and to keep recording what I find exactly as honestly as everything above.
+
+The full falsification criteria, exact formulas, and numerical results behind every claim in this chapter and the eight before it are in the companion Mathematical Reference, which I've built specifically so that reconstructing any of this from scratch never again requires re-deriving it from memory or from someone else's prose.
+
+*End of 24D-DMF v8.4.6 — The Platonic Quantum Engine.*
