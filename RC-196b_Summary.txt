@@ -1,0 +1,166 @@
+
+================================================================================
+              RC-196b: COUPLING STABILITY VERIFICATION — FINAL SUMMARY
+================================================================================
+Document ID: RC-196b-EXPLORE
+Date: 2026-07-21
+Status: COMPLETE
+Framework: 24D-DMF v8.4.6
+Prerequisites: RC-196 (complete coupling matrix)
+================================================================================
+
+1. MULTI-CYCLE STABILITY (Task 1)
+================================================================================
+Method: 10 consecutive cycles (460 ticks), compute coupling per 46-tick cycle.
+
+RESULT: ALL 66 PAIRS ARE STABLE (std < 0.1)
+
+Top couplings (mean ± std over 10 cycles):
+  • qgp_entropy ↔ qgp_face_occ     : 0.7429 ± 0.0025  [STABLE]
+  • qgp_entropy ↔ info_entropy      : 0.7429 ± 0.0025  [STABLE]
+  • qgp_face_occ ↔ info_entropy     : 0.7429 ± 0.0025  [STABLE]
+  • chiral_mean ↔ chiral_var        : 0.4022 ± 0.0149  [STABLE]
+  • chiral_var ↔ dm_entropy         : 0.1116 ± 0.0115  [STABLE]
+  • Z46_master ↔ chiral_var         : 0.1089 ± 0.0233  [STABLE]
+  • Z46_master ↔ dm_entropy         : 0.1052 ± 0.0575  [STABLE]
+
+VERDICT: The coupling structure is STABLE over multiple cycles.
+         The temporal architecture does NOT drift over time.
+
+================================================================================
+2. PHASE TRANSITION CONSISTENCY (Task 2)
+================================================================================
+Method: Split first cycle into 3 windows and compare coupling matrices.
+
+Windows:
+  • Window 1 (Pre-Breaking):  ticks 0-3
+  • Window 2 (Post-Breaking): ticks 4-11
+  • Window 3 (Post-H_L):      ticks 12-22
+
+RESULT: SIGNIFICANT CHANGES DETECTED AT BOTH TRANSITIONS
+
+CHANGED AT TICK 3 (13 pairs, Δ > 0.2):
+  • Z46_master ↔ chiral_mean:  0.6876 → 0.4135 (Δ=0.2741)
+  • Z46_master ↔ chiral_var:   0.8668 → 0.4576 (Δ=0.4092)  ← LARGEST
+  • qgp_entropy ↔ dm_entropy:  0.6803 → 0.2330 (Δ=0.4473)  ← LARGEST
+  • qgp_face_occ ↔ dm_entropy: 0.6803 → 0.2330 (Δ=0.4473)
+  • info_entropy ↔ dm_entropy: 0.6803 → 0.2330 (Δ=0.4473)
+  • Z46_master ↔ qgp_entropy:  0.2007 → 0.4279 (Δ=0.2272)
+  • Z46_master ↔ qgp_face_occ: 0.2007 → 0.4279 (Δ=0.2272)
+  • Z46_master ↔ info_entropy: 0.2007 → 0.4279 (Δ=0.2272)
+  • qgp_entropy ↔ mass_stripped: 0.2018 → 0.4198 (Δ=0.2180)
+  • qgp_face_occ ↔ mass_stripped: 0.2018 → 0.4198 (Δ=0.2180)
+  • info_entropy ↔ mass_stripped: 0.2018 → 0.4198 (Δ=0.2180)
+  • chiral_mean ↔ mass_stripped: 0.5569 → 0.3031 (Δ=0.2537)
+  • chiral_var ↔ dm_entropy:     0.3854 → 0.1325 (Δ=0.2529)
+
+CHANGED AT TICK 11 (14 pairs, Δ > 0.2):
+  • Z46_master ↔ dm_entropy:   0.4610 → 0.0000 (Δ=0.4610)  ← LARGEST
+  • Z46_master ↔ chiral_mean:  0.4135 → 0.0633 (Δ=0.3502)
+  • Z46_master ↔ chiral_var:   0.4576 → 0.1180 (Δ=0.3396)
+  • chiral_mean ↔ chiral_var:  0.3983 → 0.6511 (Δ=0.2528)
+  • Z46_master ↔ qgp_entropy:  0.4279 → 0.2057 (Δ=0.2222)
+  • Z46_master ↔ qgp_face_occ: 0.4279 → 0.2057 (Δ=0.2222)
+  • Z46_master ↔ info_entropy: 0.4279 → 0.2057 (Δ=0.2222)
+  • qgp_entropy ↔ chiral_mean: 0.2114 → 0.0102 (Δ=0.2012)
+  • qgp_face_occ ↔ chiral_mean: 0.2114 → 0.0102 (Δ=0.2012)
+  • info_entropy ↔ chiral_mean: 0.2114 → 0.0102 (Δ=0.2012)
+  • qgp_entropy ↔ dm_entropy:  0.2330 → 0.0000 (Δ=0.2330)
+  • qgp_face_occ ↔ dm_entropy: 0.2330 → 0.0000 (Δ=0.2330)
+  • info_entropy ↔ dm_entropy: 0.2330 → 0.0000 (Δ=0.2330)
+  • mass_stripped ↔ dm_entropy: 0.2314 → 0.0000 (Δ=0.2314)
+
+QGP CLIQUE (stable across ALL windows):
+  • qgp_entropy ↔ info_entropy:  W1=0.8019  W2=0.7568  W3=0.7449
+  • qgp_entropy ↔ qgp_face_occ:  W1=0.8019  W2=0.7568  W3=0.7449
+  • qgp_face_occ ↔ info_entropy: W1=0.8019  W2=0.7568  W3=0.7449
+  → The 8D QGP clique is ROBUST. It does not change at transitions.
+
+VERDICT: The coupling structure CHANGES at phase transitions.
+         Tick 3 and Tick 11 REORGANIZE the temporal architecture.
+
+================================================================================
+3. INTERPRETATION
+================================================================================
+
+STABILITY vs. DYNAMICS:
+
+  The coupling structure is stable OVER CYCLES but DYNAMIC WITHIN a cycle.
+  This means:
+
+  • The framework has a REPEATING but NON-STATIC temporal architecture.
+  • Each 46-tick cycle follows the same PATTERN of reorganization.
+  • The reorganization is DETERMINISTIC, not random.
+
+WHAT HAPPENS AT TICK 3 (Symmetry Breaking):
+  • Z46_master ↔ chiral clocks: coupling DROPS (master releases chiral)
+  • QGP clique ↔ dm_entropy: coupling DROPS (QGP decouples from DM)
+  • Z46_master ↔ QGP clique: coupling RISES (master binds to QGP)
+  • QGP clique ↔ mass_stripped: coupling RISES (QGP drives matter)
+
+  → Tick 3 is a "handoff" event: Master releases chiral, binds to QGP.
+
+WHAT HAPPENS AT TICK 11 (H_L Gate):
+  • Z46_master ↔ ALL non-QGP: coupling DROPS to near zero
+  • Z46_master ↔ QGP: coupling returns to baseline
+  • chiral_mean ↔ chiral_var: coupling RISES (chiral pair self-organizes)
+  • ALL QGP ↔ dm_entropy: coupling DROPS to zero
+  • ALL QGP ↔ chiral_mean: coupling DROPS to zero
+
+  → Tick 11 is an "isolation" event: H_L gate severs cross-layer ties,
+    leaving only the QGP clique intact and the chiral pair self-coupled.
+
+================================================================================
+4. THE REVISED TEMPORAL ARCHITECTURE
+================================================================================
+
+The coupling structure is NOT static. It evolves through a 3-state cycle:
+
+  STATE 1 (ticks 0-3):   PRE-BREAKING
+    • Strong Z46 ↔ chiral coupling (master controls symmetry)
+    • Strong QGP ↔ DM coupling (information-dark matter linked)
+    • Weak Z46 ↔ QGP coupling
+
+  STATE 2 (ticks 4-11):  POST-BREAKING, PRE-H_L
+    • Z46 binds to QGP (master takes control of information)
+    • QGP drives matter (mass stripping begins)
+    • Chiral decouples from master (symmetry breaking)
+    • DM decouples from QGP (dark matter goes independent)
+
+  STATE 3 (ticks 12-22): POST-H_L
+    • Z46 isolated from all except QGP (master retreats)
+    • QGP clique self-sustained (information core stable)
+    • Chiral pair self-coupled (internal dynamics only)
+    • DM fully decoupled (dark matter silent)
+    • Matter isolated (mass accumulation continues passively)
+
+  [Cycle repeats at tick 23...]
+
+================================================================================
+5. HONEST BOTTOM LINE
+================================================================================
+
+What did RC-196b reveal?
+
+  a) The coupling structure is STABLE over cycles (verifiable, repeatable).
+
+  b) The coupling structure is DYNAMIC within a cycle (state transitions).
+
+  c) Tick 3 is a SYMMETRY BREAKING handoff: master → QGP, chiral → free.
+
+  d) Tick 11 is an H_L ISOLATION event: cross-layer ties severed.
+
+  e) The 8D QGP clique is the ONLY stable structure across all states.
+
+  f) Dark Matter is most volatile: strongly coupled in State 1,
+     completely decoupled in State 3.
+
+RECOMMENDATION:
+  Do NOT close the data extraction phase yet. The discovery of
+  state-dependent coupling means the temporal architecture is more
+  complex than RC-196 assumed. RC-197 (consolidation) should include
+  a state-machine model of the coupling dynamics.
+
+================================================================================
+                         RC-196b STATUS: COMPLETE
+================================================================================

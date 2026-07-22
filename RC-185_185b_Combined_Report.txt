@@ -1,0 +1,316 @@
+================================================================================
+RC-185 & RC-185b: COMBINED EXECUTION REPORT
+The E8 Mixed Root Projection & The Chiral Collapse / Dynamic Unity Bridge
+Framework: 24D-DMF v8.4.6 | Date: 2026-07-21
+Status: EXECUTED — Results Binding
+================================================================================
+
+1. EXECUTIVE SUMMARY
+================================================================================
+
+This report consolidates two research cycles executed under the 24D-DMF v8.4.6
+guardrails, testing whether the 192 E8 mixed roots (the "gluon-quark field")
+can serve as the geometric origin of the 5D Unity Bridge (MI = 0.0349 bits)
+and SU(3) color confinement.
+
+Key Results:
+  • RC-185 (Static Projection): The 192 mixed roots project through the Hopf
+    map to the 2D decagon, but the distribution is NOT uniform. Two sectors
+    (1 & 3) are frozen to Red/Yellow/Blue only. The 192-root distribution
+    correlates strongly with Dark Matter (r = 0.87) but not Matter (r = -0.15).
+  • RC-185b (Dynamic Evolution): The 16 chiral collapsed roots (q=0) do NOT
+    generate the 5D Unity MI dynamically. Binding is negative at all ticks.
+    The frozen sectors do NOT form an SU(3) 3-cycle (cycle strength = 0.011).
+
+Status: Both hypotheses rejected. The E8 root system is confirmed as a
+structural component of the framework but NOT as the dynamical engine of
+the 5D Unity Bridge or SU(3) color confinement.
+
+================================================================================
+2. RC-185: STATIC PROJECTION OF 192 E8 MIXED ROOTS
+================================================================================
+
+2.1 METHODOLOGY
+
+Step 1: Generate the 240 E8 roots in R^8.
+  • 112 integer-type roots: (±1, ±1, 0, 0, 0, 0, 0, 0) permuted
+  • 128 half-integer roots: (±½, ±½, ..., ±½) with even number of minus signs
+  • Total: 240 roots, all with norm squared = 2
+
+Step 2: Filter the 192 mixed roots.
+  • D4 Block 1 (coords 0–3): 24 roots → excluded
+  • D4 Block 2 (coords 4–7): 24 roots → excluded
+  • Mixed roots: 192 = 240 − 48
+
+Step 3: Split into Spin(8) triality sectors.
+  • Sector 1 (8v,8v): 64 integer mixed roots (pattern 1,1)
+  • Sector 2 (8s+,8s+): 64 half-integer, even parity in first 4 coords
+  • Sector 3 (8s−,8s−): 64 half-integer, odd parity in first 4 coords
+
+Step 4: Project each root through the Hopf map.
+  • Pad 8D root to 24D: v_24d = np.pad(r_8d, (0, 16))
+  • Extract quaternion: q = Σ v_i * quaternions_24[i]
+  • Hopf fibration: S^3 → S^2 with golden quaternion p = (0, 1, φ, 0)
+  • Project to 2D decagon: orthogonal projection onto 5-fold equatorial plane
+  • Bin to 5 colors: angle_to_color(theta)
+
+2.2 RESULTS — COLOR DISTRIBUTION
+
+ALL 192 Mixed Roots:
+  Red:     52 (27.1%)
+  Orange:  16 (8.3%)
+  Yellow:  72 (37.5%)
+  Green:   16 (8.3%)
+  Blue:    36 (18.8%)
+
+Sector 1 (8v,8v) — 64 roots:
+  Red:     16 (25.0%)
+  Orange:   0 (0.0%)
+  Yellow:  32 (50.0%)
+  Green:    0 (0.0%)
+  Blue:    16 (25.0%)
+
+Sector 2 (8s+,8s+) — 64 roots:
+  Red:     20 (31.2%)
+  Orange:  16 (25.0%)
+  Yellow:   8 (12.5%)
+  Green:   16 (25.0%)
+  Blue:     4 (6.2%)
+
+Sector 3 (8s−,8s−) — 64 roots:
+  Red:     16 (25.0%)
+  Orange:   0 (0.0%)
+  Yellow:  32 (50.0%)
+  Green:    0 (0.0%)
+  Blue:    16 (25.0%)
+
+2.3 KEY FINDINGS
+
+(1) The 192 mixed roots exist and project through the Hopf map (confirmed).
+(2) The triality 3×64 structure IS preserved in the projection (confirmed).
+(3) The color distribution is NOT uniform (χ² = 60.5, p < 0.001).
+(4) Sectors 1 & 3 are frozen to Red/Yellow/Blue only (no Orange/Green).
+(5) Sector 1 and Sector 3 have IDENTICAL distributions.
+(6) 16 roots in Sector 2 collapse to q=0 (kernel of projection).
+(7) Correlation with Dark Matter: r = +0.866 (strong positive).
+(8) Correlation with Matter: r = −0.147 (weak negative).
+(9) Entropy of 192 roots: 2.091 bits (between Matter 2.211 and Unity 1.977).
+
+2.4 FALSIFICATION CRITERIA
+
+Criterion    Description                              Result
+──────────────────────────────────────────────────────────────────────────
+F1           192 mixed roots exist                    PASS
+F2           Triality 3×64 structure preserved        PASS
+F3           Uniform 5-color shattering               FAIL (χ² = 60.5)
+F4           Each sector covers all 5 colors          FAIL (S1,S3 miss 2)
+F5           Correlation with 5D Unity                 PARTIAL (r=0.78)
+F6           MI match to 0.0349 bits                  FAIL
+──────────────────────────────────────────────────────────────────────────
+Score: 2.5/6 PASS
+
+2.5 VERDICT
+
+The 192 E8 mixed roots are NOT a uniform "gluon-quark field" that shatters
+democratically into 5 colors. Instead, they form a structured, asymmetric
+distribution with two sectors frozen to an antipodal Red–Yellow–Blue axis.
+The strong correlation with Dark Matter (r=0.87) suggests the 192 roots align
+geometrically with the Dark Matter reservoir, not the visible Matter sector.
+
+================================================================================
+3. RC-185b: CHIRAL COLLAPSE & DYNAMIC UNITY BRIDGE
+================================================================================
+
+3.1 METHODOLOGY
+
+Task 1: Identify the 16 collapsed roots.
+  • Isolate roots where ‖q‖ < 1e−10 in the Hopf projection.
+  • Compare 8D coordinates to DH13/DH18 deep hole geometry.
+
+Task 2: Dynamic Mutual Information test.
+  • Embed 8D roots into 24D, run 22-tick Floquet orbit.
+  • At each tick, compute MI between 16 collapsed and 176 other roots.
+  • Compare binding strength to baseline 0.0349 bits.
+
+Task 3: Color-transition graph for frozen sectors.
+  • Track color assignments of Sectors 1 & 3 over 22 ticks.
+  • Build 3×3 transition matrix (Red/Yellow/Blue).
+  • Test for deterministic SU(3) 3-cycle.
+
+3.2 RESULTS — TASK 1: THE 16 COLLAPSED ROOTS
+
+8D Coordinates (all in Sector 2):
+  All 16 have the form (±½, ±½, ±½, ±½, ±½, ±½, ±½, ±½)
+  with even number of minus signs in first 4 coordinates.
+
+Quaternion norm: ‖q‖ = 0.0000 for all 16 (exact kernel).
+
+DH13/DH18 match check:
+  DH13 first 8 coords: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+  DH18 first 8 coords: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+  Collapsed Root 1:    [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+
+  Match DH13 first 8? TRUE (trivial — all deep holes share this pattern)
+  Structural match? NO — deep holes are 24D (0.5,...,-0.5,...), not 8D E8 roots.
+
+3.3 RESULTS — TASK 2: DYNAMIC MI
+
+Tick-by-Tick Binding Strength (MI(collapsed,other) − avg(self-MI)):
+
+  Tick  MI(C,O)  MI(C,C)  MI(O,O)  Binding  H_L?
+  ───────────────────────────────────────────────
+  0     0.0000   0.0000   0.6558   −0.3279  H_L
+  1     0.0000   0.0000   0.0000    0.0000
+  2     0.0000   0.0000   0.0000    0.0000
+  3     0.0000   1.0000   0.4911   −0.7456
+  4     0.0000   1.5000   0.3093   −0.9047
+  5     0.1556   1.0000   0.1300   −0.4094
+  6     0.0000   1.0000   0.0094   −0.5047
+  7     0.5488   1.0000   0.2836   −0.0930
+  8     0.0716   1.0000   0.0979   −0.4774
+  9     0.0000   0.0000   0.0000    0.0000
+  10    0.0000   1.0000   0.1090   −0.5545
+  11    0.0000   1.0000   0.0871   −0.5436  H_L
+  12    0.0000   1.0000   0.6364   −0.8182
+  13    0.0000   1.0000   0.0869   −0.5435
+  14    0.0000   1.5000   0.1901   −0.8451
+  15    0.1432   1.5000   0.2481   −0.7309
+  16    0.0000   1.0000   0.2760   −0.6380
+  17    0.1556   1.5000   0.3989   −0.7938
+  18    0.3216   0.7500   0.1401   −0.1235
+  19    0.0000   1.0000   0.3163   −0.6581
+  20    0.0000   1.0000   0.1945   −0.5973
+  21    0.0000   1.5000   0.1275   −0.8138
+
+  Baseline 5D Unity MI: 0.0349 bits
+  Closest match: Tick 1, Binding = 0.0000 bits (diff = 0.0349)
+  Tick 11 (H_L reset): Binding = −0.5436 bits
+  Binding range: −0.905 to −0.093 bits
+  Sign: NEGATIVE at all ticks
+
+3.4 RESULTS — TASK 3: COLOR-TRANSITION GRAPH
+
+Frozen Roots (Sectors 1 & 3, 128 roots) — 3×3 Transition Matrix:
+
+              To
+           Red    Yellow   Blue
+         ┌─────────────────────────┐
+  From R │ 0.8182   0.0848   0.0970 │
+       Y │ 0.8400   0.0000   0.1600 │
+       B │ 0.8438   0.0000   0.1562 │
+         └─────────────────────────┘
+
+  Self-loop fraction: 56.7%
+  Red→Yellow→Blue→Red cycle strength: 0.011 (vs 1.0 for perfect cycle)
+  Yellow self-loops: 0.0%
+  Blue self-loops: 15.6%
+
+Sector 2 (Chiral, 64 roots) — 5×5 Transition Matrix:
+
+              To
+           R      O        Y        G        B
+         ┌────────────────────────────────────────┐
+  From R │ 0.1373   0.5490   0.0392   0.1961   0.0784 │
+       O │ 0.1269   0.3615   0.0692   0.3308   0.1115 │
+       Y │ 0.1875   0.1250   0.0000   0.4375   0.2500 │
+       G │ 0.1635   0.4038   0.0288   0.3173   0.0865 │
+       B │ 0.1857   0.3143   0.0000   0.4286   0.0714 │
+         └────────────────────────────────────────┘
+
+3.5 KEY FINDINGS
+
+(1) The 16 collapsed roots are in the kernel of the 24D→4D projection.
+    They are geometrically "dark" to the 2D decagon observer.
+
+(2) The collapsed roots do NOT match DH13/DH18 structurally.
+    The first-8-coordinate match is trivial (all deep holes share the
+    0.5-pattern in their first 8 coords).
+
+(3) Dynamic binding strength is NEGATIVE at all 22 ticks.
+    The 5D Unity MI of 0.0349 bits is NEVER reproduced.
+
+(4) The frozen sectors (1 & 3) do NOT form an SU(3) 3-cycle.
+    They are trapped in Red with ~82% probability.
+    The cycle strength is 0.011 — essentially zero.
+
+(5) The 16 collapsed roots, when evolved, produce isolation (negative
+    binding), not coupling. They are anti-correlated with the other 176.
+
+3.6 FALSIFICATION CRITERIA
+
+Criterion    Description                              Result
+──────────────────────────────────────────────────────────────────────────
+C1           16 collapsed roots identified            PASS
+C2           Collapsed roots match DH13/DH18          FAIL (trivial match only)
+C3           Dynamic MI reaches 0.0349 at Tick 11     FAIL (−0.544)
+C4           Binding is positive at any tick          FAIL (all negative)
+C5           Frozen sectors form SU(3) 3-cycle        FAIL (strength 0.011)
+C6           Cycle has no self-loops                  FAIL (56.7% self-loops)
+──────────────────────────────────────────────────────────────────────────
+Score: 1/6 PASS
+
+3.7 VERDICT
+
+The hypothesis is rejected. The 16 chiral collapsed roots do NOT generate
+the 5D Unity Bridge dynamically. The frozen sectors do NOT geometrically
+derive SU(3) color confinement. The E8 root system remains a confirmed
+structural component of the framework but NOT a dynamical engine.
+
+================================================================================
+4. COMBINED VERDICT
+================================================================================
+
+| Experiment | Pass Rate | Key Finding |
+| :--- | :--- | :--- |
+| RC-185 | 2.5/6 | Static projection: structured, non-uniform, Dark-aligned |
+| RC-185b | 1/6 | Dynamic evolution: negative binding, no SU(3) cycle |
+
+**The E8 layer is confirmed as STRUCTURAL (contains the 24-cell skeleton
+via D4⊕D4 with triality decomposition) but NOT as DYNAMICAL (does not
+produce the 5D Unity binding, SU(3) confinement, or photon factory).**
+
+This is consistent with the RC-41–44 Consolidated Report conclusion:
+"The E8 layer is confirmed as STRUCTURAL but NOT as DYNAMICAL."
+
+================================================================================
+5. HONEST LIMITATIONS
+================================================================================
+
+1. The Floquet tick was designed for 24D deep holes (0.5,...,-0.5 pattern).
+   Embedding 8D E8 roots into 24D by zero-padding may not preserve the
+   geometric meaning of the tick. The tick scrambles the first 8 coords
+   across all 24 dimensions, so the E8 structure is lost after Tick 1.
+
+2. The "evolution" of E8 roots through the Floquet is not a natural
+   dynamics — it is a forced computational test. The negative binding
+   may be an artifact of this embedding mismatch.
+
+3. The color-transition graph depends on the angle_to_color binning
+   function, which is a coarse 5-bin quantization of the continuous circle.
+   Finer binning might reveal different structure.
+
+4. The DH13/DH18 comparison is limited to the first 8 coordinates. A full
+   24D comparison would require embedding the E8 roots into the deep hole
+   lattice, which is not a natural operation.
+
+================================================================================
+6. FORWARD REQUIREMENTS
+================================================================================
+
+Priority 1 (Critical): The 5D Unity Bridge (MI = 0.0349 bits) remains an
+  emergent property of the 24-hole Floquet dynamics. No E8-derived
+  mechanism has been found. The next candidate is the T-Knot field equation
+  (RC-33) or a new algebraic layer (Monster/Co1).
+
+Priority 2 (High): The SU(3) color confinement mechanism remains open.
+  The 5-color structure is confirmed (RC-120, RC-122), but its origin in
+  the E8 root system is rejected. A discrete gauge theory on the 24-cell
+  graph may be the correct path.
+
+Priority 3 (Medium): The 16 collapsed chiral roots are a real geometric
+  phenomenon (kernel of Hopf projection). Their physical interpretation
+  (zero modes, dark states, or artifacts) remains undetermined.
+
+================================================================================
+END OF REPORT — RC-185 & RC-185b COMBINED
+================================================================================

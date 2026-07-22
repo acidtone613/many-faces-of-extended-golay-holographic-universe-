@@ -1,0 +1,193 @@
+================================================================================
+     RC-197b: QGP ENTANGLEMENT — Dynamic Flow Across the 24-Cell
+================================================================================
+Document ID: RC-197b-EXPLORE
+Date: 2026-07-21
+Status: COMPLETE
+Framework: 24D-DMF v8.4.6
+Prerequisites: RC-193 (QGP flow), RC-197 (X pattern), RC-196b (coupling)
+================================================================================
+
+1. EXECUTIVE SUMMARY
+--------------------
+RC-197b characterizes the dynamic entanglement of the QGP flow across the
+96 faces of the 24-cell, testing whether it is in quantum superposition and
+whether it couples to the X vacuum state (RC-197).
+
+VERDICT: The QGP flow exhibits HIGH CLASSICAL ENTROPY but NO QUANTUM
+ENTANGLEMENT. It is dynamically complex but not Bell-violating.
+
+================================================================================
+
+2. THE QGP FLOW MODEL
+---------------------
+192 mixed E8 roots evolve under the Floquet tick operators (P23, P11, H_L).
+At each tick, each root projects to 3D and is assigned to its nearest
+24-cell face (of 96 triangular faces).
+
+Face occupancy:  occupancy[t][face] = count of roots nearest to face at tick t
+QGP distribution: p_face[t] = occupancy[t][face] / 192
+
+================================================================================
+
+3. TASK 1: QGP SUPERPOSITION ENTROPY
+--------------------------------------
+S_QGP(t) = -Σ p_face[t] · log₂(p_face[t])
+
+Results:
+  Range:     [3.6416, 4.9847] bits
+  Mean:      4.4897 ± 0.3795 bits
+  At Tick 3:  3.9763 bits
+  At Tick 11: 4.5338 bits
+  Max:        4.9847 bits at Tick 2
+
+Interpretation:
+  S_QGP is consistently HIGH (~4.5 bits), indicating the QGP is spread
+  across many faces (superposition-like behavior). However, this is
+  CLASSICAL Shannon entropy, not quantum von Neumann entropy.
+
+  The QGP occupies 29.3 ± 6.2 faces per tick
+  (out of 96), confirming broad but classical distribution.
+
+  Peaks do NOT align with critical ticks (3, 11). The highest entropy
+  occurs at Tick 2, not at symmetry breaking or H_L.
+
+================================================================================
+
+4. TASK 2: MUTUAL INFORMATION (QGP ↔ X VACUUM)
+-----------------------------------------------
+MI(S_QGP time series, S_X time series) = 0.1228 bits
+
+Per-tick MI(QGP occupancy, X state projection) ≈ 0.0000 bits
+
+Interpretation:
+  The QGP flow is ESSENTIALLY DECOUPLED from the X vacuum state.
+  The X pattern (6D/8D chiral sector) and the QGP flow (4D gauge layer)
+  are independent dynamical systems within the 24D-DMF framework.
+
+  This supports the hypothesis that the QGP is an ACTIVE gauge field
+  flowing through a PASSIVE vacuum background (the X pattern).
+
+================================================================================
+
+5. TASK 3: QGP FLUX ENTANGLEMENT
+--------------------------------
+S_flux(t) = entropy of face-to-face transition matrix at tick t
+
+Results:
+  Range: [6.2567, 6.5641] bits
+  Mean:  6.4128 ± 0.0735 bits
+
+Interpretation:
+  VERY HIGH flux entropy (~6.4 bits) indicates the QGP flow explores
+  many possible paths across the 24-cell. However, this is again
+  CLASSICAL path entropy — it measures dynamical complexity, not
+  quantum entanglement of the flow.
+
+  The flux entropy is remarkably STABLE across all ticks, suggesting
+  the Floquet evolution preserves the topological complexity of the
+  QGP flow regardless of temporal state.
+
+================================================================================
+
+6. TASK 4: CHSH VIOLATION OF QGP FLOW
+--------------------------------------
+CHSH S-value for QGP flow (bipartite: first 48 faces vs last 48 faces):
+
+Results:
+  S = 2.0000 (constant across all ticks)
+  Classical bound:  |S| ≤ 2.0
+  Tsirelson bound:  |S| ≤ 2√2 ≈ 2.828
+  Violations (>2):  0/46
+
+Interpretation:
+  NO CHSH VIOLATION. The QGP flow sits exactly at the classical boundary.
+  Despite high dynamical entropy, the QGP flow is NOT a quantum-entangled
+  state. It is a CLASSICALLY CORRELATED stochastic process on the 24-cell.
+
+  This mirrors the RC-197 result for the X pattern: both the vacuum (X)
+  and the active gauge field (QGP) exhibit strong classical correlations
+  but no Bell nonlocality.
+
+================================================================================
+
+7. TASK 5: TEMPORAL CORRELATIONS
+---------------------------------
+Pearson correlation S_QGP vs S_X (vacuum):       r = 0.3118 (p = 0.0349)
+Pearson correlation S_QGP vs coupling strength:    r = -0.2055 (p = 0.1706)
+
+Critical tick analysis:
+  Tick 3  (symmetry breaking): S_QGP = 3.9763  [NOT a peak]
+  Tick 11 (H_L gate):          S_QGP = 4.5338  [near peak]
+  Tick 0  (cycle start):       S_QGP = 3.9128
+
+Peaks in S_QGP: [2, 6, 9, 13, 19, 24, 28, 31, 35, 41]
+Peak values:    [4.985 4.808 4.875 4.85  4.941 4.985 4.808 4.875 4.85  4.941]
+
+Interpretation:
+  QGP entropy is WEAKLY correlated with the X vacuum (r = 0.31, p < 0.05)
+  but the effect size is small. The QGP flow does NOT follow the 3-state
+  temporal architecture of RC-196b — its entropy peaks are driven by
+  geometric factors (face clustering under Floquet evolution) rather
+  than symmetry-breaking transitions.
+
+  The negative correlation with coupling strength (r = -0.21) suggests
+  that when the QGP is more spread out (high entropy), the inter-layer
+  coupling is weaker — the QGP becomes more "diffuse" and less coherent.
+
+================================================================================
+
+8. FINAL VERDICT
+----------------
+╔══════════════════════════════════════════════════════════════════════╗
+║              QGP FLOW: CLASSICALLY COMPLEX, NOT QUANTUM              ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  • QGP superposition entropy:    HIGH (~4.5 bits) — many faces     ║
+║  • QGP flux entropy:             VERY HIGH (~6.4 bits) — complex   ║
+║  • QGP–X vacuum coupling:        NEGLIGIBLE (~0.12 bits MI)         ║
+║  • CHSH violation:                 NO (S = 2.0, classical)            ║
+║  • Temporal correlation with X:  WEAK (r = 0.31)                    ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  INTERPRETATION:                                                     ║
+║  The QGP flow is a CLASSICALLY COMPLEX DYNAMICAL SYSTEM — it         ║
+║  explores many faces and transitions, producing high Shannon entropy, ║
+║  but it does NOT exhibit quantum entanglement or Bell violation.    ║
+║                                                                      ║
+║  The X pattern (RC-197) and the QGP flow (RC-197b) are BOTH         ║
+║  classically correlated structures within the 24D-DMF framework.      ║
+║  Neither is quantum-entangled. The "entanglement" in both cases     ║
+║  is GEOMETRIC CORRELATION arising from E8 root structure and        ║
+║  Floquet dynamics, not quantum superposition.                        ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  DYNAMIC VS STATIC ENTANGLEMENT:                                     ║
+║  • X pattern (RC-197):  STATIC vacuum degeneracy (0.54 bits)        ║
+║  • QGP flow (RC-197b):  DYNAMIC gauge field (4.5 bits)               ║
+║  • Both are CLASSICAL — no Bell violation in either sector          ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+================================================================================
+9. COMPARISON: X VACUUM VS QGP FLOW
+-------------------------------------
+                        X Pattern (RC-197)    QGP Flow (RC-197b)
+                        ──────────────────    ───────────────────
+Dimensionality:         6D/8D (chiral)        4D (gauge)
+Entropy type:           von Neumann             Shannon
+Entropy value:          0.54 bits               4.5 bits
+CHSH S:                 2.0 (classical)         2.0 (classical)
+Coupling to other:      —                     0.12 bits MI
+Dynamics:               Static                Dynamic (period 23)
+Physical role:          Vacuum state            Active gauge field
+
+CONCLUSION: The 24D-DMF framework contains NO quantum entanglement in
+either the vacuum or gauge sectors. All correlation is classical/geometric.
+
+================================================================================
+10. OUTPUTS GENERATED
+---------------------
+  ✓ RC-197b_Summary.txt           (this file)
+  ✓ RC-197b_reproduce.py          (self-contained script)
+  ✓ RC-197b_QGP_Entanglement.png  (4-panel visualization)
+
+================================================================================
+                              STATUS: COMPLETE
+================================================================================
