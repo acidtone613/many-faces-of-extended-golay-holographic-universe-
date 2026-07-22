@@ -1,2 +1,4 @@
 
 outdated/
+__pycache__/
+*.pyc
